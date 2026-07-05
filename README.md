@@ -19,6 +19,7 @@
 
 - [设计方案](docs/design-plan.md)
 - [近现代化工扩展计划](docs/modern-chemical-industry-plan.md)
+- [第二轮工业扩展计划](docs/round-2-industrial-expansion-plan.md)
 - [玩家入门流程](docs/player-guide.md)
 - [贴图 AI 提示词](docs/asset-prompts.md)
 
