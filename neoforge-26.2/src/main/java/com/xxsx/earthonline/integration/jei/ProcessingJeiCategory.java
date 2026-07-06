@@ -1,6 +1,5 @@
 package com.xxsx.earthonline.integration.jei;
 
-import com.xxsx.earthonline.EarthOnline;
 import com.xxsx.earthonline.ProcessingMachineBlock;
 import com.xxsx.earthonline.RouteGuide;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -16,24 +15,30 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.ItemLike;
 
 public class ProcessingJeiCategory implements IRecipeCategory<ProcessingMachineBlock.Recipe> {
     private final IDrawableStatic background;
     private final IDrawable icon;
+    private final ProcessingMachineBlock.Kind kind;
+    private final IRecipeType<ProcessingMachineBlock.Recipe> recipeType;
 
-    public ProcessingJeiCategory(IGuiHelper guiHelper) {
+    public ProcessingJeiCategory(IGuiHelper guiHelper, ProcessingMachineBlock.Kind kind,
+                                 IRecipeType<ProcessingMachineBlock.Recipe> recipeType, ItemLike iconItem) {
         this.background = guiHelper.createBlankDrawable(168, 72);
-        this.icon = guiHelper.createDrawableItemLike(EarthOnline.JAW_CRUSHER.get());
+        this.icon = guiHelper.createDrawableItemLike(iconItem);
+        this.kind = kind;
+        this.recipeType = recipeType;
     }
 
     @Override
     public IRecipeType<ProcessingMachineBlock.Recipe> getRecipeType() {
-        return EarthOnlineJeiPlugin.PROCESSING;
+        return recipeType;
     }
 
     @Override
     public Component getTitle() {
-        return Component.translatable("jei.earth_online.processing");
+        return Component.translatable("jei.earth_online.processing.machine", Component.translatable(kind.displayNameKey()));
     }
 
     @Override
@@ -68,7 +73,7 @@ public class ProcessingJeiCategory implements IRecipeCategory<ProcessingMachineB
     @Override
     public void draw(ProcessingMachineBlock.Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor graphics, double mouseX, double mouseY) {
         var font = Minecraft.getInstance().font;
-        graphics.text(font, recipe.kind().localizedDisplayName(), 4, 2, 0xFF84D3A5);
+        graphics.text(font, kind.localizedDisplayName(), 4, 2, 0xFF84D3A5);
         graphics.text(font, "->", 44, 27, 0xFF9AA7A7);
         String note = recipeNote(recipe);
         if (font.width(note) > 156) {

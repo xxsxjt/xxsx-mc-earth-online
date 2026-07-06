@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "assembled=false": {
       "model": "earth_online:block/control_panel"
+    },
+    "assembled=true": {
+      "model": "earth_online:block/control_panel_connected"
     }
   }
 }

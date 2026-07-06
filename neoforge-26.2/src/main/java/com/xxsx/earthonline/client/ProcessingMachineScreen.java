@@ -14,7 +14,9 @@ import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -43,7 +45,7 @@ public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingM
         super.init();
         this.titleLabelX = Math.max(8, (this.imageWidth - this.font.width(trimmedTitle())) / 2);
         redstoneButton = addRenderableWidget(Button.builder(redstoneButtonLabel(), b -> cycleRedstoneMode())
-                .bounds(this.leftPos + 8, this.topPos + 55, 64, 17)
+                .bounds(this.leftPos + 8, this.topPos + 55, 20, 20)
                 .build());
 
         addRenderableWidget(Button.builder(Component.translatable("screen.earth_online.button.notebook"), button -> {
@@ -71,6 +73,7 @@ public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingM
     @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float delta) {
         super.extractRenderState(g, mouseX, mouseY, delta);
+        drawRedstoneIcon(g);
         drawTooltips(g, mouseX, mouseY);
     }
 
@@ -78,7 +81,7 @@ public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingM
     protected void extractLabels(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         g.text(this.font, trimmedTitle(), this.titleLabelX, this.titleLabelY, VANILLA_TEXT, false);
         g.text(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, VANILLA_TEXT, false);
-        g.text(this.font, statusLine(), 78, 59, statusColor(), false);
+        g.text(this.font, statusLine(), 34, 60, statusColor(), false);
     }
 
     private void drawProgress(GuiGraphicsExtractor g) {
@@ -89,21 +92,20 @@ public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingM
     }
 
     private String statusLine() {
-        ProcessingMachineBlockEntity.RedstoneMode redstone = this.menu.redstoneMode();
         if (!this.menu.structureValid()) {
             MachineMultiblock.Pattern pattern = MachineMultiblock.patternFor(this.menu.kind());
-            return fit(localized("screen.earth_online.machine.structure_missing") + " " + localized(pattern.screenKey()), 90);
+            return fit(localized("screen.earth_online.machine.structure_missing") + " " + localized(pattern.screenKey()), 132);
         }
 
         ItemStack input = this.menu.getSlot(ProcessingMachineBlockEntity.SLOT_INPUT).getItem();
         if (input.isEmpty()) {
-            return fit(localized("screen.earth_online.machine.empty_input"), 90);
+            return fit(localized("screen.earth_online.machine.empty_input"), 132);
         }
 
         return ProcessingMachineBlock.findRecipe(this.menu.kind(), input).map(recipe -> {
             String note = recipeSummary(recipe);
-            return fit(note, 90);
-        }).orElseGet(() -> fit(localized("screen.earth_online.machine.unsupported_input"), 90));
+            return fit(note, 132);
+        }).orElseGet(() -> fit(localized("screen.earth_online.machine.unsupported_input"), 132));
     }
 
     private int statusColor() {
@@ -117,16 +119,33 @@ public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingM
         return this.menu.active() ? 0xFF207030 : MUTED;
     }
 
+    private void drawRedstoneIcon(GuiGraphicsExtractor g) {
+        int x = this.leftPos + 10;
+        int y = this.topPos + 57;
+        ProcessingMachineBlockEntity.RedstoneMode redstone = this.menu.redstoneMode();
+        g.item(new ItemStack(redstoneIcon(redstone)), x, y);
+        if (redstone == ProcessingMachineBlockEntity.RedstoneMode.REQUIRE_NO_SIGNAL) {
+            g.fill(x, y, x + 16, y + 16, 0x99000000);
+        }
+    }
+
+    private Item redstoneIcon(ProcessingMachineBlockEntity.RedstoneMode redstone) {
+        return switch (redstone) {
+            case ALWAYS -> Items.BARRIER;
+            case REQUIRE_SIGNAL, REQUIRE_NO_SIGNAL -> Items.REDSTONE_TORCH;
+        };
+    }
+
     private void drawTooltips(GuiGraphicsExtractor g, int mouseX, int mouseY) {
-        if (isHovering(8, 55, 64, 17, mouseX, mouseY)) {
+        if (isHovering(8, 55, 20, 20, mouseX, mouseY)) {
             ProcessingMachineBlockEntity.RedstoneMode redstone = this.menu.redstoneMode();
             g.setComponentTooltipForNextFrame(this.font, List.of(
-                    Component.translatable(redstone.labelKey()),
+                    Component.translatable("screen.earth_online.redstone.current", Component.translatable(redstone.labelKey())),
                     Component.translatable(redstone.descriptionKey()),
                     Component.translatable("screen.earth_online.redstone.tooltip")
             ), mouseX, mouseY);
         }
-        if (!this.menu.structureValid() && isHovering(78, 55, 90, 17, mouseX, mouseY)) {
+        if (!this.menu.structureValid() && isHovering(34, 55, 134, 20, mouseX, mouseY)) {
             MachineMultiblock.Pattern pattern = MachineMultiblock.patternFor(this.menu.kind());
             g.setComponentTooltipForNextFrame(this.font, List.of(
                     Component.translatable("screen.earth_online.machine.structure_missing"),
@@ -155,7 +174,7 @@ public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingM
     }
 
     private Component redstoneButtonLabel() {
-        return Component.translatable(this.menu.redstoneMode().labelKey());
+        return Component.empty();
     }
 
     private Component trimmedTitle() {

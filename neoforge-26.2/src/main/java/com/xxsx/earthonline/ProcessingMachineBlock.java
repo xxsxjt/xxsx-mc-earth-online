@@ -95,11 +95,16 @@ public class ProcessingMachineBlock extends Block implements EntityBlock {
     }
 
     private InteractionResult openMachine(Level level, BlockPos pos, Player player) {
+        return openMachineAt(level, pos, player);
+    }
+
+    public static InteractionResult openMachineAt(Level level, BlockPos pos, Player player) {
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
         if (player instanceof ServerPlayer serverPlayer && level.getBlockEntity(pos) instanceof ProcessingMachineBlockEntity machine) {
             serverPlayer.openMenu(machine, buf -> buf.writeBlockPos(pos));
+            return InteractionResult.SUCCESS_SERVER;
         }
         return InteractionResult.SUCCESS_SERVER;
     }

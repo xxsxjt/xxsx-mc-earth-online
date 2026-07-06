@@ -6,7 +6,7 @@ import com.xxsx.earthonline.ProcessingMachineBlock;
 import com.xxsx.earthonline.RouteGuide;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -17,12 +17,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 
+import java.util.Collections;
+import java.util.EnumMap;
 import java.util.Map;
 
 @JeiPlugin
 public class EarthOnlineJeiPlugin implements IModPlugin {
-    public static final RecipeType<ProcessingMachineBlock.Recipe> PROCESSING =
-            RecipeType.create(EarthOnline.MODID, "processing", ProcessingMachineBlock.Recipe.class);
+    private static final Map<ProcessingMachineBlock.Kind, IRecipeType<ProcessingMachineBlock.Recipe>> PROCESSING_TYPES =
+            createProcessingTypes();
 
     @Override
     public Identifier getPluginUid() {
@@ -31,12 +33,17 @@ public class EarthOnlineJeiPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
-        registration.addRecipeCategories(new ProcessingJeiCategory(registration.getJeiHelpers().getGuiHelper()));
+        var guiHelper = registration.getJeiHelpers().getGuiHelper();
+        for (ProcessingMachineBlock.Kind kind : ProcessingMachineBlock.Kind.values()) {
+            registration.addRecipeCategories(new ProcessingJeiCategory(guiHelper, kind, recipeTypeFor(kind), machineFor(kind)));
+        }
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        registration.addRecipes(PROCESSING, ProcessingMachineBlock.recipes());
+        for (ProcessingMachineBlock.Kind kind : ProcessingMachineBlock.Kind.values()) {
+            registration.addRecipes(recipeTypeFor(kind), ProcessingMachineBlock.recipesFor(kind));
+        }
         registerHandbookInfo(registration);
         registerMachineInfo(registration);
         registerRouteInfo(registration);
@@ -44,28 +51,48 @@ public class EarthOnlineJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalysts(PROCESSING,
-                EarthOnline.JAW_CRUSHER.get(),
-                EarthOnline.BALL_MILL.get(),
-                EarthOnline.SIEVE.get(),
-                EarthOnline.MAGNETIC_SEPARATOR.get(),
-                EarthOnline.FLOTATION_CELL.get(),
-                EarthOnline.ORE_ROASTER.get(),
-                EarthOnline.REDUCTION_FURNACE.get(),
-                EarthOnline.LEACHING_TANK.get(),
-                EarthOnline.ELECTROLYTIC_CELL.get(),
-                EarthOnline.POWDER_PRESS.get(),
-                EarthOnline.CHEMICAL_REACTOR.get(),
-                EarthOnline.DISTILLATION_COLUMN.get(),
-                EarthOnline.MIXER.get(),
-                EarthOnline.CRYSTALLIZER.get(),
-                EarthOnline.INDUSTRIAL_KILN.get(),
-                EarthOnline.GAS_SEPARATOR.get(),
-                EarthOnline.FERTILIZER_GRANULATOR.get(),
-                EarthOnline.POLYMERIZER.get(),
-                EarthOnline.STEAM_CRACKER.get(),
-                EarthOnline.SYNTHESIS_LOOP.get(),
-                EarthOnline.ABSORPTION_TOWER.get());
+        for (ProcessingMachineBlock.Kind kind : ProcessingMachineBlock.Kind.values()) {
+            registration.addCraftingStation(recipeTypeFor(kind), machineFor(kind));
+        }
+    }
+
+    public static IRecipeType<ProcessingMachineBlock.Recipe> recipeTypeFor(ProcessingMachineBlock.Kind kind) {
+        return PROCESSING_TYPES.get(kind);
+    }
+
+    private static Map<ProcessingMachineBlock.Kind, IRecipeType<ProcessingMachineBlock.Recipe>> createProcessingTypes() {
+        EnumMap<ProcessingMachineBlock.Kind, IRecipeType<ProcessingMachineBlock.Recipe>> types =
+                new EnumMap<>(ProcessingMachineBlock.Kind.class);
+        for (ProcessingMachineBlock.Kind kind : ProcessingMachineBlock.Kind.values()) {
+            types.put(kind, IRecipeType.create(EarthOnline.MODID, "processing_" + kind.blockId(), ProcessingMachineBlock.Recipe.class));
+        }
+        return Collections.unmodifiableMap(types);
+    }
+
+    private static ItemLike machineFor(ProcessingMachineBlock.Kind kind) {
+        return switch (kind) {
+            case CRUSHER -> EarthOnline.JAW_CRUSHER.get();
+            case BALL_MILL -> EarthOnline.BALL_MILL.get();
+            case SIEVE -> EarthOnline.SIEVE.get();
+            case MAGNETIC_SEPARATOR -> EarthOnline.MAGNETIC_SEPARATOR.get();
+            case FLOTATION_CELL -> EarthOnline.FLOTATION_CELL.get();
+            case ROASTER -> EarthOnline.ORE_ROASTER.get();
+            case REDUCTION_FURNACE -> EarthOnline.REDUCTION_FURNACE.get();
+            case LEACHING_TANK -> EarthOnline.LEACHING_TANK.get();
+            case ELECTROLYTIC_CELL -> EarthOnline.ELECTROLYTIC_CELL.get();
+            case POWDER_PRESS -> EarthOnline.POWDER_PRESS.get();
+            case CHEMICAL_REACTOR -> EarthOnline.CHEMICAL_REACTOR.get();
+            case DISTILLATION_COLUMN -> EarthOnline.DISTILLATION_COLUMN.get();
+            case MIXER -> EarthOnline.MIXER.get();
+            case CRYSTALLIZER -> EarthOnline.CRYSTALLIZER.get();
+            case INDUSTRIAL_KILN -> EarthOnline.INDUSTRIAL_KILN.get();
+            case GAS_SEPARATOR -> EarthOnline.GAS_SEPARATOR.get();
+            case FERTILIZER_GRANULATOR -> EarthOnline.FERTILIZER_GRANULATOR.get();
+            case POLYMERIZER -> EarthOnline.POLYMERIZER.get();
+            case STEAM_CRACKER -> EarthOnline.STEAM_CRACKER.get();
+            case SYNTHESIS_LOOP -> EarthOnline.SYNTHESIS_LOOP.get();
+            case ABSORPTION_TOWER -> EarthOnline.ABSORPTION_TOWER.get();
+        };
     }
 
     private static void registerHandbookInfo(IRecipeRegistration registration) {

@@ -28,30 +28,33 @@ MODEL = "agnes-image-2.1-flash"
 ENDPOINT = "https://apihub.agnes-ai.com/v1/images/generations"
 
 BLOCKS = {
-    "jaw_crusher": ("heavy jaw crusher machine block face, dark steel frame, two large toothed crushing jaws, riveted side plates, no hazard labels"),
-    "ball_mill": ("industrial ball mill machine block face, rotating drum, blue gray steel, circular service hatch"),
-    "sieve": ("vibrating sieve machine block face, square mesh screen, pale green frame, visible grid"),
-    "magnetic_separator": ("magnetic separator machine block face, horseshoe magnet symbol, red and cyan coils, dark steel"),
-    "flotation_cell": ("flotation cell machine block face, cyan tank window, bubbles, teal metal rim"),
-    "ore_roaster": ("ore roaster furnace block face, orange glowing hot chamber, dark refractory brick, sulfur vent"),
-    "reduction_furnace": ("reduction furnace block face, bright molten core, black steel shell, red heat glow"),
-    "leaching_tank": ("leaching tank block face, green chemical vessel, pipe fittings, acid-safe industrial coating"),
-    "electrolytic_cell": ("electrolytic cell block face, blue electrolyte window, copper electrodes, electric arcs"),
-    "powder_press": ("powder press block face, hydraulic press plate, compacting die, tan powder tray"),
-    "chemical_reactor": ("chemical reactor block face, round pressure vessel, green gauge, bolted hatch, pipes"),
-    "distillation_column": ("distillation column block face, tall silver tray column, stacked plates, blue gauge"),
-    "mixer": ("industrial mixer block face, mixing blades visible in round window, olive steel body"),
-    "crystallizer": ("crystallizer block face, icy blue crystal chamber, white crystals, steel frame"),
-    "industrial_kiln": ("industrial kiln block face, refractory brick arch, hot orange firing chamber, steel bands"),
-    "gas_separator": ("gas separator block face, pressure gauges, blue gas canister window, silver valves"),
-    "fertilizer_granulator": ("fertilizer granulator block face, green granule drum, hopper and pellets"),
-    "polymerizer": ("polymerizer block face, purple resin vessel, polymer chain motif, bolted steel"),
-    "steam_cracker": ("steam cracker block face, tall heated cracking coils, orange tubes, black steel shell"),
-    "synthesis_loop": ("synthesis loop block face, high pressure loop pipes, green reactor ring, gauges"),
-    "absorption_tower": ("absorption tower block face, packed tower with blue liquid spray, vertical column, vents"),
-    "industrial_machine_casing": ("modular industrial machine casing, reinforced steel panels, bolts, dark gray, neutral connector block"),
-    "steel_process_pipe": ("steel process pipe block, thick industrial pipe cross-section, flanges, blue gray metal"),
-    "control_panel": ("industrial control panel block face, small colored indicator lights, switches, dark screen, metal frame"),
+    "jaw_crusher": ("modern jaw crusher module, matte graphite steel enclosure, two clean toothed jaws, hydraulic side cylinders, industrial sensor strips"),
+    "ball_mill": ("modern ball mill module, enclosed rotating drum behind maintenance glass, brushed steel panels, precision bearing housings"),
+    "sieve": ("modern vibrating sieve module, stainless mesh screen, compact vibration dampers, clean green-gray industrial housing"),
+    "magnetic_separator": ("modern magnetic separator module, red-blue electromagnetic coil arcs, shielded steel casing, precise inspection window"),
+    "flotation_cell": ("modern flotation cell module, teal chemical tank window, aeration bubbles, stainless pipe manifold"),
+    "ore_roaster": ("modern ore roaster module, insulated refractory chamber, controlled orange heat glow, clean exhaust duct"),
+    "reduction_furnace": ("modern reduction furnace module, sealed black steel shell, bright controlled molten core, ceramic insulation panels"),
+    "leaching_tank": ("modern leaching tank module, acid-safe green vessel window, stainless flanges and dosing pipes"),
+    "electrolytic_cell": ("modern electrolytic cell module, blue electrolyte window, copper electrodes, clean electrical bus bars"),
+    "powder_press": ("modern powder press module, hydraulic ram, compacting die, powder tray, clean factory enclosure"),
+    "chemical_reactor": ("modern chemical reactor module, pressure vessel face, digital gauge lights, bolted hatch, stainless pipe loop"),
+    "distillation_column": ("modern distillation column module, sleek silver tray column, stacked sight glasses, blue instrumentation"),
+    "mixer": ("modern industrial mixer module, enclosed impeller seen through round port, olive-gray steel body, small sensors"),
+    "crystallizer": ("modern crystallizer module, bright blue crystal chamber, chilled stainless panels, clean condenser fittings"),
+    "industrial_kiln": ("modern industrial kiln module, insulated rectangular firing chamber, controlled hot core, clean steel bands"),
+    "gas_separator": ("modern gas separation skid module, pressure gauges, valve manifold, blue gas window, stainless fittings"),
+    "fertilizer_granulator": ("modern fertilizer granulator module, enclosed granule drum, hopper port, green pellet stream behind glass"),
+    "polymerizer": ("modern polymerizer module, sealed resin reactor, purple translucent vessel window, clean pipe manifold"),
+    "steam_cracker": ("modern steam cracker train module, orange radiant coil window, black insulated casing, clean process tubes"),
+    "synthesis_loop": ("modern high pressure synthesis loop module, green reactor ring, compact recycle pipes, safety instrumentation"),
+    "absorption_tower": ("modern absorption tower module, packed column section, blue liquid spray window, clean vertical vents"),
+    "industrial_machine_casing": ("modern modular industrial machine casing, satin steel composite panels, beveled seams, dark gray connector ribs"),
+    "steel_process_pipe": ("modern steel process pipe block, clean thick pipe cross-section, flanged connector, blue-gray stainless metal"),
+    "control_panel": ("modern industrial control panel, dark glass screen, clean indicator lights, flush buttons, brushed metal frame"),
+    "industrial_machine_casing_assembled": ("formed large-machine outer shell block, seamless modern industrial casing, continuous panel lines, heavy steel structure"),
+    "steel_process_pipe_assembled": ("formed large-machine process pipe block, connected stainless pipe corridor, flanges aligned to neighboring equipment, modern plant piping"),
+    "control_panel_connected": ("connected large-machine control console block, illuminated modern operator panel, dark display glass, green status light, flush metal frame"),
 }
 
 
@@ -85,11 +88,12 @@ def prompt_for(block_id: str, descriptor: str) -> str:
         "Create one polished Minecraft mod block texture for Earth Online.\n"
         f"Block id: {block_id}\n"
         f"Subject: {descriptor}.\n"
-        "Style: high-quality Minecraft-inspired 64x64 pixel-art block texture, orthographic square front view, "
+        "Style: high-quality modern Minecraft mod block texture, 128x128 or higher source detail, orthographic square front view, "
+        "clean contemporary chemical plant equipment, not retro, not steampunk, not medieval, not rusty, not cartoonish, "
         "readable silhouette at small in-game scale, industrial realism, crisp pixel shapes, strong contrast, no text, "
         "no letters, no pseudo-letters, no numbers, no labels, no watermark, no UI, no inventory mockup.\n"
         "Composition: centered machine face or block surface, fills most of the square, clear iconic feature, "
-        "subtle pixel noise and material detail, no perspective scene, no background outside the texture.\n"
+        "subtle material detail, clean panel seams, soft ambient occlusion, no perspective scene, no background outside the texture.\n"
         "Output should be a single seamless-ish square texture suitable for a Minecraft block face."
     )
 
@@ -193,7 +197,7 @@ def main() -> None:
     parser.add_argument("--force", action="store_true", help="regenerate textures even if final PNG exists")
     parser.add_argument("--only", nargs="*", default=[], help="specific block ids to generate")
     parser.add_argument("--limit", type=int, default=0, help="only generate first N selected textures")
-    parser.add_argument("--size", type=int, default=64, choices=[16, 32, 64], help="final texture size")
+    parser.add_argument("--size", type=int, default=128, choices=[16, 32, 64, 128, 256], help="final texture size")
     args = parser.parse_args()
 
     selected = args.only or list(BLOCKS)

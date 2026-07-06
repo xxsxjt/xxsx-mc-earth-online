@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "assembled=false": {
       "model": "earth_online:block/steel_process_pipe"
+    },
+    "assembled=true": {
+      "model": "earth_online:block/steel_process_pipe_assembled"
     }
   }
 }

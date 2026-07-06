@@ -79,9 +79,9 @@ public class EarthOnline {
     public static final DeferredBlock<ProcessingMachineBlock> SYNTHESIS_LOOP = machineBlock("synthesis_loop", ProcessingMachineBlock.Kind.SYNTHESIS_LOOP);
     public static final DeferredBlock<ProcessingMachineBlock> ABSORPTION_TOWER = machineBlock("absorption_tower", ProcessingMachineBlock.Kind.ABSORPTION_TOWER);
 
-    public static final DeferredBlock<Block> INDUSTRIAL_MACHINE_CASING = supportBlock("industrial_machine_casing", MapColor.METAL, 4.5F, "tooltip.earth_online.support.casing");
-    public static final DeferredBlock<Block> STEEL_PROCESS_PIPE = supportBlock("steel_process_pipe", MapColor.METAL, 3.0F, "tooltip.earth_online.support.pipe");
-    public static final DeferredBlock<Block> CONTROL_PANEL = supportBlock("control_panel", MapColor.COLOR_GRAY, 3.5F, "tooltip.earth_online.support.control_panel");
+    public static final DeferredBlock<SupportPartBlock> INDUSTRIAL_MACHINE_CASING = supportBlock("industrial_machine_casing", MapColor.METAL, 4.5F, "tooltip.earth_online.support.casing");
+    public static final DeferredBlock<SupportPartBlock> STEEL_PROCESS_PIPE = supportBlock("steel_process_pipe", MapColor.METAL, 3.0F, "tooltip.earth_online.support.pipe");
+    public static final DeferredBlock<ControlPanelBlock> CONTROL_PANEL = controlPanelBlock("control_panel", MapColor.COLOR_GRAY, 3.5F, "tooltip.earth_online.support.control_panel");
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ProcessingMachineBlockEntity>> PROCESSING_MACHINE_BLOCK_ENTITY =
             BLOCK_ENTITY_TYPES.register("processing_machine", () -> new BlockEntityType<>(
@@ -320,12 +320,27 @@ public class EarthOnline {
         return block;
     }
 
-    private static DeferredBlock<Block> supportBlock(String id, MapColor color, float strength, String hintKey) {
-        DeferredBlock<Block> block = BLOCKS.registerSimpleBlock(id, () -> BlockBehaviour.Properties.of()
-                .mapColor(color)
-                .strength(strength, strength * 2.0F)
-                .requiresCorrectToolForDrops()
-                .sound(SoundType.METAL));
+    private static DeferredBlock<SupportPartBlock> supportBlock(String id, MapColor color, float strength, String hintKey) {
+        DeferredBlock<SupportPartBlock> block = BLOCKS.registerBlock(id, SupportPartBlock::new,
+                () -> BlockBehaviour.Properties.of()
+                        .mapColor(color)
+                        .strength(strength, strength * 2.0F)
+                        .requiresCorrectToolForDrops()
+                        .sound(SoundType.METAL));
+        DeferredItem<?> item = ITEMS.registerItem(id,
+                props -> new GuidedBlockItem(block.get(), props, hintKey),
+                props -> props);
+        TAB_ITEMS.add(item);
+        return block;
+    }
+
+    private static DeferredBlock<ControlPanelBlock> controlPanelBlock(String id, MapColor color, float strength, String hintKey) {
+        DeferredBlock<ControlPanelBlock> block = BLOCKS.registerBlock(id, ControlPanelBlock::new,
+                () -> BlockBehaviour.Properties.of()
+                        .mapColor(color)
+                        .strength(strength, strength * 2.0F)
+                        .requiresCorrectToolForDrops()
+                        .sound(SoundType.METAL));
         DeferredItem<?> item = ITEMS.registerItem(id,
                 props -> new GuidedBlockItem(block.get(), props, hintKey),
                 props -> props);

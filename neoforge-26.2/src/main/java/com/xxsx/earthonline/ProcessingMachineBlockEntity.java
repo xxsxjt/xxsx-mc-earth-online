@@ -60,6 +60,8 @@ public class ProcessingMachineBlockEntity extends BaseContainerBlockEntity {
     private RedstoneMode redstoneMode = RedstoneMode.ALWAYS;
     private boolean active;
     private boolean structureValid = true;
+    private boolean assemblySynced;
+    private boolean lastAssemblyComplete;
 
     public ProcessingMachineBlockEntity(BlockPos pos, BlockState state) {
         super(EarthOnline.PROCESSING_MACHINE_BLOCK_ENTITY.get(), pos, state);
@@ -73,6 +75,11 @@ public class ProcessingMachineBlockEntity extends BaseContainerBlockEntity {
         machine.active = false;
 
         boolean completeStructure = MachineMultiblock.isComplete(level, pos, machine.kind());
+        if (!machine.assemblySynced || machine.lastAssemblyComplete != completeStructure) {
+            MachineMultiblock.syncAssembly(level, pos, machine.kind(), completeStructure);
+            machine.assemblySynced = true;
+            machine.lastAssemblyComplete = completeStructure;
+        }
         if (machine.structureValid != completeStructure) {
             machine.structureValid = completeStructure;
             changed = true;
