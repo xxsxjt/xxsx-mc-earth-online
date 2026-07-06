@@ -16,46 +16,42 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingMachineMenu> {
-    private static final int PANEL = 0xFF313736;
-    private static final int PANEL_DARK = 0xFF202725;
-    private static final int PANEL_SOFT = 0xFF3E4744;
-    private static final int SLOT = 0xFF68716E;
-    private static final int SLOT_INNER = 0xFF101615;
-    private static final int TEXT = 0xFFE9E0CF;
-    private static final int MUTED = 0xFFA8B0AA;
-    private static final int ACCENT = 0xFF84D3A5;
-    private static final int WARNING = 0xFFFFCF6A;
-    private static final int BAR_BG = 0xFF3B4648;
-    private static final int BAR = 0xFF69C58F;
+    private static final int VANILLA_PANEL = 0xFFC6C6C6;
+    private static final int VANILLA_LIGHT = 0xFFFFFFFF;
+    private static final int VANILLA_DARK = 0xFF555555;
+    private static final int VANILLA_SLOT = 0xFF8B8B8B;
+    private static final int VANILLA_TEXT = 0xFF404040;
+    private static final int MUTED = 0xFF606060;
+    private static final int WARNING = 0xFFAA3322;
+    private static final int PROGRESS_BG = 0xFF8B8B8B;
+    private static final int PROGRESS = 0xFFFFD36A;
 
-    private final List<Button> redstoneButtons = new ArrayList<>();
+    private Button redstoneButton;
 
     public ProcessingMachineScreen(ProcessingMachineMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, 206, 206);
+        super(menu, inventory, title);
         this.titleLabelX = 8;
-        this.titleLabelY = 8;
-        this.inventoryLabelX = 18;
-        this.inventoryLabelY = 100;
+        this.titleLabelY = 6;
+        this.inventoryLabelX = 8;
+        this.inventoryLabelY = 73;
     }
 
     @Override
     protected void init() {
         super.init();
-        redstoneButtons.clear();
-        addRedstoneButton(8, "screen.earth_online.redstone.always.short", ProcessingMachineMenu.BUTTON_REDSTONE_ALWAYS);
-        addRedstoneButton(70, "screen.earth_online.redstone.require_signal.short", ProcessingMachineMenu.BUTTON_REDSTONE_REQUIRE_SIGNAL);
-        addRedstoneButton(132, "screen.earth_online.redstone.require_no_signal.short", ProcessingMachineMenu.BUTTON_REDSTONE_REQUIRE_NO_SIGNAL);
+        redstoneButton = addRenderableWidget(Button.builder(redstoneButtonLabel(), b -> cycleRedstoneMode())
+                .bounds(this.leftPos + 8, this.topPos + 55, 64, 17)
+                .build());
 
         addRenderableWidget(Button.builder(Component.translatable("screen.earth_online.button.notebook"), button -> {
                     this.onClose();
                     EarthOnlineClient.openNotebook();
                 })
-                .bounds(this.leftPos + this.imageWidth - 50, this.topPos + 4, 42, 18)
+                .bounds(this.leftPos + this.imageWidth - 42, this.topPos + 4, 34, 14)
                 .build());
         syncRedstoneButtons();
     }
@@ -67,133 +63,154 @@ public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingM
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float delta) {
-        g.fill(0, 0, this.width, this.height, 0xB8000000);
-        g.fill(this.leftPos, this.topPos, this.leftPos + this.imageWidth, this.topPos + this.imageHeight, PANEL);
-        g.outline(this.leftPos, this.topPos, this.imageWidth, this.imageHeight, 0xFF6D7A7C);
-        g.fill(this.leftPos + 4, this.topPos + 4, this.leftPos + this.imageWidth - 4, this.topPos + 22, PANEL_DARK);
-        g.fill(this.leftPos + 8, this.topPos + 27, this.leftPos + 63, this.topPos + 69, PANEL_SOFT);
-        g.fill(this.leftPos + 111, this.topPos + 27, this.leftPos + 190, this.topPos + 69, PANEL_SOFT);
-        g.outline(this.leftPos + 8, this.topPos + 27, 55, 42, 0x663B4648);
-        g.outline(this.leftPos + 111, this.topPos + 27, 79, 42, 0x663B4648);
-        g.fill(this.leftPos + 8, this.topPos + 74, this.leftPos + 190, this.topPos + 97, PANEL_DARK);
-        g.outline(this.leftPos + 8, this.topPos + 74, 182, 23, 0x665E6A67);
-
-        drawSlot(g, 44, 42, 0xFF7A8B8A);
+    public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float delta) {
+        super.extractBackground(g, mouseX, mouseY, delta);
+        drawVanillaPanel(g);
+        drawSlot(g, 38, 35);
         drawOutputSlots(g);
         drawProgress(g);
+    }
 
-        g.text(this.font, Component.translatable("screen.earth_online.machine.input"), this.leftPos + 18, this.topPos + 31, MUTED, false);
-        g.text(this.font, Component.translatable("screen.earth_online.machine.outputs"), this.leftPos + 119, this.topPos + 31, MUTED, false);
-        g.text(this.font, Component.translatable("screen.earth_online.machine.redstone"), this.leftPos + 12, this.topPos + 66, ACCENT, false);
-        g.text(this.font, Component.translatable("screen.earth_online.machine.inventory"), this.leftPos + this.inventoryLabelX, this.topPos + this.inventoryLabelY, MUTED, false);
-
+    @Override
+    public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float delta) {
         super.extractRenderState(g, mouseX, mouseY, delta);
-
-        drawStatus(g, mouseX, mouseY);
+        drawTooltips(g, mouseX, mouseY);
     }
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor g, int mouseX, int mouseY) {
-        g.text(this.font, this.title, this.titleLabelX, this.titleLabelY, TEXT, false);
+        g.text(this.font, trimmedTitle(), this.titleLabelX, this.titleLabelY, VANILLA_TEXT, false);
+        g.text(this.font, Component.translatable("screen.earth_online.machine.input"), 31, 24, MUTED, false);
+        g.text(this.font, Component.translatable("screen.earth_online.machine.outputs"), 112, 11, MUTED, false);
+        g.text(this.font, Component.translatable("screen.earth_online.machine.redstone"), 8, 45, MUTED, false);
+        g.text(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, VANILLA_TEXT, false);
+        g.text(this.font, statusLine(), 78, 59, statusColor(), false);
     }
 
     private void drawOutputSlots(GuiGraphicsExtractor g) {
         int[][] outputSlots = {
-                {116, 25}, {134, 25}, {152, 25}, {170, 25},
-                {116, 47}, {134, 47}, {152, 47}
+                {102, 20}, {120, 20}, {138, 20}, {156, 20},
+                {111, 42}, {129, 42}, {147, 42}
         };
         for (int[] slot : outputSlots) {
-            drawSlot(g, slot[0], slot[1], SLOT);
+            drawSlot(g, slot[0], slot[1]);
         }
     }
 
-    private void drawSlot(GuiGraphicsExtractor g, int x, int y, int border) {
+    private void drawVanillaPanel(GuiGraphicsExtractor g) {
+        int x = this.leftPos;
+        int y = this.topPos;
+        g.fill(x, y, x + this.imageWidth, y + this.imageHeight, VANILLA_PANEL);
+        g.fill(x, y, x + this.imageWidth, y + 1, VANILLA_LIGHT);
+        g.fill(x, y, x + 1, y + this.imageHeight, VANILLA_LIGHT);
+        g.fill(x + this.imageWidth - 1, y, x + this.imageWidth, y + this.imageHeight, VANILLA_DARK);
+        g.fill(x, y + this.imageHeight - 1, x + this.imageWidth, y + this.imageHeight, VANILLA_DARK);
+        g.fill(x + 7, y + 82, x + 169, y + 83, VANILLA_DARK);
+    }
+
+    private void drawSlot(GuiGraphicsExtractor g, int x, int y) {
         int sx = this.leftPos + x - 1;
         int sy = this.topPos + y - 1;
-        g.fill(sx, sy, sx + 18, sy + 18, border);
-        g.fill(sx + 1, sy + 1, sx + 17, sy + 17, SLOT_INNER);
+        g.fill(sx, sy, sx + 18, sy + 18, VANILLA_DARK);
+        g.fill(sx + 1, sy + 1, sx + 17, sy + 17, VANILLA_SLOT);
+        g.fill(sx + 1, sy + 1, sx + 16, sy + 2, 0xFF373737);
+        g.fill(sx + 1, sy + 1, sx + 2, sy + 16, 0xFF373737);
+        g.fill(sx + 2, sy + 2, sx + 17, sy + 17, 0xFFE0E0E0);
+        g.fill(sx + 2, sy + 2, sx + 16, sy + 16, VANILLA_SLOT);
     }
 
     private void drawProgress(GuiGraphicsExtractor g) {
-        int x = this.leftPos + 69;
-        int y = this.topPos + 42;
-        g.fill(x, y, x + 35, y + 8, BAR_BG);
-        int progress = Math.min(35, 35 * this.menu.progress() / this.menu.maxProgress());
+        int x = this.leftPos + 64;
+        int y = this.topPos + 38;
+        drawArrow(g, x, y, PROGRESS_BG);
+        int progress = Math.min(24, 24 * this.menu.progress() / this.menu.maxProgress());
         if (progress > 0) {
-            g.fill(x, y, x + progress, y + 8, this.menu.active() ? BAR : WARNING);
+            g.fill(x, y + 5, x + progress, y + 12, this.menu.active() ? PROGRESS : 0xFFFFB347);
         }
-        g.fill(x + 35, y - 3, x + 40, y + 11, BAR_BG);
-        g.fill(x + 40, y + 1, x + 45, y + 7, BAR_BG);
     }
 
-    private void drawStatus(GuiGraphicsExtractor g, int mouseX, int mouseY) {
-        ProcessingMachineBlockEntity.RedstoneMode redstone = this.menu.redstoneMode();
-        String status = localized(this.menu.active() ? "screen.earth_online.machine.running" : "screen.earth_online.machine.idle");
-        int color = this.menu.active() ? ACCENT : MUTED;
-        String bottom = status + " / " + localized(redstone.descriptionKey());
-        if (this.font.width(bottom) > this.imageWidth - 16) {
-            bottom = this.font.plainSubstrByWidth(bottom, this.imageWidth - 22) + "...";
-        }
-        g.text(this.font, bottom, this.leftPos + 8, this.topPos + this.imageHeight - 12, color, false);
+    private void drawArrow(GuiGraphicsExtractor g, int x, int y, int color) {
+        g.fill(x, y + 5, x + 18, y + 12, color);
+        g.fill(x + 18, y + 2, x + 21, y + 15, color);
+        g.fill(x + 21, y + 5, x + 24, y + 12, color);
+    }
 
+    private String statusLine() {
+        ProcessingMachineBlockEntity.RedstoneMode redstone = this.menu.redstoneMode();
         if (!this.menu.structureValid()) {
             MachineMultiblock.Pattern pattern = MachineMultiblock.patternFor(this.menu.kind());
-            g.text(this.font, Component.translatable("screen.earth_online.machine.structure_missing"), this.leftPos + 8, this.topPos + 24, WARNING, false);
-            g.text(this.font, Component.translatable(pattern.screenKey()), this.leftPos + 8, this.topPos + 35, WARNING, false);
-            return;
+            return fit(localized("screen.earth_online.machine.structure_missing") + " " + localized(pattern.screenKey()), 90);
         }
 
-        if (isHovering(8, 76, 58, 18, mouseX, mouseY)
-                || isHovering(70, 76, 58, 18, mouseX, mouseY)
-                || isHovering(132, 76, 58, 18, mouseX, mouseY)) {
+        ItemStack input = this.menu.getSlot(ProcessingMachineBlockEntity.SLOT_INPUT).getItem();
+        if (input.isEmpty()) {
+            return fit(localized("screen.earth_online.machine.empty_input"), 90);
+        }
+
+        return ProcessingMachineBlock.findRecipe(this.menu.kind(), input).map(recipe -> {
+            String note = recipeSummary(recipe);
+            return fit(note, 90);
+        }).orElseGet(() -> fit(localized("screen.earth_online.machine.unsupported_input"), 90));
+    }
+
+    private int statusColor() {
+        if (!this.menu.structureValid()) {
+            return WARNING;
+        }
+        ItemStack input = this.menu.getSlot(ProcessingMachineBlockEntity.SLOT_INPUT).getItem();
+        if (!input.isEmpty() && ProcessingMachineBlock.findRecipe(this.menu.kind(), input).isEmpty()) {
+            return WARNING;
+        }
+        return this.menu.active() ? 0xFF207030 : MUTED;
+    }
+
+    private void drawTooltips(GuiGraphicsExtractor g, int mouseX, int mouseY) {
+        if (isHovering(8, 55, 64, 17, mouseX, mouseY)) {
+            ProcessingMachineBlockEntity.RedstoneMode redstone = this.menu.redstoneMode();
             g.setComponentTooltipForNextFrame(this.font, List.of(
                     Component.translatable(redstone.labelKey()),
                     Component.translatable(redstone.descriptionKey()),
                     Component.translatable("screen.earth_online.redstone.tooltip")
             ), mouseX, mouseY);
         }
-
-        ItemStack input = this.menu.getSlot(ProcessingMachineBlockEntity.SLOT_INPUT).getItem();
-        if (input.isEmpty()) {
-            g.text(this.font, Component.translatable("screen.earth_online.machine.empty_input"), this.leftPos + 8, this.topPos + 24, MUTED, false);
-            return;
+        if (!this.menu.structureValid() && isHovering(78, 55, 90, 17, mouseX, mouseY)) {
+            MachineMultiblock.Pattern pattern = MachineMultiblock.patternFor(this.menu.kind());
+            g.setComponentTooltipForNextFrame(this.font, List.of(
+                    Component.translatable("screen.earth_online.machine.structure_missing"),
+                    Component.translatable(pattern.screenKey())
+            ), mouseX, mouseY);
         }
-
-        ProcessingMachineBlock.findRecipe(this.menu.kind(), input).ifPresentOrElse(recipe -> {
-            String note = recipeSummary(recipe);
-            if (this.font.width(note) > 150) {
-                note = this.font.plainSubstrByWidth(note, 147) + "...";
-            }
-            g.text(this.font, note, this.leftPos + 8, this.topPos + 24, ACCENT, false);
-        }, () -> g.text(this.font, Component.translatable("screen.earth_online.machine.unsupported_input"), this.leftPos + 8, this.topPos + 24, WARNING, false));
     }
 
-    private void addRedstoneButton(int x, String labelKey, int id) {
-        Button button = addRenderableWidget(Button.builder(Component.translatable(labelKey), b -> {
-            Minecraft mc = Minecraft.getInstance();
-            if (mc.gameMode != null) {
-                mc.gameMode.handleInventoryButtonClick(this.menu.containerId, id);
-            }
-        }).bounds(this.leftPos + x, this.topPos + 76, 58, 18).build());
-        redstoneButtons.add(button);
+    private void cycleRedstoneMode() {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.gameMode == null) {
+            return;
+        }
+        int id = switch (this.menu.redstoneMode()) {
+            case ALWAYS -> ProcessingMachineMenu.BUTTON_REDSTONE_REQUIRE_SIGNAL;
+            case REQUIRE_SIGNAL -> ProcessingMachineMenu.BUTTON_REDSTONE_REQUIRE_NO_SIGNAL;
+            case REQUIRE_NO_SIGNAL -> ProcessingMachineMenu.BUTTON_REDSTONE_ALWAYS;
+        };
+        mc.gameMode.handleInventoryButtonClick(this.menu.containerId, id);
     }
 
     private void syncRedstoneButtons() {
-        ProcessingMachineBlockEntity.RedstoneMode mode = this.menu.redstoneMode();
-        setButtonState(0, "screen.earth_online.redstone.always.short", mode == ProcessingMachineBlockEntity.RedstoneMode.ALWAYS);
-        setButtonState(1, "screen.earth_online.redstone.require_signal.short", mode == ProcessingMachineBlockEntity.RedstoneMode.REQUIRE_SIGNAL);
-        setButtonState(2, "screen.earth_online.redstone.require_no_signal.short", mode == ProcessingMachineBlockEntity.RedstoneMode.REQUIRE_NO_SIGNAL);
+        if (redstoneButton != null) {
+            redstoneButton.setMessage(redstoneButtonLabel());
+        }
     }
 
-    private void setButtonState(int index, String labelKey, boolean selected) {
-        if (index >= redstoneButtons.size()) {
-            return;
+    private Component redstoneButtonLabel() {
+        return Component.translatable(this.menu.redstoneMode().labelKey());
+    }
+
+    private Component trimmedTitle() {
+        String text = this.title.getString();
+        if (this.font.width(text) > 118) {
+            return Component.literal(this.font.plainSubstrByWidth(text, 115) + "...");
         }
-        Button button = redstoneButtons.get(index);
-        String label = localized(labelKey);
-        button.setMessage(Component.literal(selected ? "[" + label + "]" : label));
-        button.active = !selected;
+        return this.title;
     }
 
     private String recipeSummary(ProcessingMachineBlock.Recipe recipe) {
@@ -201,6 +218,13 @@ public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingM
             return recipe.note();
         }
         return localized("screen.earth_online.machine.recipe_ready") + ": " + RouteGuide.describeOutputs(recipe);
+    }
+
+    private String fit(String text, int width) {
+        if (this.font.width(text) <= width) {
+            return text;
+        }
+        return this.font.plainSubstrByWidth(text, Math.max(0, width - this.font.width("..."))) + "...";
     }
 
     private static String localized(String key) {

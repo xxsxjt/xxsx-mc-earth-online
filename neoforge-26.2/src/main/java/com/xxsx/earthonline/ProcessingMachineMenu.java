@@ -50,7 +50,7 @@ public class ProcessingMachineMenu extends AbstractContainerMenu {
         this.kind = kind;
 
         this.container.startOpen(inventory.player);
-        addSlot(new Slot(container, ProcessingMachineBlockEntity.SLOT_INPUT, 44, 42) {
+        addSlot(new Slot(container, ProcessingMachineBlockEntity.SLOT_INPUT, 38, 35) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return ProcessingMachineBlock.findRecipe(ProcessingMachineMenu.this.kind, stack).isPresent();
@@ -58,15 +58,15 @@ public class ProcessingMachineMenu extends AbstractContainerMenu {
         });
 
         int[][] outputSlots = {
-                {116, 25}, {134, 25}, {152, 25}, {170, 25},
-                {116, 47}, {134, 47}, {152, 47}
+                {102, 20}, {120, 20}, {138, 20}, {156, 20},
+                {111, 42}, {129, 42}, {147, 42}
         };
         for (int i = 0; i < outputSlots.length; i++) {
             int slot = ProcessingMachineBlockEntity.SLOT_OUTPUT_START + i;
             addSlot(new OutputSlot(container, slot, outputSlots[i][0], outputSlots[i][1]));
         }
 
-        addStandardInventorySlots(inventory, 18, 112);
+        addStandardInventorySlots(inventory, 8, 84);
         addDataSlots(data);
     }
 
