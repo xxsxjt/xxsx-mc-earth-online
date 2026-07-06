@@ -46,6 +46,7 @@ public class EarthOnlineJeiPlugin implements IModPlugin {
         }
         registerHandbookInfo(registration);
         registerMachineInfo(registration);
+        registerEnergyInfo(registration);
         registerRouteInfo(registration);
     }
 
@@ -101,7 +102,9 @@ public class EarthOnlineJeiPlugin implements IModPlugin {
                 lineKey("jei.earth_online.notebook.1", ChatFormatting.GRAY),
                 lineKey("jei.earth_online.notebook.2", ChatFormatting.AQUA),
                 lineKey("jei.earth_online.notebook.3", ChatFormatting.GREEN),
-                lineKey("jei.earth_online.notebook.4", ChatFormatting.DARK_GRAY));
+                lineKey("jei.earth_online.notebook.4", ChatFormatting.GOLD),
+                lineKey("jei.earth_online.notebook.5", ChatFormatting.AQUA),
+                lineKey("jei.earth_online.notebook.6", ChatFormatting.DARK_GRAY));
     }
 
     private static void registerMachineInfo(IRecipeRegistration registration) {
@@ -133,9 +136,33 @@ public class EarthOnlineJeiPlugin implements IModPlugin {
                 Component.translatable(kind.displayNameKey()).withStyle(ChatFormatting.GOLD),
                 Component.translatable(kind.descriptionKey()).withStyle(ChatFormatting.GRAY),
                 lineKey("tooltip.earth_online.machine.use", ChatFormatting.AQUA),
+                lineKey("tooltip.earth_online.machine.fuel", ChatFormatting.YELLOW),
                 Component.translatable(MachineMultiblock.patternFor(kind).descriptionKey()).withStyle(ChatFormatting.GREEN),
                 lineKey("tooltip.earth_online.machine.redstone", ChatFormatting.GREEN),
                 lineKey("tooltip.earth_online.machine.routes", ChatFormatting.DARK_GRAY, ProcessingMachineBlock.recipesFor(kind).size()));
+    }
+
+    private static void registerEnergyInfo(IRecipeRegistration registration) {
+        registration.addItemStackInfo(new ItemStack(EarthOnline.COMBUSTION_GENERATOR.get()),
+                lineKey("tooltip.earth_online.energy.generator", ChatFormatting.GOLD),
+                lineKey("jei.earth_online.energy.generator.0", ChatFormatting.GRAY),
+                lineKey("jei.earth_online.energy.generator.1", ChatFormatting.AQUA));
+        registration.addItemStackInfo(new ItemStack(EarthOnline.THIN_COPPER_POWER_CABLE.get()),
+                lineKey("tooltip.earth_online.energy.cable", ChatFormatting.GOLD),
+                lineKey("jei.earth_online.energy.cable.0", ChatFormatting.GRAY),
+                lineKey("jei.earth_online.energy.cable.1", ChatFormatting.AQUA));
+        registration.addItemStackInfo(new ItemStack(EarthOnline.COPPER_POWER_CABLE.get()),
+                lineKey("tooltip.earth_online.energy.cable", ChatFormatting.GOLD),
+                lineKey("jei.earth_online.energy.cable.0", ChatFormatting.GRAY),
+                lineKey("jei.earth_online.energy.cable.1", ChatFormatting.AQUA));
+        registration.addItemStackInfo(new ItemStack(EarthOnline.HEAVY_COPPER_POWER_CABLE.get()),
+                lineKey("tooltip.earth_online.energy.cable", ChatFormatting.GOLD),
+                lineKey("jei.earth_online.energy.cable.0", ChatFormatting.GRAY),
+                lineKey("jei.earth_online.energy.cable.1", ChatFormatting.AQUA));
+        registration.addItemStackInfo(new ItemStack(EarthOnline.BATTERY_BOX.get()),
+                lineKey("tooltip.earth_online.energy.battery", ChatFormatting.GOLD),
+                lineKey("jei.earth_online.energy.battery.0", ChatFormatting.GRAY),
+                lineKey("jei.earth_online.energy.battery.1", ChatFormatting.AQUA));
     }
 
     private static void registerRouteInfo(IRecipeRegistration registration) {
@@ -149,6 +176,7 @@ public class EarthOnlineJeiPlugin implements IModPlugin {
                 lines.add(lineKey("tooltip.earth_online.route.next", ChatFormatting.AQUA, RouteGuide.joinMachines(info.next(), 4)));
                 lines.add(lineKey("tooltip.earth_online.route.outputs", ChatFormatting.GRAY, RouteGuide.describeOutputs(example)));
             }
+            RouteGuide.addBeginnerShortcutTips(item, lines::add);
             if (!info.sources().isEmpty()) {
                 lines.add(lineKey("tooltip.earth_online.route.sources", ChatFormatting.DARK_GREEN, RouteGuide.joinSources(info.sources(), 3)));
             }

@@ -1,4 +1,6 @@
 {
   "parent": "minecraft:item/generated",
-  "textures": { "layer0": "earth_online:item/chalcopyrite_chunk" }
+  "textures": {
+    "layer0": "earth_online:item/chalcopyrite_chunk"
+  }
 }

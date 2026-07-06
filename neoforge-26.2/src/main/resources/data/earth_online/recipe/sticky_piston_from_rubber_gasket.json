@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "minecraft:piston",
+    "earth_online:rubber_gasket"
+  ],
+  "result": {
+    "id": "minecraft:sticky_piston"
+  }
+}

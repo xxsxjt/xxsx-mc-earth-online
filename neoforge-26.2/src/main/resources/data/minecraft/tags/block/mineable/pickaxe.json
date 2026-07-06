@@ -34,6 +34,11 @@
     "earth_online:polymerizer",
     "earth_online:steam_cracker",
     "earth_online:synthesis_loop",
-    "earth_online:absorption_tower"
+    "earth_online:absorption_tower",
+    "earth_online:combustion_generator",
+    "earth_online:thin_copper_power_cable",
+    "earth_online:copper_power_cable",
+    "earth_online:heavy_copper_power_cable",
+    "earth_online:battery_box"
   ]
 }

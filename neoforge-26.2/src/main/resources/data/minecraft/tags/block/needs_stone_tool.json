@@ -9,7 +9,12 @@
     "earth_online:lapis_lazuli_ore",
     "earth_online:redstone_mineral_ore",
     "earth_online:cinnabar_vein",
+    "earth_online:jaw_crusher",
+    "earth_online:ball_mill",
     "earth_online:sieve",
-    "earth_online:leaching_tank"
+    "earth_online:leaching_tank",
+    "earth_online:thin_copper_power_cable",
+    "earth_online:copper_power_cable",
+    "earth_online:heavy_copper_power_cable"
   ]
 }

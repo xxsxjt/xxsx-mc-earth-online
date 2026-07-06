@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "earth_online:firebrick"
+  ],
+  "result": {
+    "id": "minecraft:bricks",
+    "count": 2
+  }
+}

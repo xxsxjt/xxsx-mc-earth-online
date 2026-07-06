@@ -1,6 +1,12 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "all": "earth_online:block/absorption_tower"
+    "particle": "earth_online:block/absorption_tower",
+    "down": "earth_online:block/steel_process_pipe",
+    "up": "earth_online:block/steel_process_pipe",
+    "north": "earth_online:block/absorption_tower",
+    "south": "earth_online:block/absorption_tower",
+    "west": "earth_online:block/steel_process_pipe",
+    "east": "earth_online:block/steel_process_pipe"
   }
 }

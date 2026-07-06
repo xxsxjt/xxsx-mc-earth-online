@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "RR ",
+    "RS ",
+    "  R"
+  ],
+  "key": {
+    "R": "earth_online:vulcanized_rubber",
+    "S": "minecraft:string"
+  },
+  "result": {
+    "id": "minecraft:lead",
+    "count": 2
+  }
+}

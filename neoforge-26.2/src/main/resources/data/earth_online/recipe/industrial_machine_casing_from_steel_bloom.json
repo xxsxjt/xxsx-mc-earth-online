@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "SCS",
+    "SSS"
+  ],
+  "key": {
+    "S": "earth_online:steel_bloom",
+    "C": "minecraft:smooth_stone"
+  },
+  "result": {
+    "id": "earth_online:industrial_machine_casing",
+    "count": 8
+  }
+}

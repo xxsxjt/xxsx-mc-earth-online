@@ -45,6 +45,9 @@ public class FieldGeologyNotebookItem extends Item {
         player.sendSystemMessage(Component.translatable("guide.earth_online.line6").withStyle(ChatFormatting.YELLOW));
         player.sendSystemMessage(Component.translatable("guide.earth_online.line7").withStyle(ChatFormatting.GREEN));
         player.sendSystemMessage(Component.translatable("guide.earth_online.line8").withStyle(ChatFormatting.DARK_GRAY));
+        player.sendSystemMessage(Component.translatable("guide.earth_online.line9").withStyle(ChatFormatting.GOLD));
+        player.sendSystemMessage(Component.translatable("guide.earth_online.line10").withStyle(ChatFormatting.AQUA));
+        player.sendSystemMessage(Component.translatable("guide.earth_online.line11").withStyle(ChatFormatting.GREEN));
     }
 
     private static boolean openClientNotebookScreen() {

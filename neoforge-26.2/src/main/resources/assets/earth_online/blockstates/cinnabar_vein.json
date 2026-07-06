@@ -1,5 +1,21 @@
 {
   "variants": {
-    "": { "model": "earth_online:block/cinnabar_vein" }
+    "": [
+      {
+        "model": "earth_online:block/cinnabar_vein"
+      },
+      {
+        "model": "earth_online:block/cinnabar_vein",
+        "y": 90
+      },
+      {
+        "model": "earth_online:block/cinnabar_vein",
+        "y": 180
+      },
+      {
+        "model": "earth_online:block/cinnabar_vein",
+        "y": 270
+      }
+    ]
   }
 }

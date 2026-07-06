@@ -1,6 +1,12 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "all": "earth_online:block/synthesis_loop"
+    "particle": "earth_online:block/synthesis_loop",
+    "down": "earth_online:block/steel_process_pipe",
+    "up": "earth_online:block/steel_process_pipe",
+    "north": "earth_online:block/synthesis_loop",
+    "south": "earth_online:block/synthesis_loop",
+    "west": "earth_online:block/steel_process_pipe",
+    "east": "earth_online:block/steel_process_pipe"
   }
 }

@@ -7,6 +7,7 @@ import argparse
 import base64
 import json
 import pathlib
+import re
 import time
 import urllib.parse
 
@@ -24,6 +25,16 @@ MODEL = "agnes-image-2.1-flash"
 ENDPOINT = "https://apihub.agnes-ai.com/v1/images/generations"
 
 ITEMS = {
+    "field_geology_notebook": ("野外地质手册", "Field Geology Notebook", "a rugged field geology notebook with green cover, mineral sample corner, small compass clip, no readable text"),
+    "magnetite_chunk": ("磁铁矿碎块 Fe3O4", "Magnetite Chunk Fe3O4", "a heavy black metallic magnetite ore chunk with angular Fe3O4 crystal faces"),
+    "chalcopyrite_chunk": ("黄铜矿碎块 CuFeS2", "Chalcopyrite Chunk CuFeS2", "a brass-gold chalcopyrite ore chunk with iridescent tarnish and dark host rock"),
+    "auriferous_quartz_chunk": ("含金石英碎块", "Auriferous Quartz Chunk", "a milky quartz chunk with tiny native gold specks"),
+    "kimberlite_chunk": ("金伯利岩碎块", "Kimberlite Chunk", "a green gray kimberlite breccia chunk with dark mantle fragments"),
+    "cinnabar_chunk": ("辰砂碎块 HgS", "Cinnabar Chunk HgS", "a vivid red cinnabar mineral chunk in pale rock"),
+    "magnetite_dust": ("磁铁矿粉 Fe3O4", "Magnetite Dust Fe3O4", "a dark black magnetic iron oxide powder pile with subtle metallic grains"),
+    "chalcopyrite_dust": ("黄铜矿粉 CuFeS2", "Chalcopyrite Dust CuFeS2", "a brass yellow copper sulfide powder pile with dark mineral speckles"),
+    "iron_concentrate": ("铁精矿", "Iron Concentrate", "a dense dark iron concentrate pellet pile with metallic black-red highlights"),
+    "copper_concentrate": ("铜精矿", "Copper Concentrate", "a golden brown copper concentrate powder pile with sulfide sparkle"),
     "crude_oil_sample": ("原油样品", "Crude Oil Sample", "a small dark crude oil vial with black-brown liquid"),
     "natural_gas_cell": ("天然气单元 CH4 等", "Natural Gas Cell CH4 Mix", "a pale blue compressed gas cell with a metal cap"),
     "naphtha": ("石脑油馏分", "Naphtha Fraction", "a light amber petrochemical distillate vial"),
@@ -146,13 +157,42 @@ ITEMS = {
     "syngas_cell": ("合成气单元 CO/H2", "Syngas Cell CO/H2", "steel gas cell with blue gray synthesis gas glow"),
 }
 
+NON_CHEMICAL_PRODUCT_ITEMS = {
+    "field_geology_notebook",
+    "magnetite_chunk",
+    "chalcopyrite_chunk",
+    "auriferous_quartz_chunk",
+    "kimberlite_chunk",
+    "cinnabar_chunk",
+    "magnetite_dust",
+    "chalcopyrite_dust",
+    "iron_concentrate",
+    "copper_concentrate",
+}
+
 
 def load_agnes_key() -> str:
-    data = json.loads(PROVIDERS.read_text(encoding="utf-8-sig"))
-    keys = data["agnes"]["keys"]
-    if not isinstance(keys, list) or not keys:
-        raise RuntimeError("Agnes provider has no usable key list.")
-    return str(keys[0])
+    raw = PROVIDERS.read_text(encoding="utf-8", errors="ignore")
+    try:
+        data = json.loads(raw)
+        keys = data["agnes"]["keys"]
+        if isinstance(keys, list) and keys:
+            return str(keys[0])
+    except Exception:
+        pass
+
+    agnes_pos = raw.find('"agnes"')
+    if agnes_pos < 0:
+        raise RuntimeError("Agnes provider not found in providers.json.")
+    next_provider = raw.find('\n  "', agnes_pos + 8)
+    agnes_raw = raw[agnes_pos: next_provider if next_provider > agnes_pos else len(raw)]
+    keys_match = re.search(r'"keys"\s*:\s*\[(.*?)\]', agnes_raw, re.S)
+    if not keys_match:
+        raise RuntimeError("Agnes key list not found in providers.json.")
+    keys = re.findall(r'"([^"]+)"', keys_match.group(1))
+    if not keys:
+        raise RuntimeError("Agnes provider has no usable keys.")
+    return keys[0]
 
 
 def write_json(path: pathlib.Path, data: object) -> None:
@@ -188,6 +228,8 @@ def update_resource_metadata() -> None:
     tag = json.loads(tag_path.read_text(encoding="utf-8-sig"))
     values = tag.setdefault("values", [])
     for item_id in ITEMS:
+        if item_id in NON_CHEMICAL_PRODUCT_ITEMS:
+            continue
         value = f"earth_online:{item_id}"
         if value not in values:
             values.append(value)
@@ -267,13 +309,13 @@ def update_resource_metadata() -> None:
 
 def prompt_for(item_id: str, descriptor: str) -> str:
     return (
-        "Create one Minecraft-style pixel art item icon for a mod called Earth Online.\n"
+        "Create one polished Minecraft-style item icon for a mod called Earth Online.\n"
         f"Item id: {item_id}\n"
         f"Subject: {descriptor}.\n"
-        "Style: clean 16x16 Minecraft item texture, readable silhouette, hand-painted pixel art, "
-        "small industrial chemistry material icon, centered, no text, no letters, no UI, no watermark.\n"
+        "Style: clean high-resolution Minecraft mod item texture, readable at inventory scale, hand-painted pixel-art source detail, "
+        "modern industrial chemistry material icon, not retro, not steampunk, centered, no text, no letters, no pseudo-letters, no UI, no watermark.\n"
         "Background: transparent if supported; otherwise pure flat #00ff00 chroma key with no shadows or gradients.\n"
-        "Constraints: isolated icon only, generous padding, crisp edges, suitable for downscaling to 16x16."
+        "Constraints: isolated icon only, generous padding, crisp edges, suitable for downscaling to 32x32 or 64x64."
     )
 
 
@@ -371,7 +413,7 @@ def remove_flat_background(image: Image.Image) -> Image.Image:
     return img
 
 
-def crop_and_downscale(source: pathlib.Path, target: pathlib.Path) -> None:
+def crop_and_downscale(source: pathlib.Path, target: pathlib.Path, size: int) -> None:
     img = Image.open(source)
     img = remove_flat_background(img)
     bbox = img.getbbox()
@@ -382,22 +424,50 @@ def crop_and_downscale(source: pathlib.Path, target: pathlib.Path) -> None:
     canvas.alpha_composite(img, ((side - img.width) // 2, (side - img.height) // 2))
     padded = Image.new("RGBA", (side + side // 4, side + side // 4), (0, 0, 0, 0))
     padded.alpha_composite(canvas, (side // 8, side // 8))
-    icon = padded.resize((16, 16), Image.Resampling.LANCZOS)
+    icon = padded.resize((size, size), Image.Resampling.LANCZOS)
     target.parent.mkdir(parents=True, exist_ok=True)
     icon.save(target)
+
+
+def make_montage(item_ids: list[str], size: int) -> pathlib.Path:
+    thumbs = []
+    for item_id in item_ids:
+        path = ASSETS / "textures" / "item" / f"{item_id}.png"
+        if path.exists():
+            thumbs.append((item_id, Image.open(path).convert("RGBA").resize((32, 32), Image.Resampling.NEAREST)))
+    if not thumbs:
+        raise RuntimeError("No generated item textures found for montage.")
+    cols = 8
+    rows = (len(thumbs) + cols - 1) // cols
+    montage = Image.new("RGBA", (cols * 40, rows * 40), (24, 24, 24, 255))
+    for i, (_item_id, thumb) in enumerate(thumbs):
+        x = (i % cols) * 40 + 4
+        y = (i // cols) * 40 + 4
+        montage.alpha_composite(thumb, (x, y))
+    out = TMP / f"item_texture_montage_{size}px.png"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    montage.save(out)
+    return out
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--force", action="store_true", help="regenerate textures even if final PNG exists")
+    parser.add_argument("--only", nargs="*", default=[], help="specific item ids to generate")
     parser.add_argument("--limit", type=int, default=0, help="only generate first N missing textures")
+    parser.add_argument("--size", type=int, default=32, choices=[16, 32, 64, 128], help="final texture size")
     args = parser.parse_args()
 
     update_resource_metadata()
+    selected = args.only or list(ITEMS)
+    unknown = [item_id for item_id in selected if item_id not in ITEMS]
+    if unknown:
+        raise SystemExit(f"Unknown item ids: {', '.join(unknown)}")
     key = load_agnes_key()
     TMP.mkdir(parents=True, exist_ok=True)
     generated = 0
-    for item_id, (_zh, _en, descriptor) in ITEMS.items():
+    for item_id in selected:
+        _zh, _en, descriptor = ITEMS[item_id]
         final = ASSETS / "textures" / "item" / f"{item_id}.png"
         raw = TMP / f"{item_id}.png"
         if final.exists() and not args.force:
@@ -408,10 +478,11 @@ def main() -> None:
         print(f"generating {item_id} ...", flush=True)
         content = request_image(key, item_id, descriptor)
         raw.write_bytes(content)
-        crop_and_downscale(raw, final)
+        crop_and_downscale(raw, final, args.size)
         generated += 1
         time.sleep(1.0)
-    print(f"Agnes texture generation complete: generated={generated}")
+    montage = make_montage(selected, args.size)
+    print(f"Agnes texture generation complete: generated={generated}, montage={montage}")
 
 
 if __name__ == "__main__":

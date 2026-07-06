@@ -16,7 +16,7 @@ Earth Online 只重做自然来源和处理链，不破坏 MC 现有物品生态
 | Iron Ore | 磁铁矿 `Fe3O4` | `minecraft:iron_ingot` |
 | Copper Ore | 黄铜矿 `CuFeS2` | `minecraft:copper_ingot` |
 | Gold Ore | 含金石英脉 / 自然金 | `minecraft:gold_ingot` |
-| Coal Ore | 烟煤 / 无烟煤煤层 | `minecraft:coal` |
+| Coal Ore | 烟煤 / 无烟煤含煤岩 | `minecraft:coal` |
 | Diamond Ore | 金伯利岩筒 | `minecraft:diamond` |
 | Lapis Ore | 青金石矿 | `minecraft:lapis_lazuli` |
 | Emerald Ore | 绿柱石矿化脉 | `minecraft:emerald` |

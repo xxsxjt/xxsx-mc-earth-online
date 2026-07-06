@@ -1,5 +1,9 @@
 # Earth Online / 地球 Online
 
+> **开发中测试版 / In-development beta**
+>
+> 当前 jar 只面向 `Minecraft 26.2` + `NeoForge 26.2.0.7-beta` 测试。内容、世界生成、配方、机器数值和 API 都还在快速变化；请先在新世界或测试存档中使用，不要把它当作稳定版长期存档依赖。
+
 设计纲领：
 
 > 保留 MC 的物品生态和合成魔法，但把自然界来源、矿物组成、处理流程和矿床形态尽量真实化。
@@ -20,8 +24,16 @@
 - [设计方案](docs/design-plan.md)
 - [近现代化工扩展计划](docs/modern-chemical-industry-plan.md)
 - [第二轮工业扩展计划](docs/round-2-industrial-expansion-plan.md)
+- [本体与附属边界](docs/core-and-addons-boundary.md)
 - [玩家入门流程](docs/player-guide.md)
 - [贴图 AI 提示词](docs/asset-prompts.md)
+- [0.1.0 Beta 发布说明](docs/release-notes-0.1.0-beta.md)
+
+## 本体与附属边界
+
+本体只做现实地球的自然来源、物质流、工业、电力、物流、基础设施、手册和 JEI 路线。人物属性、食物保存、修仙、魔法、科幻高级科技等内容属于未来附属，暂不放入核心 jar。
+
+新增内容优先保证本体可玩、可查、可兼容：玩家看到一个材料时，tooltip、机器界面、手册和 JEI 都应该告诉他下一步做什么。
 
 ## 本地验证
 
@@ -38,10 +50,11 @@ python tools\validate_resources.py
 - `neoforge-26.2/` — NeoForge `26.2.0.7-beta` / Minecraft `26.2`，Java 25。
 - 构建产物：`neoforge-26.2/build/libs/earth-online-neoforge-26.2-0.1.0.jar`
 - 测试部署：`D:\_dx\_Games\MC\xxxxxx\.minecraft\versions\26.2-NeoForge_26.2.0.7-beta\mods`
+- 发布状态：`0.1.0` 是开发中测试版，用于验证现实矿床、工业机器、电力、手册和 JEI 联动的第一批可玩闭环。
 
 第一版已实现：
 
-- 注册现实矿物/矿床方块：磁铁矿、黄铜矿、含金石英脉、煤层、金伯利岩、青金石、绿柱石、红石矿物、辰砂等。
+- 注册现实矿物/矿床方块：磁铁矿、黄铜矿、含金石英脉、烟煤/无烟煤含煤岩、金伯利岩、青金石、绿柱石、红石矿物、辰砂等。
 - 注册矿物碎块/粉末/精矿/副产物：磁铁矿粉、黄铜矿粉、石英粉、长石粉、铁精矿、铜精矿、金精矿、硫粉、矿渣等。
 - 注册 21 台第一版处理机器：破碎机、球磨机、筛分机、磁选机、浮选槽、焙烧炉、还原炉、浸出槽、电解槽、压粉机、反应釜、精馏塔、混合机、结晶器、工业窑炉、气体分离器、肥料造粒机、聚合釜、蒸汽裂解炉、合成塔、吸收塔。
 - 野外地质手册已可右键打开分页界面；生存模式下用一块泥土、任意木板或任意石头即可合成。

@@ -1,5 +1,21 @@
 {
   "variants": {
-    "": { "model": "earth_online:block/kimberlite" }
+    "": [
+      {
+        "model": "earth_online:block/kimberlite"
+      },
+      {
+        "model": "earth_online:block/kimberlite",
+        "y": 90
+      },
+      {
+        "model": "earth_online:block/kimberlite",
+        "y": 180
+      },
+      {
+        "model": "earth_online:block/kimberlite",
+        "y": 270
+      }
+    ]
   }
 }

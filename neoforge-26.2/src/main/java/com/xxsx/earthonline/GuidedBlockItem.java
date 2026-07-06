@@ -19,8 +19,14 @@ public class GuidedBlockItem extends BlockItem {
     }
 
     @Override
+    public Component getName(ItemStack stack) {
+        return Component.translatable(getBlock().getDescriptionId());
+    }
+
+    @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> lines, TooltipFlag flag) {
         lines.accept(Component.translatable(hintKey).withStyle(ChatFormatting.GOLD));
+        EarthOnlineTooltips.addMaterialDetails(stack, lines, flag);
         EarthOnlineTooltips.addRouteTips(stack, lines);
     }
 }

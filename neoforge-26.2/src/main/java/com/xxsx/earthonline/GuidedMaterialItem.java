@@ -17,6 +17,7 @@ public class GuidedMaterialItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> lines, TooltipFlag flag) {
         lines.accept(Component.translatable("tooltip.earth_online.material.header").withStyle(ChatFormatting.GOLD));
+        EarthOnlineTooltips.addMaterialDetails(stack, lines, flag);
         EarthOnlineTooltips.addRouteTips(stack, lines);
         lines.accept(Component.translatable("tooltip.earth_online.material.notebook").withStyle(ChatFormatting.DARK_GRAY));
     }

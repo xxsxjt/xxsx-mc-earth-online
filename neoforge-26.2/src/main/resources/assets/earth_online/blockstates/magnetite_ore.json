@@ -1,5 +1,21 @@
 {
   "variants": {
-    "": { "model": "earth_online:block/magnetite_ore" }
+    "": [
+      {
+        "model": "earth_online:block/magnetite_ore"
+      },
+      {
+        "model": "earth_online:block/magnetite_ore",
+        "y": 90
+      },
+      {
+        "model": "earth_online:block/magnetite_ore",
+        "y": 180
+      },
+      {
+        "model": "earth_online:block/magnetite_ore",
+        "y": 270
+      }
+    ]
   }
 }

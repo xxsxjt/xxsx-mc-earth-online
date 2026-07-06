@@ -82,6 +82,11 @@ public class EarthOnline {
     public static final DeferredBlock<SupportPartBlock> INDUSTRIAL_MACHINE_CASING = supportBlock("industrial_machine_casing", MapColor.METAL, 4.5F, "tooltip.earth_online.support.casing");
     public static final DeferredBlock<SupportPartBlock> STEEL_PROCESS_PIPE = supportBlock("steel_process_pipe", MapColor.METAL, 3.0F, "tooltip.earth_online.support.pipe");
     public static final DeferredBlock<ControlPanelBlock> CONTROL_PANEL = controlPanelBlock("control_panel", MapColor.COLOR_GRAY, 3.5F, "tooltip.earth_online.support.control_panel");
+    public static final DeferredBlock<EnergyGeneratorBlock> COMBUSTION_GENERATOR = energyGeneratorBlock("combustion_generator");
+    public static final DeferredBlock<PowerCableBlock> THIN_COPPER_POWER_CABLE = powerCableBlock("thin_copper_power_cable", 1);
+    public static final DeferredBlock<PowerCableBlock> COPPER_POWER_CABLE = powerCableBlock("copper_power_cable", 2);
+    public static final DeferredBlock<PowerCableBlock> HEAVY_COPPER_POWER_CABLE = powerCableBlock("heavy_copper_power_cable", 3);
+    public static final DeferredBlock<BatteryBoxBlock> BATTERY_BOX = batteryBoxBlock("battery_box");
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ProcessingMachineBlockEntity>> PROCESSING_MACHINE_BLOCK_ENTITY =
             BLOCK_ENTITY_TYPES.register("processing_machine", () -> new BlockEntityType<>(
@@ -89,6 +94,18 @@ public class EarthOnline {
                     MACHINE_BLOCKS.stream().map(DeferredBlock::get).toArray(Block[]::new)));
     public static final DeferredHolder<MenuType<?>, MenuType<ProcessingMachineMenu>> PROCESSING_MACHINE_MENU =
             MENUS.register("processing_machine", () -> IMenuTypeExtension.create(ProcessingMachineMenu::new));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<EnergyGeneratorBlockEntity>> ENERGY_GENERATOR_BLOCK_ENTITY =
+            BLOCK_ENTITY_TYPES.register("combustion_generator", () -> new BlockEntityType<>(
+                    EnergyGeneratorBlockEntity::new,
+                    COMBUSTION_GENERATOR.get()));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BatteryBoxBlockEntity>> BATTERY_BOX_BLOCK_ENTITY =
+            BLOCK_ENTITY_TYPES.register("battery_box", () -> new BlockEntityType<>(
+                    BatteryBoxBlockEntity::new,
+                    BATTERY_BOX.get()));
+    public static final DeferredHolder<MenuType<?>, MenuType<EnergyGeneratorMenu>> ENERGY_GENERATOR_MENU =
+            MENUS.register("combustion_generator", () -> IMenuTypeExtension.create(EnergyGeneratorMenu::new));
+    public static final DeferredHolder<MenuType<?>, MenuType<BatteryBoxMenu>> BATTERY_BOX_MENU =
+            MENUS.register("battery_box", () -> IMenuTypeExtension.create(BatteryBoxMenu::new));
 
     public static final DeferredItem<Item> MAGNETITE_CHUNK = item("magnetite_chunk");
     public static final DeferredItem<Item> CHALCOPYRITE_CHUNK = item("chalcopyrite_chunk");
@@ -208,6 +225,12 @@ public class EarthOnline {
     public static final DeferredItem<Item> SIMPLE_BATTERY_CELL = item("simple_battery_cell");
     public static final DeferredItem<Item> HARD_WATER_SAMPLE = item("hard_water_sample");
     public static final DeferredItem<Item> SOFTENED_WATER = item("softened_water");
+    public static final DeferredItem<Item> HUMUS_SAMPLE = item("humus_sample");
+    public static final DeferredItem<Item> SANDY_LOAM_SAMPLE = item("sandy_loam_sample");
+    public static final DeferredItem<Item> ALLUVIAL_LOAM_SAMPLE = item("alluvial_loam_sample");
+    public static final DeferredItem<Item> SALINE_SOIL_SAMPLE = item("saline_soil_sample");
+    public static final DeferredItem<Item> SOIL_MINERAL_MIX = item("soil_mineral_mix");
+    public static final DeferredItem<Item> IRRIGATION_MINERAL_DEPOSIT = item("irrigation_mineral_deposit");
     public static final DeferredItem<Item> SLUDGE_CAKE = item("sludge_cake");
     public static final DeferredItem<Item> NEUTRAL_SALT = item("neutral_salt");
     public static final DeferredItem<Item> ACTIVATED_CARBON_FILTER = item("activated_carbon_filter");
@@ -360,6 +383,49 @@ public class EarthOnline {
                 props -> props);
         TAB_ITEMS.add(item);
         MACHINE_BLOCKS.add(block);
+        return block;
+    }
+
+    private static DeferredBlock<EnergyGeneratorBlock> energyGeneratorBlock(String id) {
+        DeferredBlock<EnergyGeneratorBlock> block = BLOCKS.registerBlock(id, EnergyGeneratorBlock::new,
+                () -> BlockBehaviour.Properties.of()
+                        .mapColor(MapColor.METAL)
+                        .strength(4.0F, 8.0F)
+                        .requiresCorrectToolForDrops()
+                        .sound(SoundType.METAL));
+        DeferredItem<?> item = ITEMS.registerItem(id,
+                props -> new GuidedBlockItem(block.get(), props, "tooltip.earth_online.energy.generator"),
+                props -> props);
+        TAB_ITEMS.add(item);
+        return block;
+    }
+
+    private static DeferredBlock<PowerCableBlock> powerCableBlock(String id, int radius) {
+        DeferredBlock<PowerCableBlock> block = BLOCKS.registerBlock(id, props -> new PowerCableBlock(props, radius),
+                () -> BlockBehaviour.Properties.of()
+                        .mapColor(MapColor.COLOR_ORANGE)
+                        .strength(1.5F, 3.0F)
+                        .noOcclusion()
+                        .requiresCorrectToolForDrops()
+                        .sound(SoundType.COPPER));
+        DeferredItem<?> item = ITEMS.registerItem(id,
+                props -> new GuidedBlockItem(block.get(), props, "tooltip.earth_online.energy.cable"),
+                props -> props);
+        TAB_ITEMS.add(item);
+        return block;
+    }
+
+    private static DeferredBlock<BatteryBoxBlock> batteryBoxBlock(String id) {
+        DeferredBlock<BatteryBoxBlock> block = BLOCKS.registerBlock(id, BatteryBoxBlock::new,
+                () -> BlockBehaviour.Properties.of()
+                        .mapColor(MapColor.METAL)
+                        .strength(4.0F, 8.0F)
+                        .requiresCorrectToolForDrops()
+                        .sound(SoundType.METAL));
+        DeferredItem<?> item = ITEMS.registerItem(id,
+                props -> new GuidedBlockItem(block.get(), props, "tooltip.earth_online.energy.battery"),
+                props -> props);
+        TAB_ITEMS.add(item);
         return block;
     }
 

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "S S",
+    "SCS",
+    " S "
+  ],
+  "key": {
+    "S": "earth_online:steel_bloom",
+    "C": "minecraft:chest"
+  },
+  "result": {
+    "id": "minecraft:hopper"
+  }
+}

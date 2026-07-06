@@ -122,16 +122,16 @@ original 16x16 pixel art seamless block texture of chalcopyrite ore CuFeS2 in qu
 original 16x16 pixel art seamless block texture of gold-bearing quartz vein, milky white quartz cutting through gray host rock, tiny native gold specks, realistic sparse gold mineralization, clean vein structure, voxel sandbox resource pack style, no text
 ```
 
-### 烟煤煤层 Bituminous Coal Seam
+### 烟煤含煤岩 Bituminous Coal-Bearing Rock
 
 ```text
-original 16x16 pixel art seamless block texture of bituminous coal seam, horizontal sedimentary coal layer, black glossy coal bands, dark shale partings, realistic layered deposit, not random ore spots, voxel sandbox resource pack style, no text
+original 16x16 pixel art seamless block texture of bituminous coal-bearing sedimentary rock, black glossy coal bands embedded in dark shale, volatile-rich layered deposit, not random ore spots, voxel sandbox resource pack style, no text
 ```
 
-### 无烟煤 Anthracite Seam
+### 无烟煤含煤岩 Anthracite Coal-Bearing Rock
 
 ```text
-original 16x16 pixel art seamless block texture of anthracite coal seam, hard black high carbon coal, subtle glassy highlights, thin gray shale laminations, dense layered sedimentary texture, voxel sandbox resource pack style, no text
+original 16x16 pixel art seamless block texture of anthracite coal-bearing rock, hard black high carbon coal in dense dark sedimentary host rock, subtle glassy highlights, thin gray shale laminations, voxel sandbox resource pack style, no text
 ```
 
 ### 金伯利岩 Kimberlite
@@ -282,11 +282,28 @@ original 16x16 pixel art block texture front face of a high-pressure synthesis r
 original 16x16 pixel art block texture front face of a packed absorption tower, vertical column, green scrubber liquid window, pipe and valve details, acid gas treatment chemical plant equipment, voxel sandbox resource pack style, no text
 ```
 
+## 生成工具优先级
+
+精致贴图、机器面、矿脉方块、GUI 美术优先使用当前 Codex 配置里的 `image-2` / `gpt-image-2`。如果 `image-2` 没有配置 `REDFOX_API_KEY`、调用失败、超时或质量不稳定，再回退 Agnes。
+
+`image-2` CLI 示例：
+
+```powershell
+python "C:\Users\du_ji\.agents\skills\image-gen\assets\imagegen.py" "<prompt>" --size 1024x1024 --quality medium --format png --bg opaque -o tmp\imagegen\image2-<batch> --prefix <id>
+```
+
+规则：
+
+- 方块、机器、多方块成型外观先生成高分辨率方形源图，再裁切/缩放到 `64x64` 或 `128x128`；不要默认压回 `16x16`。
+- 小型材料物品可以继续用 `16x16/32x32`，但 JEI 高频、路线关键、玩家常看的物品优先做 `64x64` 源图再下采样。
+- Python/Pillow 只负责裁切、缩放、透明清理、拼图和校验，不作为最终精致贴图的绘制方式。
+- 所有批次都要生成 contact sheet，检查是否有伪文字、复古蒸汽朋克感、过度写实照片感、风格跳变或远看不可读。
+
 ## 常见化工物品
 
-### Agnes 批量物品贴图
+### image-2 优先，Agnes 回退
 
-本项目已加入自动化脚本：
+旧 Agnes 自动化脚本仍可作为回退：
 
 ```powershell
 python tools\generate_agnes_item_textures.py
@@ -294,15 +311,15 @@ python tools\generate_agnes_item_textures.py
 
 脚本会从 `C:\Users\du_ji\WorkBuddy\agnes\providers.json` 读取 Agnes 配置，调用 `agnes-image-2.1-flash`，把原始生成图保存到 `tmp/imagegen/agnes-modern-chemistry/`，再裁切缩放为 `assets/earth_online/textures/item/*.png`。不要把 API Key 写进仓库或日志。
 
-通用 Agnes 提示词结构：
+通用 image-2 / Agnes 提示词结构：
 
 ```text
 Create one Minecraft-style pixel art item icon for a mod called Earth Online.
 Item id: <item_id>
 Subject: <real industrial material description>.
-Style: clean 16x16 Minecraft item texture, readable silhouette, hand-painted pixel art, small industrial chemistry material icon, centered, no text, no letters, no UI, no watermark.
+Style: clean Minecraft item texture from a high-resolution AI source, readable silhouette, hand-painted pixel art, small industrial chemistry material icon, centered, no text, no letters, no UI, no watermark.
 Background: transparent if supported; otherwise pure flat #00ff00 chroma key with no shadows or gradients.
-Constraints: isolated icon only, generous padding, crisp edges, suitable for downscaling to 16x16.
+Constraints: isolated icon only, generous padding, crisp edges, suitable for downscaling to 16x16 or 32x32.
 ```
 
 当前新增现代化工提示词覆盖：
@@ -470,8 +487,8 @@ original 16x16 pixel art item icon, handheld mineral analyzer device, small scre
 
 ## 使用建议
 
-- 方块贴图优先生成 `32x32` 或 `64x64` 草稿，再人工缩到 `16x16` 调整像素可读性。
+- 方块贴图优先生成 `64x64` 或 `128x128` 成品源图；只有严格需要原版低分辨率风格时才缩到 `16x16`。
 - 矿物同系列要先固定调色板，例如磁铁矿全系使用黑、蓝灰、深灰，不要每张图都随机偏色。
 - 矿石贴图的矿物占比要对应纯度：贫矿稀疏，普通矿适中，富矿密集。
-- 机器贴图要先生成正面，再用同风格扩展侧面、顶部、底部。
+- 机器贴图要先生成正面，再用同风格扩展侧面、顶部、底部；形成多方块结构后应有连续机壳、管线、控制面板的成型态贴图。
 - 不要让 AI 生成文字、化学式或 UI 边框，化学式应由语言文件和 tooltip 显示。

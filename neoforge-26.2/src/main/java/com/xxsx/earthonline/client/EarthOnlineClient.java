@@ -18,6 +18,8 @@ public final class EarthOnlineClient {
 
     private static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(EarthOnline.PROCESSING_MACHINE_MENU.get(), ProcessingMachineScreen::new);
+        event.register(EarthOnline.ENERGY_GENERATOR_MENU.get(), EnergyGeneratorScreen::new);
+        event.register(EarthOnline.BATTERY_BOX_MENU.get(), BatteryBoxScreen::new);
     }
 
     public static void openNotebook() {

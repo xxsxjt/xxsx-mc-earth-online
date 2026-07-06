@@ -39,6 +39,9 @@ public final class RouteGuide {
     public static void addRouteTips(ItemStack stack, Consumer<Component> lines) {
         RouteInfo route = routeFor(stack.getItem());
 
+        addBeginnerShortcutTips(stack.getItem(), lines);
+        addDirectUseTips(stack.getItem(), lines);
+
         if (!route.next().isEmpty()) {
             lines.accept(Component.translatable("tooltip.earth_online.route.next", joinMachines(route.next(), 4)).withStyle(ChatFormatting.AQUA));
             lines.accept(Component.translatable("tooltip.earth_online.route.outputs", describeOutputs(route.next().get(0))).withStyle(ChatFormatting.GRAY));
@@ -53,6 +56,63 @@ public final class RouteGuide {
 
         if (route.isEmpty()) {
             lines.accept(Component.translatable("tooltip.earth_online.route.compat").withStyle(ChatFormatting.GRAY));
+        }
+    }
+
+    public static void addBeginnerShortcutTips(Item item, Consumer<Component> lines) {
+        if (item == EarthOnline.MAGNETITE_CHUNK.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.beginner.first_iron_chunk").withStyle(ChatFormatting.GOLD));
+        } else if (item == EarthOnline.MAGNETITE_DUST.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.beginner.first_iron_dust").withStyle(ChatFormatting.GOLD));
+        } else if (item == EarthOnline.CHALCOPYRITE_CHUNK.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.beginner.first_copper_chunk").withStyle(ChatFormatting.GOLD));
+        } else if (item == EarthOnline.CHALCOPYRITE_DUST.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.beginner.first_copper_dust").withStyle(ChatFormatting.GOLD));
+        } else if (item == EarthOnline.JAW_CRUSHER.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.beginner.jaw_crusher").withStyle(ChatFormatting.GOLD));
+        } else if (item == EarthOnline.BALL_MILL.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.beginner.ball_mill").withStyle(ChatFormatting.GOLD));
+        } else if (item == EarthOnline.BITUMINOUS_COAL_SEAM.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.deposit.bituminous").withStyle(ChatFormatting.YELLOW));
+        } else if (item == EarthOnline.ANTHRACITE_COAL_SEAM.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.deposit.anthracite").withStyle(ChatFormatting.YELLOW));
+        } else if (item == EarthOnline.COAL_DUST.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.fuel.coal_dust").withStyle(ChatFormatting.YELLOW));
+        } else if (item == EarthOnline.COKE.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.fuel.coke").withStyle(ChatFormatting.YELLOW));
+        } else if (item == EarthOnline.PETROLEUM_COKE.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.fuel.petroleum_coke").withStyle(ChatFormatting.YELLOW));
+        } else if (item == EarthOnline.COAL_GAS_CELL.get().asItem() || item == EarthOnline.NATURAL_GAS_CELL.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.fuel.gas_cell").withStyle(ChatFormatting.YELLOW));
+        }
+    }
+
+    private static void addDirectUseTips(Item item, Consumer<Component> lines) {
+        if (item == EarthOnline.STEEL_BLOOM.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.use.steel_bloom").withStyle(ChatFormatting.GREEN));
+        } else if (item == EarthOnline.PRINTED_CIRCUIT_BOARD.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.use.printed_circuit_board").withStyle(ChatFormatting.GREEN));
+        } else if (item == EarthOnline.SIMPLE_BATTERY_CELL.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.use.simple_battery_cell").withStyle(ChatFormatting.GREEN));
+        } else if (item == EarthOnline.VULCANIZED_RUBBER.get().asItem() || item == EarthOnline.RUBBER_GASKET.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.use.rubber").withStyle(ChatFormatting.GREEN));
+        } else if (item == EarthOnline.CEMENT_POWDER.get().asItem() || item == EarthOnline.ASPHALT.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.use.construction").withStyle(ChatFormatting.GREEN));
+        } else if (item == EarthOnline.FERTILIZER_BLEND.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.use.fertilizer").withStyle(ChatFormatting.GREEN));
+        } else if (item == EarthOnline.HUMUS_SAMPLE.get().asItem() || item == EarthOnline.SANDY_LOAM_SAMPLE.get().asItem()
+                || item == EarthOnline.ALLUVIAL_LOAM_SAMPLE.get().asItem() || item == EarthOnline.SALINE_SOIL_SAMPLE.get().asItem()
+                || item == EarthOnline.SOIL_MINERAL_MIX.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.use.soil").withStyle(ChatFormatting.GREEN));
+        } else if (item == EarthOnline.IRRIGATION_MINERAL_DEPOSIT.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.use.irrigation_deposit").withStyle(ChatFormatting.GREEN));
+        } else if (item == EarthOnline.CELLULOSE_PULP.get().asItem() || item == EarthOnline.BLEACHED_PULP.get().asItem()
+                || item == EarthOnline.CELLULOSE_FIBER.get().asItem() || item == EarthOnline.NYLON_FIBER.get().asItem()
+                || item == EarthOnline.MINERAL_WOOL.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.use.fiber").withStyle(ChatFormatting.GREEN));
+        } else if (item == EarthOnline.CARBON_BLACK.get().asItem() || item == EarthOnline.TITANIUM_DIOXIDE.get().asItem()
+                || item == EarthOnline.IRON_OXIDE_PIGMENT.get().asItem()) {
+            lines.accept(Component.translatable("tooltip.earth_online.use.pigment").withStyle(ChatFormatting.GREEN));
         }
     }
 

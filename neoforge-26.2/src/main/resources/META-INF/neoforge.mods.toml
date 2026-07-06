@@ -7,8 +7,10 @@ modId="earth_online"
 version="0.1.0"
 displayName="Earth Online"
 description='''
+In-development beta for Minecraft 26.2 + NeoForge 26.2.0.7-beta.
 Earth Online keeps Minecraft's item ecosystem while replacing natural ore sources,
-rock composition, processing chains and ore deposits with a more realistic geology model.
+rock composition, processing chains, electricity and ore deposits with a more realistic geology and industry model.
+Expect recipes, worldgen, machine values and APIs to change during testing.
 '''
 authors="xxsx"
 

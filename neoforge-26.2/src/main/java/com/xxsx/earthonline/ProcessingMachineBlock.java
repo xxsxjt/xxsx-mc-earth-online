@@ -129,8 +129,8 @@ public class ProcessingMachineBlock extends Block implements EntityBlock {
         recipes.add(r(Kind.CRUSHER, EarthOnline.KIMBERLITE::get, "金伯利岩粗碎", out(EarthOnline.KIMBERLITE_CHUNK::get, 4), out(EarthOnline.TAILINGS_DUST::get, 2)));
         recipes.add(r(Kind.CRUSHER, EarthOnline.DIAMONDIFEROUS_KIMBERLITE::get, "含钻金伯利岩粗碎", out(EarthOnline.KIMBERLITE_CHUNK::get, 4), out(EarthOnline.DIAMOND_GRIT::get, 1)));
         recipes.add(r(Kind.CRUSHER, EarthOnline.CINNABAR_VEIN::get, "辰砂矿脉粗碎", out(EarthOnline.CINNABAR_CHUNK::get, 4), out(EarthOnline.TAILINGS_DUST::get, 1)));
-        recipes.add(r(Kind.CRUSHER, EarthOnline.BITUMINOUS_COAL_SEAM::get, "烟煤煤层破碎与有机质伴生烃回收", out(EarthOnline.COAL_DUST::get, 5), out(EarthOnline.CRUDE_OIL_SAMPLE::get, 1), out(EarthOnline.TAILINGS_DUST::get, 1)));
-        recipes.add(r(Kind.CRUSHER, EarthOnline.ANTHRACITE_COAL_SEAM::get, "无烟煤煤层破碎", out(EarthOnline.COAL_DUST::get, 6)));
+        recipes.add(r(Kind.CRUSHER, EarthOnline.BITUMINOUS_COAL_SEAM::get, "烟煤含煤岩破碎与挥发分回收", out(EarthOnline.COAL_DUST::get, 4), out(EarthOnline.COAL_TAR::get, 1), out(EarthOnline.COAL_GAS_CELL::get, 1), out(EarthOnline.CRUDE_OIL_SAMPLE::get, 1), out(EarthOnline.TAILINGS_DUST::get, 1)));
+        recipes.add(r(Kind.CRUSHER, EarthOnline.ANTHRACITE_COAL_SEAM::get, "无烟煤含煤岩破碎与高碳富集", out(EarthOnline.COAL_DUST::get, 7), out(EarthOnline.GRAPHITE_DUST::get, 1), out(EarthOnline.TAILINGS_DUST::get, 1)));
 
         recipes.add(r(Kind.BALL_MILL, EarthOnline.MAGNETITE_CHUNK::get, "磁铁矿球磨", out(EarthOnline.MAGNETITE_DUST::get, 3), out(EarthOnline.TAILINGS_DUST::get, 1)));
         recipes.add(r(Kind.BALL_MILL, EarthOnline.CHALCOPYRITE_CHUNK::get, "黄铜矿球磨", out(EarthOnline.CHALCOPYRITE_DUST::get, 3), out(EarthOnline.PYRITE_DUST::get, 1)));
@@ -339,10 +339,40 @@ public class ProcessingMachineBlock extends Block implements EntityBlock {
         recipes.add(r(Kind.ELECTROLYTIC_CELL, EarthOnline.ELECTRODE_SHEET::get, "电极片装配电池单元", out(EarthOnline.SIMPLE_BATTERY_CELL::get, 1), out(EarthOnline.ELECTROLYTE::get, 1)));
 
         recipes.add(r(Kind.BALL_MILL, () -> Blocks.CLAY, "黏土粉磨", out(EarthOnline.CLAY_DUST::get, 4), out(EarthOnline.KAOLIN_DUST::get, 1), out(EarthOnline.ALUMINOSILICATE_DUST::get, 1)));
-        recipes.add(r(Kind.BALL_MILL, () -> Blocks.DIRT, "土壤筛磨提盐和黏土", out(EarthOnline.CLAY_DUST::get, 1), out(EarthOnline.SALT_DUST::get, 1), out(EarthOnline.TAILINGS_DUST::get, 2)));
+        recipes.add(r(Kind.BALL_MILL, () -> Blocks.DIRT, "普通土壤矿物和腐殖质分离", out(EarthOnline.CLAY_DUST::get, 1), out(EarthOnline.HUMUS_SAMPLE::get, 1), out(EarthOnline.SOIL_MINERAL_MIX::get, 1), out(EarthOnline.SALT_DUST::get, 1), out(EarthOnline.TAILINGS_DUST::get, 1)));
+        recipes.add(r(Kind.BALL_MILL, () -> Blocks.GRASS_BLOCK, "表土层采样和矿质分离", out(EarthOnline.HUMUS_SAMPLE::get, 2), out(EarthOnline.CLAY_DUST::get, 1), out(EarthOnline.SOIL_MINERAL_MIX::get, 1), out(EarthOnline.TAILINGS_DUST::get, 1)));
+        recipes.add(r(Kind.BALL_MILL, () -> Blocks.COARSE_DIRT, "粗颗粒土壤骨架分离", out(EarthOnline.SANDY_LOAM_SAMPLE::get, 2), out(EarthOnline.SOIL_MINERAL_MIX::get, 1), out(EarthOnline.TAILINGS_DUST::get, 1)));
+        recipes.add(r(Kind.BALL_MILL, () -> Blocks.ROOTED_DIRT, "根系土壤有机质分离", out(EarthOnline.HUMUS_SAMPLE::get, 2), out(EarthOnline.WOOD_CHIPS::get, 1), out(EarthOnline.CLAY_DUST::get, 1)));
+        recipes.add(r(Kind.BALL_MILL, () -> Blocks.PODZOL, "灰化土有机质和铝硅酸盐分离", out(EarthOnline.HUMUS_SAMPLE::get, 2), out(EarthOnline.ALUMINOSILICATE_DUST::get, 1), out(EarthOnline.SOIL_MINERAL_MIX::get, 1)));
+        recipes.add(r(Kind.BALL_MILL, () -> Blocks.MUD, "冲积泥质土分层", out(EarthOnline.ALLUVIAL_LOAM_SAMPLE::get, 2), out(EarthOnline.CLAY_DUST::get, 2), out(EarthOnline.HUMUS_SAMPLE::get, 1)));
+        recipes.add(r(Kind.BALL_MILL, () -> Items.LEAF_LITTER, "枯叶腐殖化和纤维回收", out(EarthOnline.HUMUS_SAMPLE::get, 2), out(EarthOnline.CELLULOSE_FIBER::get, 1)));
+        recipes.add(r(Kind.BALL_MILL, () -> Items.DEAD_BUSH, "枯灌木干质粉碎", out(EarthOnline.WOOD_CHIPS::get, 1), out(EarthOnline.POTASH::get, 1), out(EarthOnline.HUMUS_SAMPLE::get, 1)));
+        recipes.add(r(Kind.BALL_MILL, () -> Items.BUSH, "灌木生物质粉碎", out(EarthOnline.CELLULOSE_FIBER::get, 1), out(EarthOnline.HUMUS_SAMPLE::get, 1)));
+        recipes.add(r(Kind.BALL_MILL, () -> Items.SHORT_GRASS, "短草生物质粉碎", out(EarthOnline.HUMUS_SAMPLE::get, 1), out(EarthOnline.CELLULOSE_FIBER::get, 1)));
+        recipes.add(r(Kind.BALL_MILL, () -> Items.FERN, "蕨类生物质粉碎", out(EarthOnline.HUMUS_SAMPLE::get, 1), out(EarthOnline.CELLULOSE_FIBER::get, 1)));
+        recipes.add(r(Kind.BALL_MILL, () -> Items.DRY_SHORT_GRASS, "干草灰分和纤维回收", out(EarthOnline.CELLULOSE_FIBER::get, 1), out(EarthOnline.POTASH::get, 1)));
+        recipes.add(r(Kind.BALL_MILL, () -> Items.DRY_TALL_GRASS, "高干草灰分和纤维回收", out(EarthOnline.CELLULOSE_FIBER::get, 2), out(EarthOnline.POTASH::get, 1)));
         recipes.add(r(Kind.BALL_MILL, () -> Items.BONE_MEAL, "骨粉磷酸盐富集", out(EarthOnline.PHOSPHATE_ROCK_DUST::get, 2), out(EarthOnline.CALCITE_DUST::get, 1)));
         recipes.add(r(Kind.SIEVE, () -> Blocks.SAND, "砂中重矿物筛分", out(EarthOnline.SILICA_DUST::get, 3), out(EarthOnline.BAUXITE_DUST::get, 1), out(EarthOnline.TITANIUM_DIOXIDE::get, 1), out(EarthOnline.MONAZITE_SAND::get, 1), out(EarthOnline.CASSITERITE_DUST::get, 1), out(EarthOnline.TAILINGS_DUST::get, 1)));
+        recipes.add(r(Kind.SIEVE, () -> Blocks.RED_SAND, "红砂铁氧化物和重矿物筛分", out(EarthOnline.SILICA_DUST::get, 3), out(EarthOnline.HEMATITE_DUST::get, 1), out(EarthOnline.TITANIUM_DIOXIDE::get, 1), out(EarthOnline.TAILINGS_DUST::get, 1)));
+        recipes.add(r(Kind.SIEVE, () -> Blocks.GRAVEL, "沙砾河床沉积物筛分", out(EarthOnline.SILICA_DUST::get, 2), out(EarthOnline.CALCITE_DUST::get, 1), out(EarthOnline.MAFIC_SILICATE_DUST::get, 1), out(EarthOnline.HEMATITE_DUST::get, 1), out(EarthOnline.TAILINGS_DUST::get, 1)));
+        recipes.add(r(Kind.SIEVE, EarthOnline.SANDY_LOAM_SAMPLE::get, "砂质壤土颗粒级配", out(EarthOnline.SILICA_DUST::get, 2), out(EarthOnline.CLAY_DUST::get, 1), out(EarthOnline.HUMUS_SAMPLE::get, 1), out(EarthOnline.SOIL_MINERAL_MIX::get, 1)));
+        recipes.add(r(Kind.SIEVE, EarthOnline.ALLUVIAL_LOAM_SAMPLE::get, "冲积壤土矿物级配", out(EarthOnline.CLAY_DUST::get, 2), out(EarthOnline.CALCITE_DUST::get, 1), out(EarthOnline.HUMUS_SAMPLE::get, 1), out(EarthOnline.SALINE_SOIL_SAMPLE::get, 1)));
+        recipes.add(r(Kind.SIEVE, EarthOnline.SOIL_MINERAL_MIX::get, "土壤矿物混合物精筛", out(EarthOnline.ALUMINOSILICATE_DUST::get, 1), out(EarthOnline.CALCITE_DUST::get, 1), out(EarthOnline.SILICA_DUST::get, 1), out(EarthOnline.TAILINGS_DUST::get, 1)));
         recipes.add(r(Kind.CRYSTALLIZER, () -> Items.WATER_BUCKET, "盐水蒸发结晶", out(EarthOnline.BRINE_CRYSTAL::get, 1), out(() -> Items.BUCKET, 1)));
+        recipes.add(r(Kind.CRYSTALLIZER, EarthOnline.HARD_WATER_SAMPLE::get, "硬水蒸发结垢", out(EarthOnline.IRRIGATION_MINERAL_DEPOSIT::get, 1), out(EarthOnline.CALCITE_DUST::get, 1)));
+        recipes.add(r(Kind.LEACHING_TANK, EarthOnline.SALINE_SOIL_SAMPLE::get, "盐碱化土壤淋洗", out(EarthOnline.BRINE_CRYSTAL::get, 1), out(EarthOnline.CLAY_DUST::get, 1), out(EarthOnline.TAILINGS_DUST::get, 1)));
+        recipes.add(r(Kind.CHEMICAL_REACTOR, EarthOnline.IRRIGATION_MINERAL_DEPOSIT::get, "灌溉结垢沉积物酸解", out(EarthOnline.CALCITE_DUST::get, 1), out(EarthOnline.GYPSUM_DUST::get, 1), out(EarthOnline.SALT_DUST::get, 1)));
+        recipes.add(r(Kind.CHEMICAL_REACTOR, () -> Items.WILDFLOWERS, "野花植物色素浸提", out(() -> Items.DYE.yellow(), 2), out(EarthOnline.CELLULOSE_FIBER::get, 1), out(EarthOnline.HUMUS_SAMPLE::get, 1)));
+        recipes.add(r(Kind.CHEMICAL_REACTOR, () -> Items.PINK_PETALS, "粉色花瓣色素浸提", out(() -> Items.DYE.pink(), 2), out(EarthOnline.CELLULOSE_FIBER::get, 1)));
+        recipes.add(r(Kind.CHEMICAL_REACTOR, () -> Items.CACTUS_FLOWER, "仙人掌花色素和蜡质回收", out(() -> Items.DYE.pink(), 1), out(EarthOnline.NATURAL_LATEX::get, 1)));
+        recipes.add(r(Kind.CHEMICAL_REACTOR, () -> Items.KELP, "海藻灰碱盐提取", out(EarthOnline.SODA_ASH::get, 1), out(EarthOnline.POTASH::get, 1), out(EarthOnline.CELLULOSE_FIBER::get, 1)));
+        recipes.add(r(Kind.CHEMICAL_REACTOR, () -> Items.DRIED_KELP, "干海藻碱盐浓缩", out(EarthOnline.SODA_ASH::get, 1), out(EarthOnline.POTASH::get, 1)));
+        recipes.add(r(Kind.MIXER, EarthOnline.HUMUS_SAMPLE::get, "腐殖质和矿物质复配", out(EarthOnline.FERTILIZER_BLEND::get, 1), out(EarthOnline.SOIL_MINERAL_MIX::get, 1)));
+        recipes.add(r(Kind.FERTILIZER_GRANULATOR, EarthOnline.SOIL_MINERAL_MIX::get, "土壤矿物改良剂造粒", out(EarthOnline.FERTILIZER_BLEND::get, 1), out(EarthOnline.CALCITE_DUST::get, 1)));
+        recipes.add(r(Kind.POWDER_PRESS, EarthOnline.HUMUS_SAMPLE::get, "腐殖质压回可用表土", out(() -> Blocks.DIRT, 1)));
+        recipes.add(r(Kind.POWDER_PRESS, EarthOnline.SANDY_LOAM_SAMPLE::get, "砂质壤土整理为泥土", out(() -> Blocks.DIRT, 1), out(EarthOnline.SILICA_DUST::get, 1)));
+        recipes.add(r(Kind.POWDER_PRESS, EarthOnline.ALLUVIAL_LOAM_SAMPLE::get, "冲积壤土整理为泥巴", out(() -> Blocks.MUD, 1), out(EarthOnline.CLAY_DUST::get, 1)));
 
         recipes.add(r(Kind.LEACHING_TANK, EarthOnline.WOOD_CHIPS::get, "木质原料胶乳/纤维并行浸提", out(EarthOnline.NATURAL_LATEX::get, 1), out(EarthOnline.CELLULOSE_PULP::get, 1)));
         recipes.add(r(Kind.CHEMICAL_REACTOR, EarthOnline.NATURAL_LATEX::get, "天然胶乳凝聚", out(EarthOnline.RAW_RUBBER::get, 2), out(EarthOnline.SOFTENED_WATER::get, 1)));

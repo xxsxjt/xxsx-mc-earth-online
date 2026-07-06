@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "MM",
+    "MM"
+  ],
+  "key": {
+    "M": "earth_online:mineral_wool"
+  },
+  "result": {
+    "id": "minecraft:white_wool"
+  }
+}

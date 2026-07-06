@@ -1,6 +1,12 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "all": "earth_online:block/steam_cracker"
+    "particle": "earth_online:block/steam_cracker",
+    "down": "earth_online:block/steel_process_pipe",
+    "up": "earth_online:block/steel_process_pipe",
+    "north": "earth_online:block/steam_cracker",
+    "south": "earth_online:block/steam_cracker",
+    "west": "earth_online:block/steel_process_pipe",
+    "east": "earth_online:block/steel_process_pipe"
   }
 }

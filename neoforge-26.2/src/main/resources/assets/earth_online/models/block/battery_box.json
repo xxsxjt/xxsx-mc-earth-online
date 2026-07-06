@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "earth_online:block/industrial_machine_casing",
+    "down": "earth_online:block/industrial_machine_casing",
+    "up": "minecraft:block/redstone_block",
+    "north": "minecraft:block/redstone_block",
+    "south": "earth_online:block/industrial_machine_casing",
+    "west": "earth_online:block/industrial_machine_casing",
+    "east": "earth_online:block/industrial_machine_casing"
+  }
+}

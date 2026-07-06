@@ -19,9 +19,16 @@ public class MachineBlockItem extends BlockItem {
     }
 
     @Override
+    public Component getName(ItemStack stack) {
+        return Component.translatable(getBlock().getDescriptionId());
+    }
+
+    @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> lines, TooltipFlag flag) {
+        RouteGuide.addBeginnerShortcutTips(stack.getItem(), lines);
         lines.accept(Component.translatable(kind.descriptionKey()).withStyle(ChatFormatting.GRAY));
         lines.accept(Component.translatable("tooltip.earth_online.machine.use").withStyle(ChatFormatting.AQUA));
+        lines.accept(Component.translatable("tooltip.earth_online.machine.fuel").withStyle(ChatFormatting.YELLOW));
         lines.accept(Component.translatable(MachineMultiblock.patternFor(kind).descriptionKey()).withStyle(ChatFormatting.GREEN));
         lines.accept(Component.translatable("tooltip.earth_online.machine.redstone").withStyle(ChatFormatting.GREEN));
         lines.accept(Component.translatable("tooltip.earth_online.machine.routes", ProcessingMachineBlock.recipesFor(kind).size())

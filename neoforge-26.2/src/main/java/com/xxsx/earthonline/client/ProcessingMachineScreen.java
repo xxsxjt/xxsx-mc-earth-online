@@ -26,6 +26,7 @@ import java.util.List;
 public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingMachineMenu> {
     private static final Identifier BG_LOCATION = Identifier.fromNamespaceAndPath("earth_online", "textures/gui/container/processing_machine.png");
     private static final Identifier PROGRESS_SPRITE = Identifier.withDefaultNamespace("container/furnace/burn_progress");
+    private static final Identifier FUEL_SPRITE = Identifier.withDefaultNamespace("container/furnace/lit_progress");
     private static final int VANILLA_TEXT = 0xFF404040;
     private static final int MUTED = 0xFF606060;
     private static final int WARNING = 0xFFAA3322;
@@ -67,6 +68,7 @@ public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingM
     public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float delta) {
         super.extractBackground(g, mouseX, mouseY, delta);
         g.blit(RenderPipelines.GUI_TEXTURED, BG_LOCATION, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
+        drawFuel(g);
         drawProgress(g);
     }
 
@@ -81,7 +83,18 @@ public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingM
     protected void extractLabels(GuiGraphicsExtractor g, int mouseX, int mouseY) {
         g.text(this.font, trimmedTitle(), this.titleLabelX, this.titleLabelY, VANILLA_TEXT, false);
         g.text(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, VANILLA_TEXT, false);
-        g.text(this.font, statusLine(), 34, 60, statusColor(), false);
+        g.text(this.font, statusLine(), 76, 60, statusColor(), false);
+    }
+
+    private void drawFuel(GuiGraphicsExtractor g) {
+        if (this.menu.burnTimeTotal() <= 0) {
+            return;
+        }
+        int lit = Math.min(14, 14 * this.menu.burnTime() / this.menu.burnTimeTotal());
+        if (lit > 0) {
+            g.blitSprite(RenderPipelines.GUI_TEXTURED, FUEL_SPRITE, 14, 14, 0, 14 - lit,
+                    this.leftPos + 59, this.topPos + 59 + 14 - lit, 14, lit);
+        }
     }
 
     private void drawProgress(GuiGraphicsExtractor g) {
@@ -99,13 +112,19 @@ public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingM
 
         ItemStack input = this.menu.getSlot(ProcessingMachineBlockEntity.SLOT_INPUT).getItem();
         if (input.isEmpty()) {
-            return fit(localized("screen.earth_online.machine.empty_input"), 132);
+            return fit(localized("screen.earth_online.machine.empty_input"), 92);
         }
 
         return ProcessingMachineBlock.findRecipe(this.menu.kind(), input).map(recipe -> {
+            if (this.menu.gridPowered()) {
+                return fit(localized("screen.earth_online.machine.grid_powered") + " " + recipeSummary(recipe), 92);
+            }
+            if (!this.menu.hasBurningFuel() && !fuelSlotHasFuel()) {
+                return fit(localized("screen.earth_online.machine.missing_power"), 92);
+            }
             String note = recipeSummary(recipe);
-            return fit(note, 132);
-        }).orElseGet(() -> fit(localized("screen.earth_online.machine.unsupported_input"), 132));
+            return fit(note, 92);
+        }).orElseGet(() -> fit(localized("screen.earth_online.machine.unsupported_input"), 92));
     }
 
     private int statusColor() {
@@ -114,6 +133,9 @@ public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingM
         }
         ItemStack input = this.menu.getSlot(ProcessingMachineBlockEntity.SLOT_INPUT).getItem();
         if (!input.isEmpty() && ProcessingMachineBlock.findRecipe(this.menu.kind(), input).isEmpty()) {
+            return WARNING;
+        }
+        if (!input.isEmpty() && !this.menu.gridPowered() && !this.menu.hasBurningFuel() && !fuelSlotHasFuel()) {
             return WARNING;
         }
         return this.menu.active() ? 0xFF207030 : MUTED;
@@ -150,6 +172,14 @@ public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingM
             g.setComponentTooltipForNextFrame(this.font, List.of(
                     Component.translatable("screen.earth_online.machine.structure_missing"),
                     Component.translatable(pattern.screenKey())
+            ), mouseX, mouseY);
+        }
+        if (isHovering(38, 57, 18, 18, mouseX, mouseY)) {
+            g.setComponentTooltipForNextFrame(this.font, List.of(
+                    Component.translatable("screen.earth_online.machine.fuel"),
+                    Component.translatable("screen.earth_online.machine.fuel.tooltip"),
+                    Component.translatable("screen.earth_online.machine.energy.tooltip", this.menu.energyPerTick()),
+                    Component.translatable("screen.earth_online.machine.fuel.examples")
             ), mouseX, mouseY);
         }
     }
@@ -201,5 +231,10 @@ public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingM
 
     private static String localized(String key) {
         return Language.getInstance().getOrDefault(key);
+    }
+
+    private boolean fuelSlotHasFuel() {
+        ItemStack fuel = this.menu.getSlot(ProcessingMachineBlockEntity.SLOT_FUEL).getItem();
+        return ProcessingMachineBlockEntity.getFuelTicks(fuel) > 0;
     }
 }

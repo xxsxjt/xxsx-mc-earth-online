@@ -56,6 +56,12 @@ public class ProcessingMachineMenu extends AbstractContainerMenu {
                 return ProcessingMachineBlock.findRecipe(ProcessingMachineMenu.this.kind, stack).isPresent();
             }
         });
+        addSlot(new Slot(container, ProcessingMachineBlockEntity.SLOT_FUEL, 38, 57) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return ProcessingMachineBlockEntity.getFuelTicks(stack) > 0;
+            }
+        });
 
         int[][] outputSlots = {
                 {102, 20}, {120, 20}, {138, 20}, {156, 20},
@@ -96,6 +102,10 @@ public class ProcessingMachineMenu extends AbstractContainerMenu {
             }
         } else if (ProcessingMachineBlock.findRecipe(this.kind, stack).isPresent()) {
             if (!moveItemStackTo(stack, ProcessingMachineBlockEntity.SLOT_INPUT, ProcessingMachineBlockEntity.SLOT_INPUT + 1, false)) {
+                return ItemStack.EMPTY;
+            }
+        } else if (ProcessingMachineBlockEntity.getFuelTicks(stack) > 0) {
+            if (!moveItemStackTo(stack, ProcessingMachineBlockEntity.SLOT_FUEL, ProcessingMachineBlockEntity.SLOT_FUEL + 1, false)) {
                 return ItemStack.EMPTY;
             }
         } else if (index < PLAYER_INV_END) {
@@ -152,6 +162,26 @@ public class ProcessingMachineMenu extends AbstractContainerMenu {
 
     public boolean structureValid() {
         return data.get(4) != 0;
+    }
+
+    public int burnTime() {
+        return data.get(5);
+    }
+
+    public int burnTimeTotal() {
+        return Math.max(1, data.get(6));
+    }
+
+    public boolean hasBurningFuel() {
+        return burnTime() > 0;
+    }
+
+    public boolean gridPowered() {
+        return data.get(7) != 0;
+    }
+
+    public int energyPerTick() {
+        return ProcessingMachineBlockEntity.energyPerTick();
     }
 
     private static ProcessingMachineBlock.Kind kindFromClientLevel(Inventory inventory, BlockPos pos) {

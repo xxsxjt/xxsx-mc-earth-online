@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " S ",
+    " C ",
+    " S "
+  ],
+  "key": {
+    "S": "earth_online:steel_bloom",
+    "C": "minecraft:copper_ingot"
+  },
+  "result": {
+    "id": "earth_online:steel_process_pipe",
+    "count": 8
+  }
+}

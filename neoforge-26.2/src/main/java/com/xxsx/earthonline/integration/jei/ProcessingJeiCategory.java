@@ -73,13 +73,14 @@ public class ProcessingJeiCategory implements IRecipeCategory<ProcessingMachineB
     @Override
     public void draw(ProcessingMachineBlock.Recipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor graphics, double mouseX, double mouseY) {
         var font = Minecraft.getInstance().font;
-        graphics.text(font, kind.localizedDisplayName(), 4, 2, 0xFF84D3A5);
+        graphics.text(font, Component.translatable(kind.displayNameKey()), 4, 2, 0xFF84D3A5);
         graphics.text(font, "->", 44, 27, 0xFF9AA7A7);
+        graphics.text(font, Component.translatable("jei.earth_online.processing.fuel"), 4, 46, 0xFFE0B75A);
         String note = recipeNote(recipe);
-        if (font.width(note) > 156) {
-            note = font.plainSubstrByWidth(note, 153) + "...";
+        if (font.width(note) > 126) {
+            note = font.plainSubstrByWidth(note, 123) + "...";
         }
-        graphics.text(font, note, 4, 58, 0xFF9AA7A7);
+        graphics.text(font, note, 40, 58, 0xFF9AA7A7);
     }
 
     private static String recipeNote(ProcessingMachineBlock.Recipe recipe) {

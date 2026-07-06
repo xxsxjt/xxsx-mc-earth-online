@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "TRT",
+    "SPS"
+  ],
+  "key": {
+    "T": "minecraft:redstone_torch",
+    "R": "minecraft:redstone",
+    "S": "minecraft:stone",
+    "P": "earth_online:printed_circuit_board"
+  },
+  "result": {
+    "id": "minecraft:repeater",
+    "count": 2
+  }
+}

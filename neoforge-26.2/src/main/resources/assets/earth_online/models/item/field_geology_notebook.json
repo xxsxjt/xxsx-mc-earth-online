@@ -1,4 +1,6 @@
 {
   "parent": "minecraft:item/generated",
-  "textures": { "layer0": "earth_online:item/field_geology_notebook" }
+  "textures": {
+    "layer0": "earth_online:item/field_geology_notebook"
+  }
 }

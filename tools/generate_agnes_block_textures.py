@@ -28,6 +28,19 @@ MODEL = "agnes-image-2.1-flash"
 ENDPOINT = "https://apihub.agnes-ai.com/v1/images/generations"
 
 BLOCKS = {
+    "poor_magnetite_ore": ("poor magnetite ore in dark gray deepslate, sparse black metallic Fe3O4 crystals, subtle rusty brown iron oxide staining, realistic ore block"),
+    "magnetite_ore": ("magnetite ore block, dark graphite-black metallic Fe3O4 crystals embedded in stone, strong readable mineral clusters, realistic geology texture"),
+    "rich_magnetite_ore": ("rich magnetite ore block, dense black metallic Fe3O4 bands with reddish iron oxide highlights, high-grade iron ore lens texture"),
+    "chalcopyrite_ore": ("chalcopyrite ore block, brass-gold CuFeS2 crystals with slight iridescent tarnish embedded in gray host rock, realistic copper sulfide ore"),
+    "auriferous_quartz_vein": ("auriferous quartz vein block, milky white quartz with tiny native gold specks and gray host-rock cracks, realistic hydrothermal vein"),
+    "bituminous_coal_seam": ("bituminous coal-bearing sedimentary rock block, glossy black coal bands embedded in dark shale, volatile-rich layered deposit, realistic geology texture"),
+    "anthracite_coal_seam": ("anthracite coal-bearing sedimentary rock block, hard shiny high-carbon coal lenses in dense dark host rock, clean conchoidal highlights, realistic geology texture"),
+    "kimberlite": ("kimberlite block, green-gray volcanic breccia with dark mantle fragments, realistic igneous pipe texture"),
+    "diamondiferous_kimberlite": ("diamondiferous kimberlite block, green-gray kimberlite breccia with rare pale diamond glints, realistic ore-bearing pipe texture"),
+    "lapis_lazuli_ore": ("lapis lazuli ore block, deep blue lazurite patches with white calcite and golden pyrite specks in host rock, realistic mineral texture"),
+    "emerald_beryl_vein": ("emerald beryl vein block, green beryl crystals in pale quartz-feldspar pegmatite, realistic gem vein texture"),
+    "redstone_mineral_ore": ("redstone mineral ore block, red cinnabar-like and hematite-like mineral grains in dark host rock, subtle glow-free realistic texture"),
+    "cinnabar_vein": ("cinnabar vein block, vivid red HgS mineral vein in pale carbonate rock, realistic hydrothermal vein texture"),
     "jaw_crusher": ("modern jaw crusher module, matte graphite steel enclosure, two clean toothed jaws, hydraulic side cylinders, industrial sensor strips"),
     "ball_mill": ("modern ball mill module, enclosed rotating drum behind maintenance glass, brushed steel panels, precision bearing housings"),
     "sieve": ("modern vibrating sieve module, stainless mesh screen, compact vibration dampers, clean green-gray industrial housing"),
@@ -88,12 +101,12 @@ def prompt_for(block_id: str, descriptor: str) -> str:
         "Create one polished Minecraft mod block texture for Earth Online.\n"
         f"Block id: {block_id}\n"
         f"Subject: {descriptor}.\n"
-        "Style: high-quality modern Minecraft mod block texture, 128x128 or higher source detail, orthographic square front view, "
-        "clean contemporary chemical plant equipment, not retro, not steampunk, not medieval, not rusty, not cartoonish, "
-        "readable silhouette at small in-game scale, industrial realism, crisp pixel shapes, strong contrast, no text, "
+        "Style: high-quality modern Minecraft mod block texture, 128x128 or higher source detail, orthographic square texture view, "
+        "clean contemporary industrial or realistic geology art, not retro, not steampunk, not medieval, not rusty, not cartoonish, "
+        "readable silhouette at small in-game scale, crisp pixel shapes, strong contrast, no text, "
         "no letters, no pseudo-letters, no numbers, no labels, no watermark, no UI, no inventory mockup.\n"
-        "Composition: centered machine face or block surface, fills most of the square, clear iconic feature, "
-        "subtle material detail, clean panel seams, soft ambient occlusion, no perspective scene, no background outside the texture.\n"
+        "Composition: centered machine face or natural block surface, fills the square, clear iconic feature, "
+        "subtle material detail, clean edges or mineral bands, soft ambient occlusion, no perspective scene, no background outside the texture.\n"
         "Output should be a single seamless-ish square texture suitable for a Minecraft block face."
     )
 
