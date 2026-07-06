@@ -1,20 +1,27 @@
 package com.xxsx.earthonline;
 
 import com.mojang.logging.LogUtils;
+import com.xxsx.earthonline.client.EarthOnlineClient;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.RegisterEvent;
@@ -30,8 +37,11 @@ public class EarthOnline {
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MODID);
+    public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(Registries.MENU, MODID);
 
     private static final List<ItemLike> TAB_ITEMS = new ArrayList<>();
+    private static final List<DeferredBlock<ProcessingMachineBlock>> MACHINE_BLOCKS = new ArrayList<>();
 
     public static final DeferredBlock<Block> POOR_MAGNETITE_ORE = oreBlock("poor_magnetite_ore", MapColor.DEEPSLATE, 3.5F);
     public static final DeferredBlock<Block> MAGNETITE_ORE = oreBlock("magnetite_ore", MapColor.COLOR_BLACK, 4.0F);
@@ -68,6 +78,13 @@ public class EarthOnline {
     public static final DeferredBlock<ProcessingMachineBlock> STEAM_CRACKER = machineBlock("steam_cracker", ProcessingMachineBlock.Kind.STEAM_CRACKER);
     public static final DeferredBlock<ProcessingMachineBlock> SYNTHESIS_LOOP = machineBlock("synthesis_loop", ProcessingMachineBlock.Kind.SYNTHESIS_LOOP);
     public static final DeferredBlock<ProcessingMachineBlock> ABSORPTION_TOWER = machineBlock("absorption_tower", ProcessingMachineBlock.Kind.ABSORPTION_TOWER);
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ProcessingMachineBlockEntity>> PROCESSING_MACHINE_BLOCK_ENTITY =
+            BLOCK_ENTITY_TYPES.register("processing_machine", () -> new BlockEntityType<>(
+                    ProcessingMachineBlockEntity::new,
+                    MACHINE_BLOCKS.stream().map(DeferredBlock::get).toArray(Block[]::new)));
+    public static final DeferredHolder<MenuType<?>, MenuType<ProcessingMachineMenu>> PROCESSING_MACHINE_MENU =
+            MENUS.register("processing_machine", () -> IMenuTypeExtension.create(ProcessingMachineMenu::new));
 
     public static final DeferredItem<Item> MAGNETITE_CHUNK = item("magnetite_chunk");
     public static final DeferredItem<Item> CHALCOPYRITE_CHUNK = item("chalcopyrite_chunk");
@@ -277,7 +294,12 @@ public class EarthOnline {
     public EarthOnline(IEventBus modBus) {
         BLOCKS.register(modBus);
         ITEMS.register(modBus);
+        BLOCK_ENTITY_TYPES.register(modBus);
+        MENUS.register(modBus);
         modBus.addListener(this::registerCreativeTab);
+        if (FMLEnvironment.getDist() == Dist.CLIENT) {
+            EarthOnlineClient.register(modBus);
+        }
         LOGGER.info("[Earth Online] NeoForge 26.2 module loaded");
     }
 
@@ -305,6 +327,7 @@ public class EarthOnline {
                 props -> new MachineBlockItem(block.get(), props, kind),
                 props -> props);
         TAB_ITEMS.add(item);
+        MACHINE_BLOCKS.add(block);
         return block;
     }
 

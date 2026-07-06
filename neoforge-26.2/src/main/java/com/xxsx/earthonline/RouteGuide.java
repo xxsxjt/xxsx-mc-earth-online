@@ -43,7 +43,7 @@ public final class RouteGuide {
             lines.accept(Component.literal("下一步：放入 " + joinMachines(route.next(), 4)).withStyle(ChatFormatting.AQUA));
             lines.accept(Component.literal("示例产出：" + describeOutputs(route.next().get(0))).withStyle(ChatFormatting.GRAY));
             if (uniqueMachineCount(route.next()) > 1) {
-                lines.accept(Component.literal("有多条路线，空手右键对应机器或用 JEI 查看。").withStyle(ChatFormatting.DARK_GRAY));
+                lines.accept(Component.literal("有多条路线，右键对应机器或用 JEI 查看。").withStyle(ChatFormatting.DARK_GRAY));
             }
         }
 

@@ -21,8 +21,8 @@ public class MachineBlockItem extends BlockItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> lines, TooltipFlag flag) {
         lines.accept(Component.literal(kind.description()).withStyle(ChatFormatting.GRAY));
-        lines.accept(Component.literal("空手右键：打开配方界面。").withStyle(ChatFormatting.AQUA));
-        lines.accept(Component.literal("手持输入右键：直接处理 1 个材料。").withStyle(ChatFormatting.GREEN));
+        lines.accept(Component.literal("右键：打开机器界面，像熔炉一样放入材料。").withStyle(ChatFormatting.AQUA));
+        lines.accept(Component.literal("可切换红石模式：持续工作 / 有信号才工作 / 无信号才工作。").withStyle(ChatFormatting.GREEN));
         lines.accept(Component.literal("当前内置路线：" + ProcessingMachineBlock.recipesFor(kind).size() + " 条，可配合 JEI 查询。")
                 .withStyle(ChatFormatting.DARK_GRAY));
     }

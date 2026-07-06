@@ -1,29 +1,33 @@
 package com.xxsx.earthonline;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public class ProcessingMachineBlock extends Block {
+public class ProcessingMachineBlock extends Block implements EntityBlock {
     private static final List<Recipe> RECIPES = createRecipes();
 
     private final Kind kind;
@@ -35,68 +39,37 @@ public class ProcessingMachineBlock extends Block {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.isClientSide()) {
-            openClientMachineScreen(this.kind, pos);
-            return InteractionResult.SUCCESS;
-        }
-        return InteractionResult.SUCCESS_SERVER;
+        return openMachine(level, pos, player);
     }
 
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (stack.isEmpty()) {
-            if (level.isClientSide()) {
-                openClientMachineScreen(this.kind, pos);
-                return InteractionResult.SUCCESS;
-            }
-            return InteractionResult.SUCCESS_SERVER;
-        }
-
-        if (level.isClientSide()) {
-            return InteractionResult.SUCCESS;
-        }
-
-        Optional<Recipe> match = RECIPES.stream()
-                .filter(recipe -> recipe.kind == this.kind && stack.getItem() == recipe.input.get().asItem())
-                .findFirst();
-
-        if (match.isEmpty()) {
-            player.sendSystemMessage(Component.literal("[地球 Online] ")
-                    .withStyle(ChatFormatting.GOLD)
-                    .append(Component.literal(this.kind.displayName + "暂时不能处理：").withStyle(ChatFormatting.GRAY))
-                    .append(stack.getItemName()));
-            player.sendSystemMessage(Component.literal("空手右键机器可查看可处理材料。").withStyle(ChatFormatting.DARK_GRAY));
-            return InteractionResult.SUCCESS_SERVER;
-        }
-
-        Recipe recipe = match.get();
-        if (!player.getAbilities().instabuild) {
-            stack.shrink(1);
-        }
-        recipe.outputs.forEach(output -> give(player, new ItemStack(output.item.get().asItem(), output.count)));
-        level.playSound(null, pos, SoundEvents.GRINDSTONE_USE, SoundSource.BLOCKS, 0.8F, 1.0F);
-
-        player.sendSystemMessage(Component.literal("[地球 Online] ")
-                .withStyle(ChatFormatting.GOLD)
-                .append(Component.literal(recipe.note + ": ").withStyle(ChatFormatting.GREEN))
-                .append(Component.literal(describeOutputs(recipe.outputs)).withStyle(ChatFormatting.WHITE)));
-        return InteractionResult.SUCCESS_SERVER;
+        return openMachine(level, pos, player);
     }
 
-    private void sendHelp(Player player) {
-        player.sendSystemMessage(Component.literal("== " + this.kind.displayName + " ==")
-                .withStyle(ChatFormatting.AQUA));
-        player.sendSystemMessage(Component.literal(this.kind.description).withStyle(ChatFormatting.GRAY));
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new ProcessingMachineBlockEntity(pos, state);
+    }
 
-        List<String> examples = RECIPES.stream()
-                .filter(recipe -> recipe.kind == this.kind)
-                .limit(6)
-                .map(recipe -> new ItemStack(recipe.input.get().asItem()).getItemName().getString() + " -> " + describeOutputs(recipe.outputs))
-                .toList();
-        examples.forEach(line -> player.sendSystemMessage(Component.literal("  " + line).withStyle(ChatFormatting.DARK_GREEN)));
-        if (examples.isEmpty()) {
-            player.sendSystemMessage(Component.literal("  这台机器还没有处理路线。").withStyle(ChatFormatting.DARK_GRAY));
+    @Override
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+        if (level.isClientSide()) {
+            return null;
         }
+        return blockEntityType == EarthOnline.PROCESSING_MACHINE_BLOCK_ENTITY.get()
+                ? (tickerLevel, pos, tickerState, blockEntity) -> ProcessingMachineBlockEntity.serverTick(tickerLevel, pos, tickerState, (ProcessingMachineBlockEntity) blockEntity)
+                : null;
+    }
+
+    @Override
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        if (level.getBlockEntity(pos) instanceof ProcessingMachineBlockEntity machine) {
+            Containers.dropContents(level, pos, (Container) machine);
+            level.updateNeighbourForOutputSignal(pos, this);
+        }
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 
     public static List<Recipe> recipes() {
@@ -107,22 +80,30 @@ public class ProcessingMachineBlock extends Block {
         return RECIPES.stream().filter(recipe -> recipe.kind == kind).toList();
     }
 
-    private static void openClientMachineScreen(Kind kind, BlockPos pos) {
-        try {
-            Class.forName("com.xxsx.earthonline.client.EarthOnlineClient")
-                    .getMethod("openMachine", Kind.class, BlockPos.class)
-                    .invoke(null, kind, pos);
-        } catch (ReflectiveOperationException ignored) {
+    public static Optional<Recipe> findRecipe(Kind kind, ItemStack stack) {
+        if (stack.isEmpty()) {
+            return Optional.empty();
         }
+        return RECIPES.stream()
+                .filter(recipe -> recipe.kind == kind && stack.getItem() == recipe.input.get().asItem())
+                .findFirst();
     }
 
-    private static void give(Player player, ItemStack stack) {
-        if (!player.addItem(stack)) {
-            player.drop(stack, false);
-        }
+    public Kind kind() {
+        return this.kind;
     }
 
-    private static String describeOutputs(List<Output> outputs) {
+    private InteractionResult openMachine(Level level, BlockPos pos, Player player) {
+        if (level.isClientSide()) {
+            return InteractionResult.SUCCESS;
+        }
+        if (player instanceof ServerPlayer serverPlayer && level.getBlockEntity(pos) instanceof ProcessingMachineBlockEntity machine) {
+            serverPlayer.openMenu(machine, buf -> buf.writeBlockPos(pos));
+        }
+        return InteractionResult.SUCCESS_SERVER;
+    }
+
+    public static String describeOutputs(List<Output> outputs) {
         List<String> names = new ArrayList<>();
         for (Output output : outputs) {
             ItemStack stack = new ItemStack(output.item.get().asItem(), output.count);

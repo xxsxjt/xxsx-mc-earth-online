@@ -1,6 +1,5 @@
 package com.xxsx.earthonline.client;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -16,15 +15,17 @@ import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class FieldGeologyNotebookScreen extends Screen {
-    private static final int BG = 0xEE1A1710;
-    private static final int PAPER = 0xFFE9D9B8;
-    private static final int PAPER_DARK = 0xFFD2B987;
-    private static final int INK = 0xFF2A2118;
-    private static final int MUTED = 0xFF6A5740;
-    private static final int GREEN = 0xFF2F6B45;
-    private static final int RED = 0xFF8A352A;
-    private static final int BLUE = 0xFF265C7A;
-    private static final int GOLD = 0xFF9B6A1A;
+    private static final int PAPER = 0xFFF0DFBA;
+    private static final int PAPER_EDGE = 0xFFD6B77D;
+    private static final int PAPER_SOFT = 0xFFFFEBC4;
+    private static final int INK = 0xFF2B2117;
+    private static final int INK_SOFT = 0xFF3C2F20;
+    private static final int MUTED = 0xFF755F42;
+    private static final int GREEN = 0xFF2D6841;
+    private static final int RED = 0xFF8B372C;
+    private static final int BLUE = 0xFF255A78;
+    private static final int GOLD = 0xFF956215;
+    private static final int LINE_HEIGHT = 12;
 
     private final List<Page> pages = createPages();
     private final List<Button> tabButtons = new ArrayList<>();
@@ -83,12 +84,16 @@ public class FieldGeologyNotebookScreen extends Screen {
         int bw = bookWidth();
         int bh = bookHeight();
 
-        g.fill(left, top, left + bw, top + bh, PAPER);
+        g.fill(left, top, left + bw, top + bh, PAPER_EDGE);
+        g.fill(left + 3, top + 3, left + bw - 3, top + bh - 3, PAPER);
+        g.fill(left + 8, top + 32, contentLeft() - 8, top + bh - 36, 0x18FFFFFF);
+        g.fill(contentLeft() - 10, top + 36, left + bw - 12, top + bh - 38, PAPER_SOFT);
         g.outline(left, top, bw, bh, 0xFF50351F);
-        g.fill(left + 4, top + 4, left + bw - 4, top + 18, 0x332A2118);
-        g.fill(left + 112, top + 26, left + 113, top + bh - 36, 0x553B2A1B);
+        g.outline(contentLeft() - 10, top + 36, left + bw - contentLeft() - 2, bh - 74, 0x3050351F);
+        g.fill(contentLeft() - 18, top + 24, contentLeft() - 17, top + bh - 34, 0x553B2A1B);
+        g.fill(left + 4, top + 4, left + bw - 4, top + 20, 0x1F2A2118);
 
-        drawCentered(g, "地球 Online 野外地质手册", left + bw / 2, top + 8, INK);
+        drawCenteredTitle(g, "地球 Online 野外地质手册", left + bw / 2, top + 8, INK);
         draw(g, "给不懂技术的玩家：照路线做，不用先背化学。", left + 14, top + 24, MUTED);
         draw(g, "第 " + (page + 1) + " / " + pages.size() + " 页", left + bw - 70, top + 24, MUTED);
 
@@ -99,19 +104,30 @@ public class FieldGeologyNotebookScreen extends Screen {
         int contentY = top + 46;
         int contentW = contentWidth();
         int contentH = Math.max(80, bh - 84);
-        g.fill(contentX - 8, contentY - 8, contentX + contentW + 8, contentY + contentH + 6, 0x18FFFFFF);
-        g.outline(contentX - 8, contentY - 8, contentW + 16, contentH + 14, 0x3050351F);
-
-        draw(g, current.title, contentX, contentY - 2, current.color);
+        g.fill(contentX - 6, contentY - 6, contentX + contentW - 2, contentY + 14, 0x20FFFFFF);
+        g.fill(contentX - 6, contentY - 6, contentX - 2, contentY + 14, current.color);
+        drawHeading(g, current.title, contentX, contentY - 3, current.color);
+        g.fill(contentX, contentY + 12, contentX + Math.min(contentW, 146), contentY + 13, current.color);
         List<Line> wrapped = wrap(current);
         int visible = visibleLines(contentH);
         int maxScroll = Math.max(0, wrapped.size() - visible);
         scroll = Math.max(0, Math.min(scroll, maxScroll));
-        int y = contentY + 16;
+        int y = contentY + 18;
         for (int i = scroll; i < Math.min(wrapped.size(), scroll + visible); i++) {
             Line line = wrapped.get(i);
-            g.text(font, line.text, contentX + line.indent, y, line.color);
-            y += 10;
+            if (line.blank) {
+                y += 4;
+                continue;
+            }
+            if (line.heading) {
+                g.fill(contentX + line.indent - 3, y - 1, contentX + contentW - 6, y + 10, 0x16FFFFFF);
+                g.fill(contentX + line.indent - 3, y - 1, contentX + line.indent, y + 10, line.color);
+                g.text(font, line.text, contentX + line.indent + 4, y, line.color, true);
+            } else {
+                g.fill(contentX + line.indent - 5, y + 4, contentX + line.indent - 2, y + 7, current.color);
+                g.text(font, line.text, contentX + line.indent, y, line.color, false);
+            }
+            y += LINE_HEIGHT;
         }
 
         if (maxScroll > 0) {
@@ -124,7 +140,7 @@ public class FieldGeologyNotebookScreen extends Screen {
             g.fill(barX, knobY, barX + 3, knobY + knobH, 0xAA50351F);
         }
 
-        draw(g, "滚轮可上下阅读；右键机器可查看可处理材料。", contentX, top + bh - 17, MUTED);
+        draw(g, "滚轮阅读；机器现在像熔炉一样放材料进槽位。", contentX, top + bh - 17, MUTED);
     }
 
     @Override
@@ -177,27 +193,27 @@ public class FieldGeologyNotebookScreen extends Screen {
         int width = contentWidth();
         for (Entry entry : current.entries) {
             if (entry.text.isBlank()) {
-                result.add(new Line(FormattedCharSequence.EMPTY, 0, INK));
+                result.add(new Line(FormattedCharSequence.EMPTY, 0, INK_SOFT, false, true));
                 continue;
             }
             int lineWidth = Math.max(30, width - entry.indent);
             for (FormattedCharSequence seq : font.split(FormattedText.of(entry.text), lineWidth)) {
-                result.add(new Line(seq, entry.indent, entry.color));
+                result.add(new Line(seq, entry.indent, entry.color, entry.heading, false));
             }
         }
         return result;
     }
 
     private int visibleLines(int contentH) {
-        return Math.max(5, (contentH - 22) / 10);
+        return Math.max(5, (contentH - 24) / LINE_HEIGHT);
     }
 
     private int bookWidth() {
-        return Math.min(520, Math.max(300, this.width - 24));
+        return Math.min(560, Math.max(320, this.width - 18));
     }
 
     private int bookHeight() {
-        return Math.min(310, Math.max(210, this.height - 24));
+        return Math.min(336, Math.max(224, this.height - 18));
     }
 
     private int bookLeft() {
@@ -220,11 +236,17 @@ public class FieldGeologyNotebookScreen extends Screen {
     }
 
     private void draw(GuiGraphicsExtractor g, String text, int x, int y, int color) {
-        g.text(font, text, x, y, color);
+        g.text(font, text, x, y, color, false);
     }
 
-    private void drawCentered(GuiGraphicsExtractor g, String text, int x, int y, int color) {
+    private void drawCenteredTitle(GuiGraphicsExtractor g, String text, int x, int y, int color) {
+        g.centeredText(font, text, x + 1, y + 1, 0x55351F10);
         g.centeredText(font, text, x, y, color);
+    }
+
+    private void drawHeading(GuiGraphicsExtractor g, String text, int x, int y, int color) {
+        g.text(font, text, x + 1, y + 1, 0x55351F10, false);
+        g.text(font, text, x, y, color, false);
     }
 
     private static List<Page> createPages() {
@@ -235,7 +257,7 @@ public class FieldGeologyNotebookScreen extends Screen {
                 "",
                 "手册获取：一块泥土、任意木板或任意石头都能合成野外地质手册。",
                 "新玩家只需要记住一条线：挖矿床 -> 机器处理 -> 得到原版兼容产物。",
-                "空手右键机器会显示示例；拿材料右键机器会处理 1 个材料并给出多种产物。"));
+                "右键机器会打开像熔炉一样的界面；把材料放入输入格，机器会自动把多种产物放到输出格。"));
 
         result.add(page("索引", "2. 手里有这个，该去哪？", GOLD,
                 "矿床/矿石方块：先去颚式破碎机。它负责把大块自然来源变成可继续处理的碎块。",
@@ -263,7 +285,7 @@ public class FieldGeologyNotebookScreen extends Screen {
                 "压粉机：把粉末或精矿压回 MC 物品，减少背包折磨。",
                 "化工机器：反应釜、精馏塔、混合机、结晶器、工业窑炉、气体分离器、肥料造粒机、聚合釜。",
                 "新增化工设备：蒸汽裂解炉、合成塔、吸收塔，用来支撑塑料、合成氨、尿素、酸气吸收等路线。",
-                "空手右键任何机器都会打开该机器的配方界面；JEI 也会显示 Earth Online 工业处理分类。"));
+                "右键任何机器都会打开该机器界面；JEI 也会显示 Earth Online 工业处理分类。"));
 
         result.add(page("铁铜", "4. 铁和铜路线", RED,
                 "铁：",
@@ -458,8 +480,8 @@ public class FieldGeologyNotebookScreen extends Screen {
                 "耐火砖、陶瓷绝缘件、陶瓷基板后续会成为高级炉、反应釜和电子机器升级材料。"));
 
         result.add(page("后续", "23. 后续会怎么扩展？", MUTED,
-                "现在的机器有 GUI 和 JEI 联动，但仍是无电力、即点即处理的第一版原型，目的是先让真实流程能玩、能测试。",
-                "后续可以升级为：输入/输出槽、处理时间、能耗、催化剂、流体、污染/热量、自动化接口。",
+                "现在的机器已有输入/输出槽、处理时间、红石三模式、GUI 和 JEI 联动，目的是先让真实流程能玩、能测试。",
+                "后续可以升级为：多输入配比、能耗、催化剂、流体、污染/热量、自动化接口。",
                 "常见科技/魔法 mod 的联动不应塞进原版核心文档，而应走单独的兼容模块或数据驱动查询。",
                 "兼容原则：自然来源和处理流程真实化，最终产物继续走原版标签和原版物品，最大限度兼容整合包。"));
         return List.copyOf(result);
@@ -468,9 +490,10 @@ public class FieldGeologyNotebookScreen extends Screen {
     private static Page page(String shortTitle, String title, int color, String... lines) {
         List<Entry> entries = new ArrayList<>();
         for (String line : lines) {
-            int indent = line.startsWith("->") ? 10 : 0;
-            int lineColor = line.endsWith("：") ? color : INK;
-            entries.add(new Entry(line, indent, lineColor));
+            boolean heading = !line.isBlank() && (line.endsWith("：") || line.length() <= 5 && line.endsWith(":"));
+            int indent = heading || line.isBlank() ? 0 : line.startsWith("->") ? 16 : 10;
+            int lineColor = heading ? color : INK_SOFT;
+            entries.add(new Entry(line, indent, lineColor, heading));
         }
         return new Page(shortTitle, title, color, List.copyOf(entries));
     }
@@ -478,9 +501,9 @@ public class FieldGeologyNotebookScreen extends Screen {
     private record Page(String shortTitle, String title, int color, List<Entry> entries) {
     }
 
-    private record Entry(String text, int indent, int color) {
+    private record Entry(String text, int indent, int color, boolean heading) {
     }
 
-    private record Line(FormattedCharSequence text, int indent, int color) {
+    private record Line(FormattedCharSequence text, int indent, int color, boolean heading, boolean blank) {
     }
 }

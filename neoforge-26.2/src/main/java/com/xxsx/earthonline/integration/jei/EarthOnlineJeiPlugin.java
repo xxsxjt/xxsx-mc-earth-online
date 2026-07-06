@@ -104,8 +104,8 @@ public class EarthOnlineJeiPlugin implements IModPlugin {
         registration.addItemStackInfo(new ItemStack(item.asItem()),
                 line(kind.displayName(), ChatFormatting.GOLD),
                 line(kind.description(), ChatFormatting.GRAY),
-                line("空手右键：打开这台机器的配方界面。", ChatFormatting.AQUA),
-                line("手持输入右键：直接处理 1 个材料。", ChatFormatting.GREEN),
+                line("右键：打开机器界面，把输入材料放入左侧槽位。", ChatFormatting.AQUA),
+                line("红石模式：持续工作 / 有信号才工作 / 无信号才工作。", ChatFormatting.GREEN),
                 line("JEI 工业处理分类中也能查看它的全部路线，共 " + ProcessingMachineBlock.recipesFor(kind).size() + " 条。", ChatFormatting.DARK_GRAY));
     }
 

@@ -1,194 +1,187 @@
 package com.xxsx.earthonline.client;
 
 import com.xxsx.earthonline.ProcessingMachineBlock;
+import com.xxsx.earthonline.ProcessingMachineBlockEntity;
+import com.xxsx.earthonline.ProcessingMachineMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-public class ProcessingMachineScreen extends Screen {
-    private static final int BG = 0xEE101417;
-    private static final int PANEL = 0xFF253036;
-    private static final int PANEL_2 = 0xFF314149;
-    private static final int TEXT = 0xFFE7E1D3;
-    private static final int MUTED = 0xFF9AA7A7;
+public class ProcessingMachineScreen extends AbstractContainerScreen<ProcessingMachineMenu> {
+    private static final int PANEL = 0xFF313736;
+    private static final int PANEL_DARK = 0xFF202725;
+    private static final int PANEL_SOFT = 0xFF3E4744;
+    private static final int SLOT = 0xFF68716E;
+    private static final int SLOT_INNER = 0xFF101615;
+    private static final int TEXT = 0xFFE9E0CF;
+    private static final int MUTED = 0xFFA8B0AA;
     private static final int ACCENT = 0xFF84D3A5;
-    private static final int OUTPUT = 0xFFFFCF6A;
+    private static final int WARNING = 0xFFFFCF6A;
+    private static final int BAR_BG = 0xFF3B4648;
+    private static final int BAR = 0xFF69C58F;
 
-    private final ProcessingMachineBlock.Kind kind;
-    private final BlockPos pos;
-    private final List<ProcessingMachineBlock.Recipe> recipes;
-    private int scroll;
-    private String status = "提示：主手拿材料，点击按钮或直接右键机器即可处理。";
+    private final List<Button> redstoneButtons = new ArrayList<>();
 
-    public ProcessingMachineScreen(ProcessingMachineBlock.Kind kind, BlockPos pos) {
-        super(Component.literal(kind.displayName()));
-        this.kind = kind;
-        this.pos = pos;
-        this.recipes = ProcessingMachineBlock.recipesFor(kind);
+    public ProcessingMachineScreen(ProcessingMachineMenu menu, Inventory inventory, Component title) {
+        super(menu, inventory, title, 206, 206);
+        this.titleLabelX = 8;
+        this.titleLabelY = 8;
+        this.inventoryLabelX = 18;
+        this.inventoryLabelY = 100;
     }
 
     @Override
     protected void init() {
-        int left = left();
-        int pw = panelWidth();
-        int bottom = top() + panelHeight() - 28;
-        int gap = 6;
-        int closeW = 54;
-        int bookW = 76;
-        int processW = Math.min(116, Math.max(96, pw - 28 - bookW - closeW - gap * 2));
-        int x = left + 14;
-        addRenderableWidget(Button.builder(Component.literal("处理主手物品"), b -> processHeldItem())
-                .bounds(x, bottom, processW, 20)
+        super.init();
+        redstoneButtons.clear();
+        addRedstoneButton(8, "常开", ProcessingMachineMenu.BUTTON_REDSTONE_ALWAYS);
+        addRedstoneButton(70, "有信号", ProcessingMachineMenu.BUTTON_REDSTONE_REQUIRE_SIGNAL);
+        addRedstoneButton(132, "无信号", ProcessingMachineMenu.BUTTON_REDSTONE_REQUIRE_NO_SIGNAL);
+
+        addRenderableWidget(Button.builder(Component.literal("手册"), button -> {
+                    this.onClose();
+                    EarthOnlineClient.openNotebook();
+                })
+                .bounds(this.leftPos + this.imageWidth - 50, this.topPos + 4, 42, 18)
                 .build());
-        addRenderableWidget(Button.builder(Component.literal("打开手册"), b -> EarthOnlineClient.openNotebook())
-                .bounds(x + processW + gap, bottom, bookW, 20)
-                .build());
-        addRenderableWidget(Button.builder(Component.literal("关闭"), b -> onClose())
-                .bounds(left + pw - 14 - closeW, bottom, closeW, 20)
-                .build());
+        syncRedstoneButtons();
+    }
+
+    @Override
+    protected void containerTick() {
+        super.containerTick();
+        syncRedstoneButtons();
     }
 
     @Override
     public void extractRenderState(GuiGraphicsExtractor g, int mouseX, int mouseY, float delta) {
-        g.fill(0, 0, this.width, this.height, 0xC0000000);
-        int left = left();
-        int top = top();
-        int pw = panelWidth();
-        int ph = panelHeight();
+        g.fill(0, 0, this.width, this.height, 0xB8000000);
+        g.fill(this.leftPos, this.topPos, this.leftPos + this.imageWidth, this.topPos + this.imageHeight, PANEL);
+        g.outline(this.leftPos, this.topPos, this.imageWidth, this.imageHeight, 0xFF6D7A7C);
+        g.fill(this.leftPos + 4, this.topPos + 4, this.leftPos + this.imageWidth - 4, this.topPos + 22, PANEL_DARK);
+        g.fill(this.leftPos + 8, this.topPos + 27, this.leftPos + 63, this.topPos + 69, PANEL_SOFT);
+        g.fill(this.leftPos + 111, this.topPos + 27, this.leftPos + 190, this.topPos + 69, PANEL_SOFT);
+        g.outline(this.leftPos + 8, this.topPos + 27, 55, 42, 0x663B4648);
+        g.outline(this.leftPos + 111, this.topPos + 27, 79, 42, 0x663B4648);
+        g.fill(this.leftPos + 8, this.topPos + 74, this.leftPos + 190, this.topPos + 97, PANEL_DARK);
+        g.outline(this.leftPos + 8, this.topPos + 74, 182, 23, 0x665E6A67);
 
-        g.fill(left, top, left + pw, top + ph, PANEL);
-        g.outline(left, top, pw, ph, 0xFF526870);
-        g.fill(left + 4, top + 4, left + pw - 4, top + 31, PANEL_2);
-        g.centeredText(font, kind.displayName(), left + pw / 2, top + 10, TEXT);
-        g.text(font, kind.description(), left + 14, top + 36, MUTED);
-        g.text(font, "拿对应输入右键机器即可处理 1 个材料；空手右键打开本界面。", left + 14, top + 48, MUTED);
+        drawSlot(g, 44, 42, 0xFF7A8B8A);
+        drawOutputSlots(g);
+        drawProgress(g);
+
+        g.text(this.font, "材料输入", this.leftPos + 18, this.topPos + 31, MUTED, false);
+        g.text(this.font, "多产物输出", this.leftPos + 119, this.topPos + 31, MUTED, false);
+        g.text(this.font, "红石控制", this.leftPos + 12, this.topPos + 66, ACCENT, false);
+        g.text(this.font, "玩家背包", this.leftPos + this.inventoryLabelX, this.topPos + this.inventoryLabelY, MUTED, false);
 
         super.extractRenderState(g, mouseX, mouseY, delta);
 
-        int listX = left + 14;
-        int listY = top + 66;
-        int listW = pw - 28;
-        int listH = ph - 100;
-        g.fill(listX, listY, listX + listW, listY + listH, 0x44111111);
-        g.outline(listX, listY, listW, listH, 0x66526870);
+        drawStatus(g, mouseX, mouseY);
+    }
 
-        int rowH = 34;
-        int visible = Math.max(1, listH / rowH);
-        int maxScroll = Math.max(0, recipes.size() - visible);
-        scroll = Math.max(0, Math.min(scroll, maxScroll));
+    @Override
+    protected void extractLabels(GuiGraphicsExtractor g, int mouseX, int mouseY) {
+        g.text(this.font, this.title, this.titleLabelX, this.titleLabelY, TEXT, false);
+    }
 
-        if (recipes.isEmpty()) {
-            g.centeredText(font, "这台机器还没有配方。", listX + listW / 2, listY + 20, MUTED);
-        } else {
-            for (int i = scroll; i < Math.min(recipes.size(), scroll + visible); i++) {
-                ProcessingMachineBlock.Recipe recipe = recipes.get(i);
-                int y = listY + 4 + (i - scroll) * rowH;
-                g.fill(listX + 4, y, listX + listW - 4, y + rowH - 4, i % 2 == 0 ? 0x223D4A4D : 0x182A3437);
-                g.text(font, recipe.inputStack().getItemName(), listX + 10, y + 4, ACCENT);
-                String outputText = "-> " + recipe.outputStacks().stream()
-                        .map(stack -> stack.getCount() + "x " + stack.getItemName().getString())
-                        .reduce((a, b) -> a + " + " + b)
-                        .orElse("无产物");
-                int outputW = Math.max(40, listW - 146);
-                if (font.width(outputText) > outputW) {
-                    outputText = font.plainSubstrByWidth(outputText, Math.max(20, outputW - font.width("..."))) + "...";
-                }
-                g.text(font, outputText, listX + 132, y + 4, OUTPUT);
-                g.text(font, recipe.note(), listX + 10, y + 18, MUTED);
+    private void drawOutputSlots(GuiGraphicsExtractor g) {
+        int[][] outputSlots = {
+                {116, 25}, {134, 25}, {152, 25}, {170, 25},
+                {116, 47}, {134, 47}, {152, 47}
+        };
+        for (int[] slot : outputSlots) {
+            drawSlot(g, slot[0], slot[1], SLOT);
+        }
+    }
+
+    private void drawSlot(GuiGraphicsExtractor g, int x, int y, int border) {
+        int sx = this.leftPos + x - 1;
+        int sy = this.topPos + y - 1;
+        g.fill(sx, sy, sx + 18, sy + 18, border);
+        g.fill(sx + 1, sy + 1, sx + 17, sy + 17, SLOT_INNER);
+    }
+
+    private void drawProgress(GuiGraphicsExtractor g) {
+        int x = this.leftPos + 69;
+        int y = this.topPos + 42;
+        g.fill(x, y, x + 35, y + 8, BAR_BG);
+        int progress = Math.min(35, 35 * this.menu.progress() / this.menu.maxProgress());
+        if (progress > 0) {
+            g.fill(x, y, x + progress, y + 8, this.menu.active() ? BAR : WARNING);
+        }
+        g.fill(x + 35, y - 3, x + 40, y + 11, BAR_BG);
+        g.fill(x + 40, y + 1, x + 45, y + 7, BAR_BG);
+    }
+
+    private void drawStatus(GuiGraphicsExtractor g, int mouseX, int mouseY) {
+        ProcessingMachineBlockEntity.RedstoneMode redstone = this.menu.redstoneMode();
+        String status = this.menu.active() ? "运行中" : "待机";
+        int color = this.menu.active() ? ACCENT : MUTED;
+        String bottom = status + " / " + redstone.description();
+        if (this.font.width(bottom) > this.imageWidth - 16) {
+            bottom = this.font.plainSubstrByWidth(bottom, this.imageWidth - 22) + "...";
+        }
+        g.text(this.font, bottom, this.leftPos + 8, this.topPos + this.imageHeight - 12, color, false);
+
+        if (isHovering(8, 76, 58, 18, mouseX, mouseY)
+                || isHovering(70, 76, 58, 18, mouseX, mouseY)
+                || isHovering(132, 76, 58, 18, mouseX, mouseY)) {
+            g.setComponentTooltipForNextFrame(this.font, List.of(
+                    Component.literal(redstone.label()),
+                    Component.literal(redstone.description()),
+                    Component.literal("三个模式：常开 / 有红石信号才工作 / 无红石信号才工作")
+            ), mouseX, mouseY);
+        }
+
+        ItemStack input = this.menu.getSlot(ProcessingMachineBlockEntity.SLOT_INPUT).getItem();
+        if (input.isEmpty()) {
+            g.text(this.font, "把材料放入左侧输入格，机器会自动处理。", this.leftPos + 8, this.topPos + 24, MUTED, false);
+            return;
+        }
+
+        ProcessingMachineBlock.findRecipe(this.menu.kind(), input).ifPresentOrElse(recipe -> {
+            String note = recipe.note();
+            if (this.font.width(note) > 150) {
+                note = this.font.plainSubstrByWidth(note, 147) + "...";
             }
-        }
-
-        if (maxScroll > 0) {
-            int barX = listX + listW - 6;
-            g.fill(barX, listY + 4, barX + 3, listY + listH - 4, 0x55333A3D);
-            int knobH = Math.max(12, (listH - 8) * visible / recipes.size());
-            int knobY = listY + 4 + (listH - 8 - knobH) * scroll / maxScroll;
-            g.fill(barX, knobY, barX + 3, knobY + knobH, 0xCC84D3A5);
-        }
-
-        g.text(font, "配方数: " + recipes.size(), left + 14, top + ph - 22, MUTED);
-        String line = status;
-        int statusW = pw - 210;
-        if (font.width(line) > statusW) {
-            line = font.plainSubstrByWidth(line, Math.max(20, statusW - font.width("..."))) + "...";
-        }
-        g.text(font, line, left + 194, top + ph - 22, status.startsWith("已") ? ACCENT : MUTED);
+            g.text(this.font, note, this.leftPos + 8, this.topPos + 24, ACCENT, false);
+        }, () -> g.text(this.font, "这个材料不能由当前机器处理。", this.leftPos + 8, this.topPos + 24, WARNING, false));
     }
 
-    @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        int visible = Math.max(1, (panelHeight() - 100) / 34);
-        int maxScroll = Math.max(0, recipes.size() - visible);
-        if (maxScroll > 0) {
-            scroll = Math.max(0, Math.min(maxScroll, scroll - (int) Math.signum(scrollY)));
-            return true;
-        }
-        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
+    private void addRedstoneButton(int x, String label, int id) {
+        Button button = addRenderableWidget(Button.builder(Component.literal(label), b -> {
+            Minecraft mc = Minecraft.getInstance();
+            if (mc.gameMode != null) {
+                mc.gameMode.handleInventoryButtonClick(this.menu.containerId, id);
+            }
+        }).bounds(this.leftPos + x, this.topPos + 76, 58, 18).build());
+        redstoneButtons.add(button);
     }
 
-    @Override
-    public boolean isPauseScreen() {
-        return false;
+    private void syncRedstoneButtons() {
+        ProcessingMachineBlockEntity.RedstoneMode mode = this.menu.redstoneMode();
+        setButtonState(0, "常开", mode == ProcessingMachineBlockEntity.RedstoneMode.ALWAYS);
+        setButtonState(1, "有信号", mode == ProcessingMachineBlockEntity.RedstoneMode.REQUIRE_SIGNAL);
+        setButtonState(2, "无信号", mode == ProcessingMachineBlockEntity.RedstoneMode.REQUIRE_NO_SIGNAL);
     }
 
-    private void processHeldItem() {
-        Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.gameMode == null) {
-            status = "无法处理：客户端玩家尚未就绪。";
+    private void setButtonState(int index, String label, boolean selected) {
+        if (index >= redstoneButtons.size()) {
             return;
         }
-        if (mc.player.getMainHandItem().isEmpty()) {
-            status = "主手没有材料：请拿着输入物品再点处理。";
-            return;
-        }
-
-        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(pos), Direction.UP, pos, false);
-        InteractionResult result = mc.gameMode.useItemOn(mc.player, InteractionHand.MAIN_HAND, hit);
-        if (result instanceof InteractionResult.Success) {
-            mc.player.swing(InteractionHand.MAIN_HAND);
-            status = "已发送处理请求：看背包和聊天反馈。";
-        } else if (result instanceof InteractionResult.Fail) {
-            status = "处理失败：这个物品可能不是本机器的输入。";
-        } else {
-            status = "已尝试处理：如果没有变化，请换对应输入材料。";
-        }
-    }
-
-    @Override
-    public void onClose() {
-        if (this.minecraft != null) {
-            this.minecraft.gui.setScreen(null);
-        } else {
-            Minecraft.getInstance().gui.setScreen(null);
-        }
-    }
-
-    private int panelWidth() {
-        return Math.min(560, Math.max(320, this.width - 24));
-    }
-
-    private int panelHeight() {
-        return Math.min(330, Math.max(220, this.height - 24));
-    }
-
-    private int left() {
-        return (this.width - panelWidth()) / 2;
-    }
-
-    private int top() {
-        return (this.height - panelHeight()) / 2;
+        Button button = redstoneButtons.get(index);
+        button.setMessage(Component.literal(selected ? "[" + label + "]" : label));
+        button.active = !selected;
     }
 }
