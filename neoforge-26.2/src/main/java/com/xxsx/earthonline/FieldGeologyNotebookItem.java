@@ -44,7 +44,7 @@ public class FieldGeologyNotebookItem extends Item {
         player.sendSystemMessage(Component.literal("4. 磁铁矿路线：磁铁矿粉 -> 磁选机 -> 铁精矿 + 尾粉；铁精矿 -> 还原炉 -> 铁锭 + 矿渣。").withStyle(ChatFormatting.RED));
         player.sendSystemMessage(Component.literal("5. 黄铜矿路线：黄铜矿粉 -> 浮选槽 -> 铜精矿；铜精矿 -> 焙烧炉 -> 焙烧铜精矿 + 硫粉；再还原/电解出铜。").withStyle(ChatFormatting.YELLOW));
         player.sendSystemMessage(Component.literal("6. 岩石不是单一化学式：花岗岩可磨出石英粉、长石粉、云母粉和尾粉；方解石/滴水石主要给碳酸盐粉。").withStyle(ChatFormatting.GREEN));
-        player.sendSystemMessage(Component.literal("提示：第一版机器不需要电力和 GUI，先让真实流程跑起来；后续再升级为带进度、能耗和自动化。").withStyle(ChatFormatting.DARK_GRAY));
+        player.sendSystemMessage(Component.literal("提示：空手右键机器会打开配方界面；当前机器仍是无电力、即点即处理的第一版，后续再升级进度、能耗和自动化。").withStyle(ChatFormatting.DARK_GRAY));
     }
 
     private static boolean openClientNotebookScreen() {

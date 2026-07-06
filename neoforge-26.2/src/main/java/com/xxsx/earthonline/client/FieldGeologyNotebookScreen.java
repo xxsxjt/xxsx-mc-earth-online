@@ -45,16 +45,18 @@ public class FieldGeologyNotebookScreen extends Screen {
         int top = bookTop();
         int tabX = left + 10;
         int tabY = top + 42;
-        int tabCols = pages.size() > 7 ? 2 : 1;
-        int tabW = tabCols == 2 ? 50 : Math.min(94, Math.max(70, bookWidth() / 4));
-        int tabH = tabCols == 2 ? 16 : 18;
+        int navW = Math.max(68, contentLeft() - left - 20);
+        int tabCols = pages.size() > 14 ? 3 : pages.size() > 7 ? 2 : 1;
+        int tabW = Math.max(22, (navW - (tabCols - 1) * 3) / tabCols);
+        int tabH = tabCols == 1 ? 18 : 14;
+        int tabGap = tabCols == 1 ? 3 : 2;
 
         for (int i = 0; i < pages.size(); i++) {
             final int index = i;
-            int col = tabCols == 2 ? i % 2 : 0;
-            int row = tabCols == 2 ? i / 2 : i;
+            int col = i % tabCols;
+            int row = i / tabCols;
             Button button = addRenderableWidget(Button.builder(Component.literal(pages.get(i).shortTitle), b -> setPage(index))
-                    .bounds(tabX + col * (tabW + 4), tabY + row * (tabH + 3), tabW, tabH)
+                    .bounds(tabX + col * (tabW + 3), tabY + row * (tabH + tabGap), tabW, tabH)
                     .build());
             tabButtons.add(button);
         }
@@ -207,6 +209,9 @@ public class FieldGeologyNotebookScreen extends Screen {
     }
 
     private int contentLeft() {
+        if (pages.size() > 14) {
+            return bookLeft() + Math.min(138, Math.max(118, bookWidth() / 3 + 18));
+        }
         return bookLeft() + Math.min(124, Math.max(92, bookWidth() / 4 + 18));
     }
 

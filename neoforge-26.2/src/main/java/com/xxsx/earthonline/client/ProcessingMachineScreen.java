@@ -43,16 +43,21 @@ public class ProcessingMachineScreen extends Screen {
     @Override
     protected void init() {
         int left = left();
-        int top = top();
-        int bottom = top + panelHeight() - 28;
+        int pw = panelWidth();
+        int bottom = top() + panelHeight() - 28;
+        int gap = 6;
+        int closeW = 54;
+        int bookW = 76;
+        int processW = Math.min(116, Math.max(96, pw - 28 - bookW - closeW - gap * 2));
+        int x = left + 14;
         addRenderableWidget(Button.builder(Component.literal("处理主手物品"), b -> processHeldItem())
-                .bounds(left + 76, bottom, 108, 20)
+                .bounds(x, bottom, processW, 20)
                 .build());
         addRenderableWidget(Button.builder(Component.literal("打开手册"), b -> EarthOnlineClient.openNotebook())
-                .bounds(left + 190, bottom, 76, 20)
+                .bounds(x + processW + gap, bottom, bookW, 20)
                 .build());
         addRenderableWidget(Button.builder(Component.literal("关闭"), b -> onClose())
-                .bounds(left + panelWidth() - 70, bottom, 54, 20)
+                .bounds(left + pw - 14 - closeW, bottom, closeW, 20)
                 .build());
     }
 
