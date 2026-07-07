@@ -1,4 +1,4 @@
-# Earth Online 贴图 AI 提示词
+# Earth on Minecraft 贴图 AI 提示词
 
 ## 总体风格
 
@@ -31,7 +31,7 @@ single item sprite on transparent background, centered, readable silhouette, no 
 机器贴图补充：
 
 ```text
-industrial voxel machine block texture, functional front face, bolts, vents, input slot details, subdued realistic material colors, readable 16x16 sprite
+industrial voxel machine block texture, exterior face of a physical cube machine, functional front face, coherent side/top/back surface roles, bolts, vents, service hatches, ports, subdued realistic material colors, readable at 64x64/128x128, no cutaway diagram
 ```
 
 ## 岩石方块
@@ -284,13 +284,37 @@ original 16x16 pixel art block texture front face of a packed absorption tower, 
 
 ## 生成工具优先级
 
-精致贴图、机器面、矿脉方块、GUI 美术优先使用当前 Codex 配置里的 `image-2` / `gpt-image-2`。如果 `image-2` 没有配置 `REDFOX_API_KEY`、调用失败、超时或质量不稳定，再回退 Agnes。
+正式方块贴图、机器正面、电力设备、多方块成型态、矿床代表块优先使用 `image-2` / `gpt-image-2`。这些资产决定玩家第一印象和玩法可读性，不能再默认走低成本批量路线。
+
+Agnes 只作为低成本草稿、风格探索、非关键补量或临时对照样张。若 Agnes 结果质量足够，可以保留；但机器、能源、多方块成型态这类高可见资产，默认需要 `image-2` 复核或重做。
+
+详细审查和新模板见 `docs/block-texture-prompt-review.md`。
 
 `image-2` CLI 示例：
 
 ```powershell
-python "C:\Users\du_ji\.agents\skills\image-gen\assets\imagegen.py" "<prompt>" --size 1024x1024 --quality medium --format png --bg opaque -o tmp\imagegen\image2-<batch> --prefix <id>
+# 子进程内读取配置和密钥，不打印 key
+$cfg = Get-Content 'C:\Users\du_ji\.codex\config.toml' -Raw
+$base = [regex]::Match($cfg, 'base_url\s*=\s*"([^"]+)"').Groups[1].Value
+$env:OPENAI_BASE_URL = $base
+$secret = Import-Clixml -LiteralPath 'C:\Users\du_ji\.agents\secrets\image2-openai-key.clixml'
+$bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secret)
+try {
+  $env:OPENAI_API_KEY = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
+} finally {
+  [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr)
+}
+
+python 'C:\Users\du_ji\.codex\skills\.system\imagegen\scripts\image_gen.py' generate `
+  --model gpt-image-2 `
+  --quality low `
+  --size 1024x1024 `
+  --prompt "<prompt>" `
+  --out "output\imagegen\<id>-image2-low.png" `
+  --force
 ```
+
+规则：`C:\Users\du_ji\.agents\secrets\image2-openai-key.clixml` 是当前优先使用的 `image-2` 密钥来源。它是当前 Windows 用户可解密的 DPAPI 加密文件；`C:\_dx\files\ls.txt` 只作为临时迁移来源。任何情况下都不要打印、提交或复制密钥内容。
 
 规则：
 
@@ -298,23 +322,28 @@ python "C:\Users\du_ji\.agents\skills\image-gen\assets\imagegen.py" "<prompt>" -
 - 小型材料物品可以继续用 `16x16/32x32`，但 JEI 高频、路线关键、玩家常看的物品优先做 `64x64` 源图再下采样。
 - Python/Pillow 只负责裁切、缩放、透明清理、拼图和校验，不作为最终精致贴图的绘制方式。
 - 所有批次都要生成 contact sheet，检查是否有伪文字、复古蒸汽朋克感、过度写实照片感、风格跳变或远看不可读。
+- 机器 prompt 必须绑定现实原型和唯一主视觉，不允许只写 `modern machine`、`pipes`、`vents`、`indicator lights` 这类通用词。
+- 机器方块贴图首先是立方体外表面，不是机器剖面图。不要把引擎内部、管道剖面、化工流程图直接贴到一个面上，再让其他面是封闭外壳；内部结构应转化成观察窗、检修口、格栅、接口、管线、仪表、炉口、开口颚板，或放进 GUI/手册/JEI。
+- 生成前先定义面职责：正面是交互/处理面，侧面是连续机壳和管线，顶面是通风口/检修盖/端子，背面是电力或流体接口，底面是基座。不同面可以不同，但必须像同一台真实设备的外壳。
+- 多方块成型态 prompt 必须写明结构角色，例如外壳、管廊、控制台、塔壁、炉体壳、湿法槽体；不能只写 assembled casing。
+- 成型态贴图要表现“更大机器的一部分”，包括连续接缝、贯通管线、法兰、支撑梁、平台边缘或已连接状态灯。
 
 ## 常见化工物品
 
-### image-2 优先，Agnes 回退
+### Agnes 批量首选，image-2 只做关键精修
 
-旧 Agnes 自动化脚本仍可作为回退：
+Agnes 自动化脚本作为常规批量生成入口：
 
 ```powershell
 python tools\generate_agnes_item_textures.py
 ```
 
-脚本会从 `C:\Users\du_ji\WorkBuddy\agnes\providers.json` 读取 Agnes 配置，调用 `agnes-image-2.1-flash`，把原始生成图保存到 `tmp/imagegen/agnes-modern-chemistry/`，再裁切缩放为 `assets/earth_online/textures/item/*.png`。不要把 API Key 写进仓库或日志。
+脚本会从 `C:\Users\du_ji\WorkBuddy\agnes\providers.json` 读取 Agnes 配置，调用 `agnes-image-2.1-flash`，把原始生成图保存到 `tmp/imagegen/agnes-modern-chemistry/`，再裁切缩放为 `assets/earth_on_minecraft/textures/item/*.png`。不要把 API Key 写进仓库或日志。
 
-通用 image-2 / Agnes 提示词结构：
+通用 Agnes / image-2 提示词结构：
 
 ```text
-Create one Minecraft-style pixel art item icon for a mod called Earth Online.
+Create one Minecraft-style pixel art item icon for a mod called Earth on Minecraft.
 Item id: <item_id>
 Subject: <real industrial material description>.
 Style: clean Minecraft item texture from a high-resolution AI source, readable silhouette, hand-painted pixel art, small industrial chemistry material icon, centered, no text, no letters, no UI, no watermark.
@@ -491,4 +520,5 @@ original 16x16 pixel art item icon, handheld mineral analyzer device, small scre
 - 矿物同系列要先固定调色板，例如磁铁矿全系使用黑、蓝灰、深灰，不要每张图都随机偏色。
 - 矿石贴图的矿物占比要对应纯度：贫矿稀疏，普通矿适中，富矿密集。
 - 机器贴图要先生成正面，再用同风格扩展侧面、顶部、底部；形成多方块结构后应有连续机壳、管线、控制面板的成型态贴图。
+- 侧面/顶面不要所有机器共用一套通用灰板。至少按工艺分组：通用机械、热工设备、湿法/反应设备、塔器/气体设备、电力设备、线缆/管廊。
 - 不要让 AI 生成文字、化学式或 UI 边框，化学式应由语言文件和 tooltip 显示。

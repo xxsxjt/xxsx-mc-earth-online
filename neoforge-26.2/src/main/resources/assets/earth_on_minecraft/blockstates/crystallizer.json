@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "earth_on_minecraft:block/crystallizer"
+    },
+    "active=true": {
+      "model": "earth_on_minecraft:block/crystallizer_active"
+    }
+  }
+}

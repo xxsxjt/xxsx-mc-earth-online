@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "earth_online:bituminous_coal_seam",
-    "earth_online:anthracite_coal_seam"
+    "earth_on_minecraft:bituminous_coal_seam",
+    "earth_on_minecraft:anthracite_coal_seam"
   ]
 }

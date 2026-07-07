@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "GPG",
+    "CRC",
+    "III"
+  ],
+  "key": {
+    "G": "minecraft:glass_pane",
+    "P": "earth_on_minecraft:printed_circuit_board",
+    "C": "earth_on_minecraft:copper_wire",
+    "R": "minecraft:redstone",
+    "I": "earth_on_minecraft:industrial_machine_casing"
+  },
+  "result": {
+    "id": "earth_on_minecraft:control_panel"
+  }
+}

@@ -1,4 +1,4 @@
-# Earth Online 0.1.0 Beta
+# Earth on Minecraft 0.1.0 Beta
 
 **开发中测试版 / In-development beta.**  
 This build is only intended for `Minecraft 26.2` with `NeoForge 26.2.0.7-beta`.
@@ -8,11 +8,11 @@ This build is only intended for `Minecraft 26.2` with `NeoForge 26.2.0.7-beta`.
 - MC: `26.2`
 - Loader: `NeoForge 26.2.0.7-beta`
 - Mod version: `0.1.0`
-- Jar: `earth-online-neoforge-26.2-0.1.0.jar`
+- Jar: `earth-on-minecraft-neoforge-26.2-0.1.0.jar`
 
 ## Included In This Beta
 
-- Replaces vanilla overworld ore generation with Earth Online realistic ore deposits.
+- Replaces vanilla overworld ore generation with Earth on Minecraft realistic ore deposits.
 - Adds realistic mineral and rock processing routes with multiple outputs.
 - Adds handbook UI, JEI integration, route tooltips, and bilingual `zh_cn` / `en_us` language files.
 - Adds 21 industrial processing machines plus generator, battery box, and copper cable power loop.

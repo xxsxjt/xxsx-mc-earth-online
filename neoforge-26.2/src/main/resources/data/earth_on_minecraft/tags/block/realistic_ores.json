@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "earth_on_minecraft:poor_magnetite_ore",
+    "earth_on_minecraft:magnetite_ore",
+    "earth_on_minecraft:rich_magnetite_ore",
+    "earth_on_minecraft:chalcopyrite_ore",
+    "earth_on_minecraft:auriferous_quartz_vein",
+    "earth_on_minecraft:bituminous_coal_seam",
+    "earth_on_minecraft:anthracite_coal_seam",
+    "earth_on_minecraft:kimberlite",
+    "earth_on_minecraft:diamondiferous_kimberlite",
+    "earth_on_minecraft:lapis_lazuli_ore",
+    "earth_on_minecraft:emerald_beryl_vein",
+    "earth_on_minecraft:redstone_mineral_ore",
+    "earth_on_minecraft:cinnabar_vein"
+  ]
+}

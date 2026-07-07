@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "earth_on_minecraft:block/magnetic_separator",
+    "down": "earth_on_minecraft:block/modern_machine_top",
+    "up": "earth_on_minecraft:block/modern_machine_top",
+    "north": "earth_on_minecraft:block/magnetic_separator",
+    "south": "earth_on_minecraft:block/modern_machine_side",
+    "west": "earth_on_minecraft:block/modern_machine_side",
+    "east": "earth_on_minecraft:block/modern_machine_side"
+  }
+}

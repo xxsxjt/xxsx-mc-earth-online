@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "earth_on_minecraft:vulcanized_rubber"
+  ],
+  "result": {
+    "id": "minecraft:slime_ball",
+    "count": 2
+  }
+}

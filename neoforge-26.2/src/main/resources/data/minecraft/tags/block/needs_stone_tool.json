@@ -1,20 +1,20 @@
 {
   "replace": false,
   "values": [
-    "earth_online:poor_magnetite_ore",
-    "earth_online:magnetite_ore",
-    "earth_online:chalcopyrite_ore",
-    "earth_online:bituminous_coal_seam",
-    "earth_online:anthracite_coal_seam",
-    "earth_online:lapis_lazuli_ore",
-    "earth_online:redstone_mineral_ore",
-    "earth_online:cinnabar_vein",
-    "earth_online:jaw_crusher",
-    "earth_online:ball_mill",
-    "earth_online:sieve",
-    "earth_online:leaching_tank",
-    "earth_online:thin_copper_power_cable",
-    "earth_online:copper_power_cable",
-    "earth_online:heavy_copper_power_cable"
+    "earth_on_minecraft:poor_magnetite_ore",
+    "earth_on_minecraft:magnetite_ore",
+    "earth_on_minecraft:chalcopyrite_ore",
+    "earth_on_minecraft:bituminous_coal_seam",
+    "earth_on_minecraft:anthracite_coal_seam",
+    "earth_on_minecraft:lapis_lazuli_ore",
+    "earth_on_minecraft:redstone_mineral_ore",
+    "earth_on_minecraft:cinnabar_vein",
+    "earth_on_minecraft:jaw_crusher",
+    "earth_on_minecraft:ball_mill",
+    "earth_on_minecraft:sieve",
+    "earth_on_minecraft:leaching_tank",
+    "earth_on_minecraft:thin_copper_power_cable",
+    "earth_on_minecraft:copper_power_cable",
+    "earth_on_minecraft:heavy_copper_power_cable"
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "earth_on_minecraft:cement_powder",
+    "minecraft:sand",
+    "minecraft:gravel"
+  ],
+  "result": {
+    "id": "minecraft:gray_concrete_powder",
+    "count": 4
+  }
+}

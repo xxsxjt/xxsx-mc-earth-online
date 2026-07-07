@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "earth_on_minecraft:cellulose_fiber"
+  ],
+  "result": {
+    "id": "minecraft:string",
+    "count": 2
+  }
+}

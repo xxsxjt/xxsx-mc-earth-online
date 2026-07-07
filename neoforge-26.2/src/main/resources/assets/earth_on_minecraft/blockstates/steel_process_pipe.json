@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "assembled=false": {
+      "model": "earth_on_minecraft:block/steel_process_pipe"
+    },
+    "assembled=true": {
+      "model": "earth_on_minecraft:block/steel_process_pipe_assembled"
+    }
+  }
+}

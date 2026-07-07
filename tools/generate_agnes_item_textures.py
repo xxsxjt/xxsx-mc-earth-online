@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Earth Online item textures through the local Agnes provider config."""
+"""Generate Earth on Minecraft item textures through the local Agnes provider config."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ from PIL import Image
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 RES = ROOT / "neoforge-26.2" / "src" / "main" / "resources"
-ASSETS = RES / "assets" / "earth_online"
+ASSETS = RES / "assets" / "earth_on_minecraft"
 TMP = ROOT / "tmp" / "imagegen" / "agnes-modern-chemistry"
 PROVIDERS = pathlib.Path(r"C:\Users\du_ji\WorkBuddy\agnes\providers.json")
 
@@ -155,6 +155,37 @@ ITEMS = {
     "urea_formaldehyde_resin": ("脲醛树脂", "Urea Formaldehyde Resin", "cream urea formaldehyde resin granules"),
     "carbon_monoxide_cell": ("一氧化碳单元 CO", "Carbon Monoxide Cell CO", "gray compressed carbon monoxide gas cell"),
     "syngas_cell": ("合成气单元 CO/H2", "Syngas Cell CO/H2", "steel gas cell with blue gray synthesis gas glow"),
+    "borate_mineral_dust": ("硼酸盐矿物粉", "Borate Mineral Dust", "white tan borate mineral powder with salt crystal flecks"),
+    "boron_carbide_pellet": ("碳化硼芯块 B4C", "Boron Carbide Pellet B4C", "small matte black boron carbide ceramic pellet"),
+    "uraninite_dust": ("沥青铀矿粉 UO2/U3O8", "Uraninite Dust UO2/U3O8", "dark heavy uranium oxide mineral powder with olive black grains"),
+    "yellowcake": ("黄饼氧化铀 U3O8", "Yellowcake Uranium Oxide U3O8", "ochre yellow uranium oxide concentrate powder in a sealed sample cup"),
+    "uranium_hexafluoride_cell": ("六氟化铀单元 UF6", "Uranium Hexafluoride Cell UF6", "sealed gray metal gas cell with pale yellow hazard-free uranium chemistry accent"),
+    "low_enriched_uranium": ("低浓缩铀材料", "Low-Enriched Uranium Material", "small sealed olive gray low enriched uranium material canister"),
+    "depleted_uranium": ("贫铀材料 U-238", "Depleted Uranium Material U-238", "dense dark gray depleted uranium metal billet in sealed industrial wrapping"),
+    "uranium_dioxide_powder": ("二氧化铀粉 UO2", "Uranium Dioxide Powder UO2", "black uranium dioxide ceramic powder in a shielded tray"),
+    "nuclear_fuel_pellet": ("核燃料芯块 UO2", "Nuclear Fuel Pellet UO2", "small dark cylindrical uranium dioxide ceramic fuel pellet"),
+    "zirconium_alloy_tube": ("锆合金包壳管", "Zirconium Alloy Cladding Tube", "pale silver zirconium alloy tube segment"),
+    "control_rod_assembly": ("控制棒组件", "Control Rod Assembly", "compact dark control rod bundle with black absorber rods and metal spacer"),
+    "nuclear_fuel_rod": ("核燃料棒", "Nuclear Fuel Rod", "slender sealed nuclear fuel rod with silver cladding and dark end caps"),
+    "nuclear_fuel_assembly": ("核燃料组件", "Nuclear Fuel Assembly", "small square nuclear fuel rod bundle assembly, clean industrial icon"),
+    "spent_fuel_assembly": ("乏燃料组件", "Spent Fuel Assembly", "dark used fuel assembly sealed in blue gray cooling frame"),
+    "dry_storage_cask": ("干式贮存罐", "Dry Storage Cask", "short cylindrical concrete and steel dry storage cask icon"),
+    "nuclear_heat_module": ("核热模块", "Nuclear Heat Module", "shielded reactor heat module with steel casing and warm amber core window"),
+    "copper_busbar": ("铜母排", "Copper Busbar", "flat polished copper busbar strips with bolt holes"),
+    "transformer_core": ("变压器核心", "Transformer Core", "laminated iron transformer core with copper windings"),
+    "grid_switchgear": ("电网开关柜组件", "Grid Switchgear Assembly", "compact electrical switchgear module with breakers and copper terminals"),
+    "generator_stator": ("发电机定子", "Generator Stator", "round generator stator ring with copper windings"),
+    "steam_turbine_assembly": ("蒸汽轮机组件", "Steam Turbine Assembly", "silver turbine rotor and casing segment, modern industrial icon"),
+    "industrial_sensor": ("工业传感器", "Industrial Sensor", "small rugged industrial sensor module with lens and metal bracket"),
+    "plc_controller": ("PLC 控制器", "PLC Controller", "compact programmable logic controller with terminals, no readable text"),
+    "servo_motor": ("伺服电机", "Servo Motor", "small blue gray servo motor with copper coil hint and shaft"),
+    "actuator_module": ("执行器模块", "Actuator Module", "linear actuator module with motor and metal rod"),
+    "robotic_arm": ("工业机器人臂", "Industrial Robotic Arm", "compact orange and gray industrial robotic arm icon"),
+    "machine_vision_camera": ("机器视觉相机", "Machine Vision Camera", "small machine vision camera with glass lens and LED ring"),
+    "quality_inspection_module": ("质量检测模块", "Quality Inspection Module", "industrial inspection module with camera lens and sample tray"),
+    "automation_bus": ("自动化总线", "Automation Bus", "shielded data and power bus cable with blue signal stripe"),
+    "conveyor_drive": ("输送驱动机构", "Conveyor Drive", "motorized conveyor drive roller and rubber belt segment"),
+    "redstone_io_gateway": ("红石 I/O 网关", "Redstone I/O Gateway", "redstone interface module with circuit board and red connector"),
 }
 
 NON_CHEMICAL_PRODUCT_ITEMS = {
@@ -207,13 +238,13 @@ def update_resource_metadata() -> None:
         write_json(items_dir / f"{item_id}.json", {
             "model": {
                 "type": "minecraft:model",
-                "model": f"earth_online:item/{item_id}",
+                "model": f"earth_on_minecraft:item/{item_id}",
             }
         })
         write_json(models_dir / f"{item_id}.json", {
             "parent": "minecraft:item/generated",
             "textures": {
-                "layer0": f"earth_online:item/{item_id}",
+                "layer0": f"earth_on_minecraft:item/{item_id}",
             },
         })
 
@@ -221,21 +252,21 @@ def update_resource_metadata() -> None:
         path = ASSETS / "lang" / lang_name
         data = json.loads(path.read_text(encoding="utf-8-sig"))
         for item_id, names in ITEMS.items():
-            data[f"item.earth_online.{item_id}"] = names[name_index]
+            data[f"item.earth_on_minecraft.{item_id}"] = names[name_index]
         write_json(path, data)
 
-    tag_path = RES / "data" / "earth_online" / "tags" / "item" / "chemical_products.json"
+    tag_path = RES / "data" / "earth_on_minecraft" / "tags" / "item" / "chemical_products.json"
     tag = json.loads(tag_path.read_text(encoding="utf-8-sig"))
     values = tag.setdefault("values", [])
     for item_id in ITEMS:
         if item_id in NON_CHEMICAL_PRODUCT_ITEMS:
             continue
-        value = f"earth_online:{item_id}"
+        value = f"earth_on_minecraft:{item_id}"
         if value not in values:
             values.append(value)
     write_json(tag_path, tag)
 
-    manifest_path = RES / "data" / "earth_online" / "earth" / "industry" / "chemical_industry_manifest.json"
+    manifest_path = RES / "data" / "earth_on_minecraft" / "earth" / "industry" / "chemical_industry_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8-sig"))
     manifest["scope"] = "modern first playable chemistry coverage"
     industries = manifest.setdefault("industries", [])
@@ -309,7 +340,7 @@ def update_resource_metadata() -> None:
 
 def prompt_for(item_id: str, descriptor: str) -> str:
     return (
-        "Create one polished Minecraft-style item icon for a mod called Earth Online.\n"
+        "Create one polished Minecraft-style item icon for a mod called Earth on Minecraft.\n"
         f"Item id: {item_id}\n"
         f"Subject: {descriptor}.\n"
         "Style: clean high-resolution Minecraft mod item texture, readable at inventory scale, hand-painted pixel-art source detail, "

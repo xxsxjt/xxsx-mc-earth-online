@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "earth_on_minecraft:iron_concentrate",
+    "earth_on_minecraft:copper_concentrate",
+    "earth_on_minecraft:gold_concentrate",
+    "earth_on_minecraft:roasted_copper_concentrate",
+    "earth_on_minecraft:redstone_concentrate",
+    "earth_on_minecraft:lapis_concentrate",
+    "earth_on_minecraft:beryl_concentrate"
+  ]
+}

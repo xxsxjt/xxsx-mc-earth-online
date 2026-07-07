@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "earth_on_minecraft:block/diamondiferous_kimberlite"
+      },
+      {
+        "model": "earth_on_minecraft:block/diamondiferous_kimberlite",
+        "y": 90
+      },
+      {
+        "model": "earth_on_minecraft:block/diamondiferous_kimberlite",
+        "y": 180
+      },
+      {
+        "model": "earth_on_minecraft:block/diamondiferous_kimberlite",
+        "y": 270
+      }
+    ]
+  }
+}

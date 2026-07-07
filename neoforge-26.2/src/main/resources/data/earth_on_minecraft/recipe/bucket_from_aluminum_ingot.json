@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "A A",
+    " A "
+  ],
+  "key": {
+    "A": "earth_on_minecraft:aluminum_ingot"
+  },
+  "result": {
+    "id": "minecraft:bucket"
+  }
+}

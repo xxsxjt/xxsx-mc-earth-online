@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "earth_on_minecraft:block/polymerizer"
+    },
+    "active=true": {
+      "model": "earth_on_minecraft:block/polymerizer_active"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "earth_on_minecraft:acrylic_resin"
+  ],
+  "result": {
+    "id": "minecraft:glass_pane",
+    "count": 4
+  }
+}

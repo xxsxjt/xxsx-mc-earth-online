@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "ambientocclusion": false,
+  "textures": {
+    "all": {
+      "sprite": "earth_on_minecraft:block/structure_projection_casing",
+      "force_translucent": true
+    },
+    "particle": {
+      "sprite": "earth_on_minecraft:block/structure_projection_casing",
+      "force_translucent": true
+    }
+  }
+}

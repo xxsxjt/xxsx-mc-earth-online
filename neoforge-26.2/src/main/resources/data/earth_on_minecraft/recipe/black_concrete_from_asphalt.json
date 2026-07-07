@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "earth_on_minecraft:asphalt",
+    "minecraft:sand",
+    "minecraft:gravel"
+  ],
+  "result": {
+    "id": "minecraft:black_concrete",
+    "count": 2
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "earth_on_minecraft:cement_powder",
+    "minecraft:cobblestone"
+  ],
+  "result": {
+    "id": "minecraft:smooth_stone",
+    "count": 4
+  }
+}

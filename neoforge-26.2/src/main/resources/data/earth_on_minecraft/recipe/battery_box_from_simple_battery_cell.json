@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "CBC",
+    "WPW",
+    "CRC"
+  ],
+  "key": {
+    "C": "earth_on_minecraft:industrial_machine_casing",
+    "B": "earth_on_minecraft:simple_battery_cell",
+    "W": "earth_on_minecraft:copper_power_cable",
+    "P": "earth_on_minecraft:printed_circuit_board",
+    "R": "minecraft:redstone_block"
+  },
+  "result": {
+    "id": "earth_on_minecraft:battery_box"
+  }
+}

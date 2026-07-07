@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    " W ",
+    "WRW",
+    " W "
+  ],
+  "key": {
+    "W": "earth_on_minecraft:copper_wire",
+    "R": "minecraft:redstone"
+  },
+  "result": {
+    "id": "earth_on_minecraft:thin_copper_power_cable",
+    "count": 12
+  }
+}

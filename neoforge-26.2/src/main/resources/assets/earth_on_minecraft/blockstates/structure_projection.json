@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "role=casing": {
+      "model": "earth_on_minecraft:block/structure_projection_casing"
+    },
+    "role=pipe": {
+      "model": "earth_on_minecraft:block/structure_projection_pipe"
+    }
+  }
+}

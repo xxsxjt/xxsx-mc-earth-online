@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "earth_on_minecraft:jaw_crusher",
+    "earth_on_minecraft:ball_mill",
+    "earth_on_minecraft:sieve",
+    "earth_on_minecraft:magnetic_separator",
+    "earth_on_minecraft:flotation_cell",
+    "earth_on_minecraft:ore_roaster",
+    "earth_on_minecraft:reduction_furnace",
+    "earth_on_minecraft:leaching_tank",
+    "earth_on_minecraft:electrolytic_cell",
+    "earth_on_minecraft:powder_press",
+    "earth_on_minecraft:chemical_reactor",
+    "earth_on_minecraft:distillation_column",
+    "earth_on_minecraft:mixer",
+    "earth_on_minecraft:crystallizer",
+    "earth_on_minecraft:industrial_kiln",
+    "earth_on_minecraft:gas_separator",
+    "earth_on_minecraft:fertilizer_granulator",
+    "earth_on_minecraft:polymerizer"
+  ]
+}

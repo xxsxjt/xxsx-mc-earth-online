@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "earth_on_minecraft:magnetite_chunk",
+    "earth_on_minecraft:chalcopyrite_chunk",
+    "earth_on_minecraft:auriferous_quartz_chunk",
+    "earth_on_minecraft:kimberlite_chunk",
+    "earth_on_minecraft:cinnabar_chunk"
+  ]
+}

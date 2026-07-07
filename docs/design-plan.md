@@ -1,8 +1,8 @@
-# Earth Online 设计方案
+# Earth on Minecraft 设计方案
 
 ## 核心边界
 
-Earth Online 只重做自然来源和处理链，不破坏 MC 现有物品生态。
+Earth on Minecraft 只重做自然来源和处理链，不破坏 MC 现有物品生态。
 
 - 原版矿物方块：不自然生成。
 - 原版锭、宝石、合成台：保留。
@@ -41,7 +41,7 @@ Earth Online 只重做自然来源和处理链，不破坏 MC 现有物品生态
 
 第一版覆盖：
 
-| MC 石头 | Earth Online 解释 |
+| MC 石头 | Earth on Minecraft 解释 |
 |---|---|
 | Stone | 普通硅酸盐混合岩 |
 | Deepslate | 板岩 / 低级变质泥质岩 |
@@ -144,24 +144,24 @@ Earth Online 只重做自然来源和处理链，不破坏 MC 现有物品生态
 建议目录：
 
 ```text
-data/earth_online/earth/rocks/
-data/earth_online/earth/minerals/
-data/earth_online/earth/deposits/
-data/earth_online/recipes/processing/
+data/earth_on_minecraft/earth/rocks/
+data/earth_on_minecraft/earth/minerals/
+data/earth_on_minecraft/earth/deposits/
+data/earth_on_minecraft/recipes/processing/
 ```
 
 岩石定义示例：
 
 ```json
 {
-  "id": "earth_online:granite",
+  "id": "earth_on_minecraft:granite",
   "type": "igneous_intrusive",
   "components": [
-    { "material": "earth_online:quartz", "formula": "SiO2", "min": 0.20, "max": 0.40 },
-    { "material": "earth_online:orthoclase", "formula": "KAlSi3O8", "min": 0.20, "max": 0.45 },
-    { "material": "earth_online:albite", "formula": "NaAlSi3O8", "min": 0.10, "max": 0.35 },
-    { "material": "earth_online:biotite", "formula": "K(Mg,Fe)3AlSi3O10(OH)2", "min": 0.02, "max": 0.15 },
-    { "material": "earth_online:magnetite", "formula": "Fe3O4", "min": 0.00, "max": 0.03 }
+    { "material": "earth_on_minecraft:quartz", "formula": "SiO2", "min": 0.20, "max": 0.40 },
+    { "material": "earth_on_minecraft:orthoclase", "formula": "KAlSi3O8", "min": 0.20, "max": 0.45 },
+    { "material": "earth_on_minecraft:albite", "formula": "NaAlSi3O8", "min": 0.10, "max": 0.35 },
+    { "material": "earth_on_minecraft:biotite", "formula": "K(Mg,Fe)3AlSi3O10(OH)2", "min": 0.02, "max": 0.15 },
+    { "material": "earth_on_minecraft:magnetite", "formula": "Fe3O4", "min": 0.00, "max": 0.03 }
   ],
   "processing": ["crushing", "milling", "sieving", "flotation", "magnetic_separation"]
 }
@@ -171,13 +171,13 @@ data/earth_online/recipes/processing/
 
 ```json
 {
-  "deposit": "earth_online:magnetite_lens",
+  "deposit": "earth_on_minecraft:magnetite_lens",
   "dimension": "minecraft:overworld",
   "host_rocks": [
     "minecraft:deepslate",
-    "earth_online:gabbro",
-    "earth_online:basalt",
-    "earth_online:gneiss"
+    "earth_on_minecraft:gabbro",
+    "earth_on_minecraft:basalt",
+    "earth_on_minecraft:gneiss"
   ],
   "shape": "lens",
   "size": {
@@ -186,9 +186,9 @@ data/earth_online/recipes/processing/
     "thickness": [4, 12]
   },
   "composition": [
-    { "block": "earth_online:magnetite_ore", "weight": 60 },
-    { "block": "earth_online:poor_magnetite_ore", "weight": 25 },
-    { "block": "earth_online:titanomagnetite_ore", "weight": 5 },
+    { "block": "earth_on_minecraft:magnetite_ore", "weight": 60 },
+    { "block": "earth_on_minecraft:poor_magnetite_ore", "weight": 25 },
+    { "block": "earth_on_minecraft:titanomagnetite_ore", "weight": 5 },
     { "block": "minecraft:deepslate", "weight": 10 }
   ],
   "rarity": 0.015,

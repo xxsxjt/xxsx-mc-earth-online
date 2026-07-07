@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "earth_on_minecraft:block/conveyor_belt"
+    },
+    "facing=east": {
+      "model": "earth_on_minecraft:block/conveyor_belt",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "earth_on_minecraft:block/conveyor_belt",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "earth_on_minecraft:block/conveyor_belt",
+      "y": 270
+    }
+  }
+}

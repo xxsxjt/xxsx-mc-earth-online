@@ -1,0 +1,31 @@
+{
+  "replace": false,
+  "values": [
+    "earth_on_minecraft:magnetite_dust",
+    "earth_on_minecraft:chalcopyrite_dust",
+    "earth_on_minecraft:quartz_dust",
+    "earth_on_minecraft:feldspar_dust",
+    "earth_on_minecraft:mica_dust",
+    "earth_on_minecraft:tailings_dust",
+    "earth_on_minecraft:coal_dust",
+    "earth_on_minecraft:gold_dust",
+    "earth_on_minecraft:diamond_grit",
+    "earth_on_minecraft:cinnabar_dust",
+    "earth_on_minecraft:silica_dust",
+    "earth_on_minecraft:calcite_dust",
+    "earth_on_minecraft:lime_dust",
+    "earth_on_minecraft:hematite_dust",
+    "earth_on_minecraft:pyrite_dust",
+    "earth_on_minecraft:sulfur_dust",
+    "earth_on_minecraft:mafic_silicate_dust",
+    "earth_on_minecraft:aluminosilicate_dust",
+    "earth_on_minecraft:slag",
+    "earth_on_minecraft:salt_dust",
+    "earth_on_minecraft:phosphate_rock_dust",
+    "earth_on_minecraft:soda_ash",
+    "earth_on_minecraft:gypsum_dust",
+    "earth_on_minecraft:cement_powder",
+    "earth_on_minecraft:clay_dust",
+    "earth_on_minecraft:bauxite_dust"
+  ]
+}

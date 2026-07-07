@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "S S",
+    "SBS",
+    "SRS"
+  ],
+  "key": {
+    "S": "earth_on_minecraft:steel_bloom",
+    "B": "earth_on_minecraft:simple_battery_cell",
+    "R": "minecraft:redstone"
+  },
+  "result": {
+    "id": "minecraft:powered_rail",
+    "count": 8
+  }
+}

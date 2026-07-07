@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "SSS",
+    "RPR",
+    "SSS"
+  ],
+  "key": {
+    "S": "minecraft:stone",
+    "R": "minecraft:redstone",
+    "P": "earth_on_minecraft:printed_circuit_board"
+  },
+  "result": {
+    "id": "minecraft:observer"
+  }
+}

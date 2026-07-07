@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SIS",
+    "SFS",
+    "SCS"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "C": "minecraft:copper_ingot",
+    "S": "minecraft:stone",
+    "F": "minecraft:furnace"
+  },
+  "result": {
+    "id": "earth_on_minecraft:ball_mill"
+  }
+}

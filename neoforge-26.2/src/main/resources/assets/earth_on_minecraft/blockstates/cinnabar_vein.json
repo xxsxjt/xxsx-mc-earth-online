@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "earth_on_minecraft:block/cinnabar_vein"
+      },
+      {
+        "model": "earth_on_minecraft:block/cinnabar_vein",
+        "y": 90
+      },
+      {
+        "model": "earth_on_minecraft:block/cinnabar_vein",
+        "y": 180
+      },
+      {
+        "model": "earth_on_minecraft:block/cinnabar_vein",
+        "y": 270
+      }
+    ]
+  }
+}

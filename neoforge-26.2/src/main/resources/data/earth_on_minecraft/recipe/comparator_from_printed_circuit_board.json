@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    " T ",
+    "TQT",
+    "SPS"
+  ],
+  "key": {
+    "T": "minecraft:redstone_torch",
+    "Q": "minecraft:quartz",
+    "S": "minecraft:stone",
+    "P": "earth_on_minecraft:printed_circuit_board"
+  },
+  "result": {
+    "id": "minecraft:comparator",
+    "count": 2
+  }
+}

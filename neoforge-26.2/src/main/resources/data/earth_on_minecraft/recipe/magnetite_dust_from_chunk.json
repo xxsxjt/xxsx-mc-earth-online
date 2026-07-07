@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "earth_on_minecraft:magnetite_chunk"
+  ],
+  "result": {
+    "id": "earth_on_minecraft:magnetite_dust",
+    "count": 2
+  }
+}

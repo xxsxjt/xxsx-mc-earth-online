@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "earth_on_minecraft:block/leaching_tank"
+    },
+    "active=true": {
+      "model": "earth_on_minecraft:block/leaching_tank_active"
+    }
+  }
+}

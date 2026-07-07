@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "earth_online:redstone_mineral_ore",
-    "earth_online:cinnabar_vein"
+    "earth_on_minecraft:redstone_mineral_ore",
+    "earth_on_minecraft:cinnabar_vein"
   ]
 }

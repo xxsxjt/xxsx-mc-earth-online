@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "RRR",
+    "CDC",
+    "SSS"
+  ],
+  "key": {
+    "R": "earth_on_minecraft:vulcanized_rubber",
+    "C": "earth_on_minecraft:copper_wire",
+    "D": "earth_on_minecraft:conveyor_drive",
+    "S": "earth_on_minecraft:steel_bloom"
+  },
+  "result": {
+    "id": "earth_on_minecraft:conveyor_belt",
+    "count": 4
+  }
+}

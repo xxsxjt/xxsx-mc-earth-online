@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SSS",
+    "SSS"
+  ],
+  "key": {
+    "S": "earth_on_minecraft:steel_bloom"
+  },
+  "result": {
+    "id": "minecraft:iron_bars",
+    "count": 16
+  }
+}

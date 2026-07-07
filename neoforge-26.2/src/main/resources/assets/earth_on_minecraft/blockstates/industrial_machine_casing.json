@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "assembled=false": {
+      "model": "earth_on_minecraft:block/industrial_machine_casing"
+    },
+    "assembled=true": {
+      "model": "earth_on_minecraft:block/industrial_machine_casing_assembled"
+    }
+  }
+}

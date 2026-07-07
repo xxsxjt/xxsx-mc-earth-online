@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "earth_on_minecraft:carbon_black"
+  ],
+  "result": {
+    "id": "minecraft:black_dye",
+    "count": 2
+  }
+}

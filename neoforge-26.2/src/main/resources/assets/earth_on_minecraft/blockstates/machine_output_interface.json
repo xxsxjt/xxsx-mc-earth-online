@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "assembled=false": {
+      "model": "earth_on_minecraft:block/machine_output_interface"
+    },
+    "assembled=true": {
+      "model": "earth_on_minecraft:block/machine_output_interface_assembled"
+    }
+  }
+}

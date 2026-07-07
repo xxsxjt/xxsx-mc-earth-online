@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "earth_on_minecraft:block/battery_box_front",
+    "down": "earth_on_minecraft:block/power_machine_top",
+    "up": "earth_on_minecraft:block/power_machine_top",
+    "north": "earth_on_minecraft:block/battery_box_front",
+    "south": "earth_on_minecraft:block/power_machine_side",
+    "west": "earth_on_minecraft:block/power_machine_side",
+    "east": "earth_on_minecraft:block/power_machine_side"
+  }
+}

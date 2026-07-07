@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    " C ",
+    " C ",
+    " C "
+  ],
+  "key": {
+    "C": "earth_on_minecraft:copper_wire"
+  },
+  "result": {
+    "id": "minecraft:lightning_rod",
+    "count": 2
+  }
+}

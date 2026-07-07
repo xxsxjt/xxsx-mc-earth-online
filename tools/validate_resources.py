@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate Earth Online resource files without requiring Minecraft to boot."""
+"""Validate Earth on Minecraft resource files without requiring Minecraft to boot."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 RES = ROOT / "neoforge-26.2" / "src" / "main" / "resources"
-ASSETS = RES / "assets" / "earth_online"
+ASSETS = RES / "assets" / "earth_on_minecraft"
 
 
 def fail(message: str) -> None:
@@ -69,7 +69,7 @@ def validate_model_texture_refs() -> int:
                 if ref.startswith("#") or ":" not in ref:
                     continue
                 namespace, tex = ref.split(":", 1)
-                if namespace != "earth_online":
+                if namespace != "earth_on_minecraft":
                     continue
                 texture = ASSETS / "textures" / f"{tex}.png"
                 if not texture.exists():

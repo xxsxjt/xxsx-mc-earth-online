@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "earth_on_minecraft:block/lapis_lazuli_ore"
+      },
+      {
+        "model": "earth_on_minecraft:block/lapis_lazuli_ore",
+        "y": 90
+      },
+      {
+        "model": "earth_on_minecraft:block/lapis_lazuli_ore",
+        "y": 180
+      },
+      {
+        "model": "earth_on_minecraft:block/lapis_lazuli_ore",
+        "y": 270
+      }
+    ]
+  }
+}

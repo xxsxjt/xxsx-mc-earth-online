@@ -1,0 +1,20 @@
+{
+  "textures": {
+    "all": "earth_on_minecraft:block/steel_process_pipe_assembled",
+    "particle": "earth_on_minecraft:block/steel_process_pipe_assembled"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "down": { "texture": "#all", "cullface": "down", "uv": [1, 1, 15, 15] },
+        "up": { "texture": "#all", "cullface": "up", "uv": [1, 1, 15, 15] },
+        "north": { "texture": "#all", "cullface": "north", "uv": [1, 1, 15, 15] },
+        "south": { "texture": "#all", "cullface": "south", "uv": [1, 1, 15, 15] },
+        "west": { "texture": "#all", "cullface": "west", "uv": [1, 1, 15, 15] },
+        "east": { "texture": "#all", "cullface": "east", "uv": [1, 1, 15, 15] }
+      }
+    }
+  ]
+}

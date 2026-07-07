@@ -1,4 +1,4 @@
-# Earth Online 第二轮工业扩展计划
+# Earth on Minecraft 第二轮工业扩展计划
 
 ## 本轮目标
 
@@ -91,7 +91,7 @@
 橡胶复合料 -> 压粉机 -> 黏液球 / 密封圈
 ```
 
-第一版折中：密封圈先作为 Earth Online 中间物，用于未来机器升级，不急着绑定其他 mod。
+第一版折中：密封圈先作为 Earth on Minecraft 中间物，用于未来机器升级，不急着绑定其他 mod。
 
 ### 4. 基础有机溶剂与树脂
 
@@ -205,7 +205,7 @@
 第二轮后建议拆出数据结构：
 
 ```text
-data/earth_online/processing_routes/*.json
+data/earth_on_minecraft/processing_routes/*.json
 ```
 
 目标字段：
@@ -282,7 +282,7 @@ data/earth_online/processing_routes/*.json
 
 - `python tools\validate_resources.py`
 - `.\gradlew.bat build`
-- 部署到 26.2 NeoForge 测试实例，只保留一个有效 Earth Online jar。
+- 部署到 26.2 NeoForge 测试实例，只保留一个有效 Earth on Minecraft jar。
 
 ## 已完成：第二轮第二批大扩展
 
