@@ -31,6 +31,7 @@
 - [扩展路线图：核能、电网、自动化和科幻附属边界](docs/earth-on-minecraft-expanded-roadmap.md)
 - [科幻附属路线图](docs/scifi-addon-roadmap.md)
 - [0.1.14 Test Beta release notes](docs/release-notes-0.1.14-beta.md)
+- [0.1.14 CurseForge submission record](docs/quality/curseforge-0.1.14-beta.md)
 - [0.1.10 Beta 发布说明](docs/release-notes-0.1.10-beta.md)
 - [0.1.10 界面与基础设施审计](docs/ui-foundation-audit-0.1.10.md)
 - [地质生成与世界高度计划](docs/geology-worldgen-notes.md)
