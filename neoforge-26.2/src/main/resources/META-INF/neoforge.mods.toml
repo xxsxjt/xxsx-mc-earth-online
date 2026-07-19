@@ -1,10 +1,10 @@
 modLoader="javafml"
 loaderVersion="[3,)"
-license="All Rights Reserved"
+license="AGPL-3.0-only"
 
 [[mods]]
 modId="earth_on_minecraft"
-version="0.1.10"
+version="0.1.14"
 displayName="Earth on Minecraft / 我的地球"
 description='''
 In-development beta for Minecraft 26.2 + NeoForge 26.2.0.7-beta.
@@ -13,6 +13,8 @@ rock composition, processing chains, electricity, ore deposits and addon-facing 
 Expect recipes, worldgen, machine values and APIs to change during testing.
 '''
 authors="xxsx"
+logoFile="earth_on_minecraft.png"
+logoBlur=false
 
 [[dependencies.earth_on_minecraft]]
 modId="neoforge"

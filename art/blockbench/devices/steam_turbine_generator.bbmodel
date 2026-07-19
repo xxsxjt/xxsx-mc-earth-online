@@ -1,0 +1,604 @@
+{
+  "meta": {
+    "format_version": "5.0",
+    "model_format": "java_block",
+    "box_uv": false
+  },
+  "name": "steam_turbine_generator",
+  "model_identifier": "earth_on_minecraft:steam_turbine_generator",
+  "visible_box": [
+    1,
+    1,
+    0
+  ],
+  "variable_placeholders": "",
+  "resolution": {
+    "width": 128,
+    "height": 128
+  },
+  "elements": [
+    {
+      "name": "skid",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        2,
+        15
+      ],
+      "autouv": 0,
+      "color": 0,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "31b47482-620c-5f35-9117-8f210a0d7039",
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "turbine_low",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        1,
+        4,
+        3
+      ],
+      "to": [
+        8,
+        12,
+        13
+      ],
+      "autouv": 0,
+      "color": 1,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "d6a7f52f-dc4d-5c8f-a65b-c8cc8d30948e",
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            4,
+            8,
+            12
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            8,
+            4,
+            15,
+            12
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            3,
+            4,
+            13,
+            12
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            3,
+            4,
+            13,
+            12
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            1,
+            3,
+            8,
+            13
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            1,
+            3,
+            8,
+            13
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "turbine_high",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        3,
+        7,
+        2
+      ],
+      "to": [
+        10,
+        14,
+        14
+      ],
+      "autouv": 0,
+      "color": 2,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "bb9412d5-26ec-5efc-a1b1-1551a257fd93",
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            2,
+            10,
+            9
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            6,
+            2,
+            13,
+            9
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            2,
+            2,
+            14,
+            9
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            2,
+            2,
+            14,
+            9
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            3,
+            2,
+            10,
+            14
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            3,
+            2,
+            10,
+            14
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "generator",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        9,
+        5,
+        4
+      ],
+      "to": [
+        15,
+        13,
+        12
+      ],
+      "autouv": 0,
+      "color": 3,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "7f781660-27bd-5e88-8165-67d0e505ecb9",
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            3,
+            15,
+            11
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            1,
+            3,
+            7,
+            11
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            4,
+            3,
+            12,
+            11
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            4,
+            3,
+            12,
+            11
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            9,
+            4,
+            15,
+            12
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            9,
+            4,
+            15,
+            12
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "shaft_guard",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        7,
+        6,
+        6
+      ],
+      "to": [
+        11,
+        11,
+        10
+      ],
+      "autouv": 0,
+      "color": 4,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "04ad0f21-b4c3-5d9f-8c1a-8089a2e1f59b",
+      "faces": {
+        "north": {
+          "uv": [
+            7,
+            5,
+            11,
+            10
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            5,
+            5,
+            9,
+            10
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            6,
+            5,
+            10,
+            10
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            6,
+            5,
+            10,
+            10
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            7,
+            6,
+            11,
+            10
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            7,
+            6,
+            11,
+            10
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "steam_chest",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        1,
+        11,
+        5
+      ],
+      "to": [
+        6,
+        16,
+        11
+      ],
+      "autouv": 0,
+      "color": 5,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "2dd68262-02b4-50cf-b389-a58152238625",
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            0,
+            6,
+            5
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            10,
+            0,
+            15,
+            5
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            5,
+            0,
+            11,
+            5
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            5,
+            0,
+            11,
+            5
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            1,
+            5,
+            6,
+            11
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            1,
+            5,
+            6,
+            11
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    }
+  ],
+  "outliner": [
+    "31b47482-620c-5f35-9117-8f210a0d7039",
+    "d6a7f52f-dc4d-5c8f-a65b-c8cc8d30948e",
+    "bb9412d5-26ec-5efc-a1b1-1551a257fd93",
+    "7f781660-27bd-5e88-8165-67d0e505ecb9",
+    "04ad0f21-b4c3-5d9f-8c1a-8089a2e1f59b",
+    "2dd68262-02b4-50cf-b389-a58152238625"
+  ],
+  "textures": [
+    {
+      "name": "steam_turbine_generator_front.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "0",
+      "particle": false,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "784ecd81-4594-5799-9b83-f31474a37f66",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/steam_turbine_generator_front.png"
+    },
+    {
+      "name": "power_machine_side.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "1",
+      "particle": true,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "5db7e8b9-6cac-523c-a6b5-8c2609e6aeb6",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/power_machine_side.png"
+    },
+    {
+      "name": "power_machine_top.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "2",
+      "particle": false,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "efd1015c-2e25-5902-a47a-d655f32a6e99",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/power_machine_top.png"
+    }
+  ],
+  "earth_on_minecraft": {
+    "schema_version": 1,
+    "prototype": "condensing steam turbine-generator set",
+    "silhouette": "long turbine casing aligned with a cylindrical generator and guarded coupling",
+    "faces": {
+      "front": "speed, load, and bearing panel",
+      "back": "condenser and service return",
+      "left": "steam inlet",
+      "right": "electrical output bus",
+      "top": "governor and steam chest",
+      "bottom": "condensate drain and foundation"
+    },
+    "states": {
+      "idle": {
+        "particle": "earth_on_minecraft:block/power_machine_side",
+        "front": "earth_on_minecraft:block/steam_turbine_generator_front",
+        "back": "earth_on_minecraft:block/power_machine_side",
+        "left": "earth_on_minecraft:block/power_machine_side",
+        "right": "earth_on_minecraft:block/power_machine_side",
+        "top": "earth_on_minecraft:block/power_machine_top",
+        "bottom": "earth_on_minecraft:block/power_machine_top",
+        "fault": "minecraft:block/redstone_lamp_on"
+      },
+      "running": {
+        "particle": "earth_on_minecraft:block/power_machine_side_active",
+        "front": "earth_on_minecraft:block/steam_turbine_generator_front_active",
+        "back": "earth_on_minecraft:block/power_machine_side_active",
+        "left": "earth_on_minecraft:block/power_machine_side_active",
+        "right": "earth_on_minecraft:block/power_machine_side_active",
+        "top": "earth_on_minecraft:block/power_machine_top_active",
+        "bottom": "earth_on_minecraft:block/power_machine_top_active",
+        "fault": "minecraft:block/redstone_lamp_on"
+      },
+      "fault": {
+        "particle": "earth_on_minecraft:block/power_machine_side",
+        "front": "earth_on_minecraft:block/steam_turbine_generator_front",
+        "back": "earth_on_minecraft:block/power_machine_side",
+        "left": "earth_on_minecraft:block/power_machine_side",
+        "right": "earth_on_minecraft:block/power_machine_side",
+        "top": "earth_on_minecraft:block/power_machine_top",
+        "bottom": "earth_on_minecraft:block/power_machine_top",
+        "fault": "minecraft:block/redstone_lamp_on"
+      }
+    }
+  }
+}

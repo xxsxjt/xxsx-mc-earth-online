@@ -13,6 +13,9 @@ public final class EarthOnMinecraftClient {
     public static void register(IEventBus modBus) {
         modBus.addListener(EarthOnMinecraftClient::registerScreens);
         modBus.addListener(EarthOnMinecraftClient::registerRenderers);
+        modBus.addListener(MachineFeedbackClient::registerParticleProviders);
+        modBus.addListener(ConnectedOreModels::registerStandaloneModels);
+        modBus.addListener(ConnectedOreModels::replaceBakedModels);
     }
 
     private static void registerScreens(RegisterMenuScreensEvent event) {

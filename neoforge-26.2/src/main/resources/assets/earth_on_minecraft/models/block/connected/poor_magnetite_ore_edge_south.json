@@ -1,0 +1,109 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "earth_on_minecraft:block/poor_magnetite_ore",
+    "ore": "earth_on_minecraft:block/poor_magnetite_ore"
+  },
+  "elements": [
+    {
+      "from": [
+        -0.015,
+        0.0,
+        14.5
+      ],
+      "to": [
+        0,
+        16.0,
+        16.0
+      ],
+      "shade": false,
+      "faces": {
+        "west": {
+          "uv": [
+            14.5,
+            0.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#ore",
+          "cullface": "west"
+        }
+      }
+    },
+    {
+      "from": [
+        16.0,
+        0.0,
+        14.5
+      ],
+      "to": [
+        16.015,
+        16.0,
+        16.0
+      ],
+      "shade": false,
+      "faces": {
+        "east": {
+          "uv": [
+            14.5,
+            0.0,
+            16.0,
+            16.0
+          ],
+          "texture": "#ore",
+          "cullface": "east"
+        }
+      }
+    },
+    {
+      "from": [
+        0.0,
+        -0.01,
+        14.5
+      ],
+      "to": [
+        16.0,
+        0,
+        16.0
+      ],
+      "shade": false,
+      "faces": {
+        "down": {
+          "uv": [
+            0.0,
+            14.5,
+            16.0,
+            16.0
+          ],
+          "texture": "#ore",
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "from": [
+        0.0,
+        16.0,
+        14.5
+      ],
+      "to": [
+        16.0,
+        16.01,
+        16.0
+      ],
+      "shade": false,
+      "faces": {
+        "up": {
+          "uv": [
+            0.0,
+            14.5,
+            16.0,
+            16.0
+          ],
+          "texture": "#ore",
+          "cullface": "up"
+        }
+      }
+    }
+  ]
+}

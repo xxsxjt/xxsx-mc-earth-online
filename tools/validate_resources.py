@@ -10,13 +10,20 @@ import re
 import struct
 import sys
 
+from PIL import Image
+
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 RES = ROOT / "neoforge-26.2" / "src" / "main" / "resources"
 ASSETS = RES / "assets" / "earth_on_minecraft"
 JAVA_ENTRYPOINT = ROOT / "neoforge-26.2" / "src" / "main" / "java" / "com" / "xxsx" / "earthonminecraft" / "EarthOnMinecraft.java"
-CURRENT_JAR = ROOT / "neoforge-26.2" / "build" / "libs" / "earth-on-minecraft-neoforge-26.2-0.1.9.jar"
-CURRENT_RELEASE_NOTES = ROOT / "docs" / "release-notes-0.1.9-beta.md"
+BUILD_GRADLE = ROOT / "neoforge-26.2" / "build.gradle"
+JAVA_ROOT = ROOT / "neoforge-26.2" / "src" / "main" / "java" / "com" / "xxsx" / "earthonminecraft"
+MACHINE_PROFILES = RES / "data" / "earth_on_minecraft" / "earth" / "quality" / "machine_profiles.json"
+UI_STATE_MATRIX = ROOT / "docs" / "quality" / "ui-state-matrix.json"
+VERTICAL_SLICE_TEMPLATE = ROOT / "docs" / "quality" / "vertical-slice-template.json"
+MODS_TOML = RES / "META-INF" / "neoforge.mods.toml"
+MOD_ICON = RES / "earth_on_minecraft.png"
 VANILLA_ORE_PLACED_FEATURES = (
     "ore_coal_lower",
     "ore_coal_upper",
@@ -131,6 +138,101 @@ def validate_png_headers() -> int:
             fail(f"invalid png size {path.relative_to(ROOT)}: {width}x{height}")
         count += 1
     return count
+
+
+def png_dimensions(path: pathlib.Path) -> tuple[int, int]:
+    data = path.read_bytes()
+    if not data.startswith(b"\x89PNG\r\n\x1a\n") or len(data) < 24:
+        fail(f"invalid png {path.relative_to(ROOT)}")
+    return struct.unpack(">II", data[16:24])
+
+
+def validate_mod_icon() -> int:
+    metadata = MODS_TOML.read_text(encoding="utf-8")
+    if not re.search(r'(?m)^logoFile\s*=\s*"earth_on_minecraft\.png"\s*$', metadata):
+        fail("neoforge.mods.toml must declare logoFile=\"earth_on_minecraft.png\"")
+    if not re.search(r'(?m)^logoBlur\s*=\s*false\s*$', metadata):
+        fail("pixel-art mod icon must declare logoBlur=false")
+    if not MOD_ICON.exists():
+        fail(f"missing mod icon {MOD_ICON.relative_to(ROOT)}")
+    width, height = png_dimensions(MOD_ICON)
+    if width != height or width < 256:
+        fail(f"mod icon must be square and at least 256x256, got {width}x{height}")
+    with Image.open(MOD_ICON).convert("RGBA") as image:
+        alpha_min, alpha_max = image.getchannel("A").getextrema()
+        if alpha_min != 0 or alpha_max != 255:
+            fail(f"mod icon must contain true transparency and opaque pixels, got alpha {alpha_min}..{alpha_max}")
+        if any(image.getpixel(point)[3] != 0 for point in (
+                (0, 0), (width - 1, 0), (0, height - 1), (width - 1, height - 1))):
+            fail("mod icon corners must be transparent")
+    return 1
+
+
+def connected_ore_ids() -> list[str]:
+    java = JAVA_ENTRYPOINT.read_text(encoding="utf-8")
+    ids = re.findall(r'oreBlock\("([a-z0-9_]+)"', java)
+    if not ids:
+        fail("no oreBlock registrations found for connected ore validation")
+    if len(ids) != len(set(ids)):
+        fail("duplicate oreBlock registration found")
+    return ids
+
+
+def validate_connected_ore_assets() -> int:
+    ore_ids = connected_ore_ids()
+    model_root = ASSETS / "models" / "block" / "connected"
+    texture_root = ASSETS / "textures" / "block" / "connected"
+    directions = ("down", "up", "north", "south", "west", "east")
+    expected_models = {
+        f"{block_id}_{suffix}.json"
+        for block_id in ore_ids
+        for suffix in ("center", *(f"edge_{direction}" for direction in directions))
+    }
+    expected_textures = {f"{block_id}_center.png" for block_id in ore_ids}
+    actual_models = {path.name for path in model_root.glob("*.json")}
+    actual_textures = {path.name for path in texture_root.glob("*.png")}
+    if actual_models != expected_models:
+        fail(
+            "connected ore model set mismatch: "
+            f"missing={sorted(expected_models - actual_models)} extra={sorted(actual_models - expected_models)}"
+        )
+    if actual_textures != expected_textures:
+        fail(
+            "connected ore texture set mismatch: "
+            f"missing={sorted(expected_textures - actual_textures)} extra={sorted(actual_textures - expected_textures)}"
+        )
+
+    for block_id in ore_ids:
+        source_texture = ASSETS / "textures" / "block" / f"{block_id}.png"
+        center_texture = texture_root / f"{block_id}_center.png"
+        if png_dimensions(source_texture) != png_dimensions(center_texture):
+            fail(f"connected center texture size mismatch for {block_id}")
+
+        center_model = json.loads((model_root / f"{block_id}_center.json").read_text(encoding="utf-8-sig"))
+        expected_center_ref = f"earth_on_minecraft:block/connected/{block_id}_center"
+        if center_model.get("parent") != "minecraft:block/cube_all":
+            fail(f"connected center model has wrong parent for {block_id}")
+        if center_model.get("textures", {}).get("all") != expected_center_ref:
+            fail(f"connected center model has wrong texture for {block_id}")
+
+        expected_ore_ref = f"earth_on_minecraft:block/{block_id}"
+        for direction in directions:
+            path = model_root / f"{block_id}_edge_{direction}.json"
+            model = json.loads(path.read_text(encoding="utf-8-sig"))
+            textures = model.get("textures", {})
+            if textures.get("ore") != expected_ore_ref or textures.get("particle") != expected_ore_ref:
+                fail(f"connected edge model has wrong texture for {block_id}/{direction}")
+            elements = model.get("elements")
+            if not isinstance(elements, list) or len(elements) != 4:
+                fail(f"connected edge model must contain four face strips for {block_id}/{direction}")
+            for element in elements:
+                faces = element.get("faces") if isinstance(element, dict) else None
+                if not isinstance(faces, dict) or len(faces) != 1:
+                    fail(f"connected edge strip must contain one face for {block_id}/{direction}")
+                face_name, face = next(iter(faces.items()))
+                if not isinstance(face, dict) or face.get("cullface") != face_name:
+                    fail(f"connected edge strip has wrong cullface for {block_id}/{direction}")
+    return len(ore_ids)
 
 
 def texture_refs(model_data: dict) -> list[str]:
@@ -276,16 +378,23 @@ def validate_player_facing_text() -> int:
 
 
 def validate_release_note_sha() -> int:
-    if not CURRENT_RELEASE_NOTES.exists():
+    build_text = BUILD_GRADLE.read_text(encoding="utf-8-sig")
+    version_match = re.search(r"^version\s*=\s*['\"]([^'\"]+)['\"]", build_text, re.MULTILINE)
+    if version_match is None:
+        fail(f"cannot determine project version from {BUILD_GRADLE.relative_to(ROOT)}")
+    version = version_match.group(1)
+    current_jar = ROOT / "neoforge-26.2" / "build" / "libs" / f"earth-on-minecraft-neoforge-26.2-{version}.jar"
+    current_release_notes = ROOT / "docs" / f"release-notes-{version}-beta.md"
+    if not current_release_notes.exists():
         return 0
-    text = CURRENT_RELEASE_NOTES.read_text(encoding="utf-8-sig")
+    text = current_release_notes.read_text(encoding="utf-8-sig")
     match = re.search(r"SHA256: `([A-Fa-f0-9]{64})`", text)
     if match is None:
-        fail(f"missing SHA256 in {CURRENT_RELEASE_NOTES.relative_to(ROOT)}")
-    if CURRENT_JAR.exists():
-        digest = hashlib.sha256(CURRENT_JAR.read_bytes()).hexdigest().upper()
+        fail(f"missing SHA256 in {current_release_notes.relative_to(ROOT)}")
+    if current_jar.exists():
+        digest = hashlib.sha256(current_jar.read_bytes()).hexdigest().upper()
         if match.group(1).upper() != digest:
-            fail(f"release-note SHA mismatch for {CURRENT_JAR.relative_to(ROOT)}")
+            fail(f"release-note SHA mismatch for {current_jar.relative_to(ROOT)}")
     return 1
 
 
@@ -573,9 +682,138 @@ def validate_vanilla_ore_suppression() -> int:
     return count
 
 
+def validate_quality_foundation() -> tuple[int, int, int, int, int]:
+    source = JAVA_ENTRYPOINT.read_text(encoding="utf-8")
+    registered_machines = set(re.findall(r'machineBlock\("([a-z0-9_]+)"', source))
+    registered_devices = set(re.findall(r'energyGeneratorBlock\("([a-z0-9_]+)"', source))
+    profile_data = json.loads(MACHINE_PROFILES.read_text(encoding="utf-8-sig"))
+    if profile_data.get("schema_version") != 1:
+        fail("machine profile schema_version must be 1")
+    state_contract = profile_data.get("state_contract")
+    if not isinstance(state_contract, dict) or set(state_contract) != {"idle", "running", "fault"}:
+        fail("machine profiles must define idle, running, and fault state contracts")
+    profiles = profile_data.get("machines")
+    if not isinstance(profiles, list):
+        fail("machine profiles must contain a machines list")
+    devices = profile_data.get("devices")
+    if not isinstance(devices, list):
+        fail("machine profiles must contain a devices list")
+    profile_ids = {profile.get("id") for profile in profiles if isinstance(profile, dict)}
+    if profile_ids != registered_machines:
+        fail(f"machine profile coverage mismatch: missing={sorted(registered_machines - profile_ids)} extra={sorted(profile_ids - registered_machines)}")
+    device_ids = {profile.get("id") for profile in devices if isinstance(profile, dict)}
+    if device_ids != registered_devices:
+        fail(f"device profile coverage mismatch: missing={sorted(registered_devices - device_ids)} extra={sorted(device_ids - registered_devices)}")
+
+    sounds_path = ASSETS / "sounds.json"
+    sounds = json.loads(sounds_path.read_text(encoding="utf-8-sig"))
+    face_keys = {"front", "back", "left", "right", "top", "bottom"}
+    for group, group_profiles in (("machine", profiles), ("device", devices)):
+        for profile in group_profiles:
+            machine_id = profile["id"]
+            if set(profile.get("faces", {})) != face_keys:
+                fail(f"{group} profile must define six face responsibilities: {machine_id}")
+            for cue in ("idle_cue", "running_cue", "fault_cue", "prototype", "silhouette", "particle_profile"):
+                if not isinstance(profile.get(cue), str) or not profile[cue].strip():
+                    fail(f"{group} profile missing {cue}: {machine_id}")
+            event = profile.get("sound_event", "").removeprefix("earth_on_minecraft:")
+            if event not in sounds:
+                fail(f"missing custom {group} sound event {event}")
+            ogg = ASSETS / "sounds" / group / machine_id / "run.ogg"
+            if not ogg.exists() or not ogg.read_bytes().startswith(b"OggS"):
+                fail(f"missing or invalid custom {group} sound {ogg.relative_to(ROOT)}")
+            particle_id = f"{group}_{machine_id}_process"
+            particle_json = ASSETS / "particles" / f"{particle_id}.json"
+            particle_png = ASSETS / "textures" / "particle" / group / f"{machine_id}.png"
+            if not particle_json.exists() or not particle_png.exists():
+                fail(f"missing custom process particle for {machine_id}")
+            source_group = "machines" if group == "machine" else "devices"
+            blockbench_source = ROOT / "art" / "blockbench" / source_group / f"{machine_id}.bbmodel"
+            if not blockbench_source.exists():
+                fail(f"missing editable Blockbench source {blockbench_source.relative_to(ROOT)}")
+            source_data = json.loads(blockbench_source.read_text(encoding="utf-8-sig"))
+            if source_data.get("meta", {}).get("model_format") != "java_block":
+                fail(f"invalid Blockbench model format for {machine_id}")
+            if len(source_data.get("elements", [])) < 5:
+                fail(f"Blockbench source has too little geometry for {machine_id}")
+            for suffix in ("", "_active", "_fault"):
+                model_path = ASSETS / "models" / "block" / f"{machine_id}{suffix}.json"
+                model_data = json.loads(model_path.read_text(encoding="utf-8-sig"))
+                if len(model_data.get("elements", [])) < 5:
+                    fail(f"runtime model has too little geometry: {model_path.relative_to(ROOT)}")
+            blockstate_path = ASSETS / "blockstates" / f"{machine_id}.json"
+            variants = json.loads(blockstate_path.read_text(encoding="utf-8-sig")).get("variants", {})
+            expected_variants = 16 if group == "machine" else 8
+            if len(variants) != expected_variants:
+                fail(f"unexpected state coverage for {machine_id}: {len(variants)} != {expected_variants}")
+            if group == "machine" and not any("fault=true" in key for key in variants):
+                fail(f"processing machine has no fault model state: {machine_id}")
+
+    for event, file_name in (("machine.fault", "fault.ogg"), ("machine.complete", "complete.ogg")):
+        path = ASSETS / "sounds" / "machine" / file_name
+        if event not in sounds or not path.exists() or not path.read_bytes().startswith(b"OggS"):
+            fail(f"missing machine feedback event {event}")
+
+    matrix = json.loads(UI_STATE_MATRIX.read_text(encoding="utf-8-sig"))
+    if matrix.get("schema_version") != 1 or set(matrix.get("languages", [])) != {"zh_cn", "en_us"}:
+        fail("UI state matrix schema or languages are invalid")
+    screens = matrix.get("screens")
+    if not isinstance(screens, list):
+        fail("UI state matrix must contain screens")
+    required_screens = {
+        "processing_machine", "energy_generator", "battery_box", "machine_side_config",
+        "field_geology_notebook", "settlement_board",
+    }
+    screen_ids = {screen.get("id") for screen in screens if isinstance(screen, dict)}
+    if screen_ids != required_screens:
+        fail(f"UI state matrix screen mismatch: missing={sorted(required_screens - screen_ids)} extra={sorted(screen_ids - required_screens)}")
+    ui_state_count = sum(len(screen.get("states", [])) for screen in screens)
+    if ui_state_count < 20:
+        fail(f"UI state matrix is too narrow: {ui_state_count}")
+
+    api_files = {
+        "EarthOnMinecraftApi.java", "GeologyQueryApi.java", "MaterialPropertyApi.java",
+        "MachineProcessingApi.java", "EnergyApi.java", "LogisticsApi.java", "SettlementQueryApi.java",
+    }
+    api_root = JAVA_ROOT / "api" / "v1"
+    actual_api_files = {path.name for path in api_root.glob("*.java")}
+    if not api_files.issubset(actual_api_files):
+        fail(f"missing api.v1 contracts: {sorted(api_files - actual_api_files)}")
+    if not (ROOT / "docs" / "quality" / "runtime-checklist.md").exists():
+        fail("missing runtime quality checklist")
+    if not (ROOT / "art" / "blockbench" / "README.md").exists():
+        fail("missing Blockbench source pipeline contract")
+
+    required_layers = {
+        "acquisition", "processing", "purpose", "jei", "handbook", "feedback", "failure_recovery", "tests",
+    }
+    template = json.loads(VERTICAL_SLICE_TEMPLATE.read_text(encoding="utf-8-sig"))
+    if template.get("schema_version") != 1 or set(template.get("layers", {})) != required_layers:
+        fail("vertical slice template must define all eight closure layers")
+    slice_root = ROOT / "docs" / "quality" / "vertical-slices"
+    for path in sorted(slice_root.glob("*.json")) if slice_root.exists() else ():
+        data = json.loads(path.read_text(encoding="utf-8-sig"))
+        layers = data.get("layers", {})
+        if data.get("schema_version") != 1 or set(layers) != required_layers:
+            fail(f"invalid vertical slice manifest {path.relative_to(ROOT)}")
+        if data.get("status") == "complete":
+            unfinished = [name for name, layer in layers.items()
+                          if layer.get("status") != "complete" or not layer.get("evidence")]
+            if unfinished:
+                fail(f"complete vertical slice has unfinished evidence in {path.relative_to(ROOT)}: {unfinished}")
+
+    for path in (JAVA_ROOT / "ProcessingMachineBlock.java", JAVA_ROOT / "EnergyGeneratorBlock.java"):
+        feedback_source = path.read_text(encoding="utf-8")
+        if "SoundEvents." in feedback_source or "ParticleTypes." in feedback_source:
+            fail(f"device feedback must use registered custom assets, not vanilla events: {path.relative_to(ROOT)}")
+    return len(profiles), len(devices), ui_state_count, len(profiles) + len(devices) + 2, len(api_files)
+
+
 def main() -> None:
     json_count = validate_json()
     png_count = validate_png_headers()
+    mod_icon_count = validate_mod_icon()
+    connected_ore_count = validate_connected_ore_assets()
     model_count = validate_model_texture_refs()
     ref_count = validate_model_refs()
     block_count, item_count, stack_count, known_ids = validate_registry_resource_coverage()
@@ -586,15 +824,18 @@ def main() -> None:
     worldgen_height_count = validate_worldgen_height_ranges()
     strata_count = validate_earth_strata_refs()
     vanilla_ore_suppression_count = validate_vanilla_ore_suppression()
+    machine_profile_count, device_profile_count, ui_state_count, feedback_count, api_count = validate_quality_foundation()
     player_text_count = validate_player_facing_text()
     release_note_count = validate_release_note_sha()
     print(
-        f"OK json={json_count} png={png_count} models={model_count} refs={ref_count} "
+        f"OK json={json_count} png={png_count} modIcons={mod_icon_count} connectedOres={connected_ore_count} models={model_count} refs={ref_count} "
         f"blocks={block_count} items={item_count} stacks={stack_count} "
         f"dataRefs={data_ref_count} integrationTags={integration_tag_count} worldgenRefs={worldgen_ref_count} "
         f"livingTrades={living_trade_count} livingTradeTags={living_tag_count} livingLoot={living_loot_count} "
         f"worldgenHeights={worldgen_height_count} strata={strata_count} "
-        f"vanillaOreSuppression={vanilla_ore_suppression_count} playerText={player_text_count} "
+        f"vanillaOreSuppression={vanilla_ore_suppression_count} machineProfiles={machine_profile_count} "
+        f"deviceProfiles={device_profile_count} "
+        f"uiStates={ui_state_count} feedback={feedback_count} apiV1={api_count} playerText={player_text_count} "
         f"releaseNotes={release_note_count}"
     )
 

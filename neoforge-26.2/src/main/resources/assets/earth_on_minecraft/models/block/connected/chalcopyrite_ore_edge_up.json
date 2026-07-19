@@ -1,0 +1,109 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "earth_on_minecraft:block/chalcopyrite_ore",
+    "ore": "earth_on_minecraft:block/chalcopyrite_ore"
+  },
+  "elements": [
+    {
+      "from": [
+        0.0,
+        14.5,
+        -0.005
+      ],
+      "to": [
+        16.0,
+        16.0,
+        0
+      ],
+      "shade": false,
+      "faces": {
+        "north": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            1.5
+          ],
+          "texture": "#ore",
+          "cullface": "north"
+        }
+      }
+    },
+    {
+      "from": [
+        0.0,
+        14.5,
+        16.0
+      ],
+      "to": [
+        16.0,
+        16.0,
+        16.005
+      ],
+      "shade": false,
+      "faces": {
+        "south": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            1.5
+          ],
+          "texture": "#ore",
+          "cullface": "south"
+        }
+      }
+    },
+    {
+      "from": [
+        -0.005,
+        14.5,
+        0.0
+      ],
+      "to": [
+        0,
+        16.0,
+        16.0
+      ],
+      "shade": false,
+      "faces": {
+        "west": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            1.5
+          ],
+          "texture": "#ore",
+          "cullface": "west"
+        }
+      }
+    },
+    {
+      "from": [
+        16.0,
+        14.5,
+        0.0
+      ],
+      "to": [
+        16.005,
+        16.0,
+        16.0
+      ],
+      "shade": false,
+      "faces": {
+        "east": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            1.5
+          ],
+          "texture": "#ore",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "earth_on_minecraft:block/bauxite_laterite_deposit",
+    "ore": "earth_on_minecraft:block/bauxite_laterite_deposit"
+  },
+  "elements": [
+    {
+      "from": [
+        -0.015,
+        0.0,
+        0.0
+      ],
+      "to": [
+        0,
+        16.0,
+        1.5
+      ],
+      "shade": false,
+      "faces": {
+        "west": {
+          "uv": [
+            0.0,
+            0.0,
+            1.5,
+            16.0
+          ],
+          "texture": "#ore",
+          "cullface": "west"
+        }
+      }
+    },
+    {
+      "from": [
+        16.0,
+        0.0,
+        0.0
+      ],
+      "to": [
+        16.015,
+        16.0,
+        1.5
+      ],
+      "shade": false,
+      "faces": {
+        "east": {
+          "uv": [
+            0.0,
+            0.0,
+            1.5,
+            16.0
+          ],
+          "texture": "#ore",
+          "cullface": "east"
+        }
+      }
+    },
+    {
+      "from": [
+        0.0,
+        -0.01,
+        0.0
+      ],
+      "to": [
+        16.0,
+        0,
+        1.5
+      ],
+      "shade": false,
+      "faces": {
+        "down": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            1.5
+          ],
+          "texture": "#ore",
+          "cullface": "down"
+        }
+      }
+    },
+    {
+      "from": [
+        0.0,
+        16.0,
+        0.0
+      ],
+      "to": [
+        16.0,
+        16.01,
+        1.5
+      ],
+      "shade": false,
+      "faces": {
+        "up": {
+          "uv": [
+            0.0,
+            0.0,
+            16.0,
+            1.5
+          ],
+          "texture": "#ore",
+          "cullface": "up"
+        }
+      }
+    }
+  ]
+}

@@ -972,5 +972,8 @@
   "jei.earth_on_minecraft.settlement_board.1": "放在村庄或工坊附近，自动建立或连接聚落档案。",
   "jei.earth_on_minecraft.settlement_board.2": "总览：产业、需求、供应、安全度和声望。",
   "jei.earth_on_minecraft.settlement_board.3": "居民/设施页：查看实名角色和附近功能方块统计。",
-  "jei.earth_on_minecraft.settlement_board.4": "潜行右键居民可直接查看身份；手册“聚落”页有完整说明。"
+  "jei.earth_on_minecraft.settlement_board.4": "潜行右键居民可直接查看身份；手册“聚落”页有完整说明。",
+  "subtitles.earth_on_minecraft.machine.running": "工业设备正在运行",
+  "subtitles.earth_on_minecraft.machine.fault": "工业设备触发故障警报",
+  "subtitles.earth_on_minecraft.machine.complete": "工业设备完成一批处理"
 }

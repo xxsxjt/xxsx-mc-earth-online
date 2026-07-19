@@ -1,12 +1,431 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": true,
+  "gui_light": "side",
   "textures": {
     "particle": "earth_on_minecraft:block/chemical_reactor",
-    "down": "earth_on_minecraft:block/wet_machine_top",
-    "up": "earth_on_minecraft:block/wet_machine_top",
-    "north": "earth_on_minecraft:block/chemical_reactor",
-    "south": "earth_on_minecraft:block/wet_machine_side",
-    "west": "earth_on_minecraft:block/wet_machine_side",
-    "east": "earth_on_minecraft:block/wet_machine_side"
-  }
+    "front": "earth_on_minecraft:block/chemical_reactor",
+    "back": "earth_on_minecraft:block/wet_machine_side",
+    "left": "earth_on_minecraft:block/wet_machine_side",
+    "right": "earth_on_minecraft:block/wet_machine_side",
+    "top": "earth_on_minecraft:block/wet_machine_top",
+    "bottom": "earth_on_minecraft:block/wet_machine_top",
+    "fault": "minecraft:block/redstone_lamp_on"
+  },
+  "elements": [
+    {
+      "name": "foundation",
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        2,
+        15
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "pressure_vessel",
+      "from": [
+        3,
+        2,
+        3
+      ],
+      "to": [
+        13,
+        13,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            3,
+            13,
+            14
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            3,
+            3,
+            13,
+            14
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            3,
+            3,
+            13,
+            14
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            3,
+            3,
+            13,
+            14
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "jacket_low",
+      "from": [
+        2,
+        3,
+        2
+      ],
+      "to": [
+        14,
+        7,
+        14
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            9,
+            14,
+            13
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            2,
+            9,
+            14,
+            13
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            2,
+            9,
+            14,
+            13
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            2,
+            9,
+            14,
+            13
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "jacket_high",
+      "from": [
+        2,
+        9,
+        2
+      ],
+      "to": [
+        14,
+        12,
+        14
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            4,
+            14,
+            7
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            2,
+            4,
+            14,
+            7
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            2,
+            4,
+            14,
+            7
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            2,
+            4,
+            14,
+            7
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "agitator_drive",
+      "from": [
+        5,
+        12,
+        5
+      ],
+      "to": [
+        11,
+        16,
+        11
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            0,
+            11,
+            4
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            5,
+            0,
+            11,
+            4
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            5,
+            0,
+            11,
+            4
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            5,
+            0,
+            11,
+            4
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "product_nozzle",
+      "from": [
+        12,
+        5,
+        5
+      ],
+      "to": [
+        16,
+        9,
+        11
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            7,
+            16,
+            11
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            0,
+            7,
+            4,
+            11
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            5,
+            7,
+            11,
+            11
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            5,
+            7,
+            11,
+            11
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            12,
+            5,
+            16,
+            11
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            12,
+            5,
+            16,
+            11
+          ],
+          "texture": "#bottom"
+        }
+      }
+    }
+  ]
 }

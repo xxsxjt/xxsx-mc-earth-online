@@ -3,6 +3,8 @@ build/
 .gradle/
 run/
 **/runs/
+!docs/quality/runs/
+!docs/quality/runs/*.md
 !gradle/wrapper/gradle-wrapper.jar
 
 # IDE

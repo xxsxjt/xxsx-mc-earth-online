@@ -1,0 +1,604 @@
+{
+  "meta": {
+    "format_version": "5.0",
+    "model_format": "java_block",
+    "box_uv": false
+  },
+  "name": "distillation_column",
+  "model_identifier": "earth_on_minecraft:distillation_column",
+  "visible_box": [
+    1,
+    1,
+    0
+  ],
+  "variable_placeholders": "",
+  "resolution": {
+    "width": 128,
+    "height": 128
+  },
+  "elements": [
+    {
+      "name": "reboiler",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        1,
+        0,
+        2
+      ],
+      "to": [
+        15,
+        5,
+        14
+      ],
+      "autouv": 0,
+      "color": 0,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "ae7b2a5e-4655-5248-ab4e-543137efc795",
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            11,
+            15,
+            16
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            1,
+            11,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            2,
+            11,
+            14,
+            16
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            2,
+            11,
+            14,
+            16
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            1,
+            2,
+            15,
+            14
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            1,
+            2,
+            15,
+            14
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "column",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        5,
+        3,
+        5
+      ],
+      "to": [
+        11,
+        16,
+        11
+      ],
+      "autouv": 0,
+      "color": 1,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "1eaa5090-0830-564b-87ed-f59e512b8e8d",
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            0,
+            11,
+            13
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            5,
+            0,
+            11,
+            13
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            5,
+            0,
+            11,
+            13
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            5,
+            0,
+            11,
+            13
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "lower_tray_ring",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        3,
+        5,
+        3
+      ],
+      "to": [
+        13,
+        7,
+        13
+      ],
+      "autouv": 0,
+      "color": 2,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "1985cfc7-c4ae-5c64-9b4d-fe2b624e7336",
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            9,
+            13,
+            11
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            9,
+            13,
+            11
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            3,
+            9,
+            13,
+            11
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            3,
+            9,
+            13,
+            11
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "middle_tray_ring",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        3,
+        9,
+        3
+      ],
+      "to": [
+        13,
+        11,
+        13
+      ],
+      "autouv": 0,
+      "color": 3,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "4be280e4-13e3-5bf9-b4be-4a79845b0cfb",
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            5,
+            13,
+            7
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            5,
+            13,
+            7
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            3,
+            5,
+            13,
+            7
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            3,
+            5,
+            13,
+            7
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "upper_tray_ring",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        3,
+        13,
+        3
+      ],
+      "to": [
+        13,
+        15,
+        13
+      ],
+      "autouv": 0,
+      "color": 4,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "4405e59b-8fa2-5554-b1b0-0393adced13c",
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            1,
+            13,
+            3
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            1,
+            13,
+            3
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            3,
+            1,
+            13,
+            3
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            3,
+            1,
+            13,
+            3
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "side_draw",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        10,
+        8,
+        6
+      ],
+      "to": [
+        16,
+        11,
+        10
+      ],
+      "autouv": 0,
+      "color": 5,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "7daf406e-5acf-5182-8045-f3dd2cc27ce2",
+      "faces": {
+        "north": {
+          "uv": [
+            10,
+            5,
+            16,
+            8
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            0,
+            5,
+            6,
+            8
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            6,
+            5,
+            10,
+            8
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            6,
+            5,
+            10,
+            8
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            10,
+            6,
+            16,
+            10
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            10,
+            6,
+            16,
+            10
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    }
+  ],
+  "outliner": [
+    "ae7b2a5e-4655-5248-ab4e-543137efc795",
+    "1eaa5090-0830-564b-87ed-f59e512b8e8d",
+    "1985cfc7-c4ae-5c64-9b4d-fe2b624e7336",
+    "4be280e4-13e3-5bf9-b4be-4a79845b0cfb",
+    "4405e59b-8fa2-5554-b1b0-0393adced13c",
+    "7daf406e-5acf-5182-8045-f3dd2cc27ce2"
+  ],
+  "textures": [
+    {
+      "name": "distillation_column.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "0",
+      "particle": true,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "782722b9-cc65-5c0c-afb9-818bd0187d25",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/distillation_column.png"
+    },
+    {
+      "name": "tower_machine_side.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "1",
+      "particle": false,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "0b8abbc7-e480-5512-adeb-f4321929a754",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/tower_machine_side.png"
+    },
+    {
+      "name": "tower_machine_top.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "2",
+      "particle": false,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "605f0daf-183e-5d9b-9401-d5b958e2689e",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/tower_machine_top.png"
+    }
+  ],
+  "earth_on_minecraft": {
+    "schema_version": 1,
+    "prototype": "trayed fractionation column with reboiler and condenser",
+    "silhouette": "tall narrow column with repeated tray bands and two product elevations",
+    "faces": {
+      "front": "tray sight glasses and reflux indicator",
+      "back": "reboiler-condenser services",
+      "left": "feed tray inlet",
+      "right": "side draw and bottoms outlet",
+      "top": "overhead vapor",
+      "bottom": "reboiler return"
+    },
+    "states": {
+      "idle": {
+        "particle": "earth_on_minecraft:block/distillation_column",
+        "front": "earth_on_minecraft:block/distillation_column",
+        "back": "earth_on_minecraft:block/tower_machine_side",
+        "left": "earth_on_minecraft:block/tower_machine_side",
+        "right": "earth_on_minecraft:block/tower_machine_side",
+        "top": "earth_on_minecraft:block/tower_machine_top",
+        "bottom": "earth_on_minecraft:block/tower_machine_top",
+        "fault": "minecraft:block/redstone_lamp_on"
+      },
+      "running": {
+        "particle": "earth_on_minecraft:block/distillation_column_active",
+        "front": "earth_on_minecraft:block/distillation_column_active",
+        "back": "earth_on_minecraft:block/tower_machine_side_active",
+        "left": "earth_on_minecraft:block/tower_machine_side_active",
+        "right": "earth_on_minecraft:block/tower_machine_side_active",
+        "top": "earth_on_minecraft:block/tower_machine_top_active",
+        "bottom": "earth_on_minecraft:block/tower_machine_top_active",
+        "fault": "minecraft:block/redstone_lamp_on"
+      },
+      "fault": {
+        "particle": "earth_on_minecraft:block/distillation_column",
+        "front": "earth_on_minecraft:block/distillation_column",
+        "back": "earth_on_minecraft:block/tower_machine_side",
+        "left": "earth_on_minecraft:block/tower_machine_side",
+        "right": "earth_on_minecraft:block/tower_machine_side",
+        "top": "earth_on_minecraft:block/tower_machine_top",
+        "bottom": "earth_on_minecraft:block/tower_machine_top",
+        "fault": "minecraft:block/redstone_lamp_on"
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "replace_with_feature_id",
+  "status": "planned",
+  "summary": "Describe one player-reachable feature loop.",
+  "layers": {
+    "acquisition": {"status": "planned", "evidence": []},
+    "processing": {"status": "planned", "evidence": []},
+    "purpose": {"status": "planned", "evidence": []},
+    "jei": {"status": "planned", "evidence": []},
+    "handbook": {"status": "planned", "evidence": []},
+    "feedback": {"status": "planned", "evidence": []},
+    "failure_recovery": {"status": "planned", "evidence": []},
+    "tests": {"status": "planned", "evidence": []}
+  }
+}

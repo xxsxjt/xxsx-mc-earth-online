@@ -1,12 +1,441 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": true,
+  "gui_light": "side",
   "textures": {
     "particle": "earth_on_minecraft:block/industrial_kiln_active",
-    "down": "earth_on_minecraft:block/hot_machine_top_active",
-    "up": "earth_on_minecraft:block/hot_machine_top_active",
-    "north": "earth_on_minecraft:block/industrial_kiln_active",
-    "south": "earth_on_minecraft:block/hot_machine_side_active",
-    "west": "earth_on_minecraft:block/hot_machine_side_active",
-    "east": "earth_on_minecraft:block/hot_machine_side_active"
-  }
+    "front": "earth_on_minecraft:block/industrial_kiln_active",
+    "back": "earth_on_minecraft:block/hot_machine_side_active",
+    "left": "earth_on_minecraft:block/hot_machine_side_active",
+    "right": "earth_on_minecraft:block/hot_machine_side_active",
+    "top": "earth_on_minecraft:block/hot_machine_top_active",
+    "bottom": "earth_on_minecraft:block/hot_machine_top_active",
+    "fault": "minecraft:block/redstone_lamp_on"
+  },
+  "elements": [
+    {
+      "name": "foundation",
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        2,
+        15
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "left_support",
+      "from": [
+        2,
+        2,
+        3
+      ],
+      "to": [
+        5,
+        7,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            9,
+            5,
+            14
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            11,
+            9,
+            14,
+            14
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            3,
+            9,
+            13,
+            14
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            3,
+            9,
+            13,
+            14
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            2,
+            3,
+            5,
+            13
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            2,
+            3,
+            5,
+            13
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "rotary_shell",
+      "from": [
+        2,
+        5,
+        2
+      ],
+      "to": [
+        14,
+        13,
+        14
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            3,
+            14,
+            11
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            2,
+            3,
+            14,
+            11
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            2,
+            3,
+            14,
+            11
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            2,
+            3,
+            14,
+            11
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#bottom"
+        }
+      },
+      "rotation": {
+        "axis": "z",
+        "angle": -22.5,
+        "origin": [
+          8,
+          9,
+          8
+        ],
+        "rescale": true
+      }
+    },
+    {
+      "name": "right_support",
+      "from": [
+        11,
+        2,
+        3
+      ],
+      "to": [
+        14,
+        7,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            9,
+            14,
+            14
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            2,
+            9,
+            5,
+            14
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            3,
+            9,
+            13,
+            14
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            3,
+            9,
+            13,
+            14
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            11,
+            3,
+            14,
+            13
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            11,
+            3,
+            14,
+            13
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "burner_hood",
+      "from": [
+        0,
+        5,
+        5
+      ],
+      "to": [
+        4,
+        12,
+        11
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            4,
+            4,
+            11
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            12,
+            4,
+            16,
+            11
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            5,
+            4,
+            11,
+            11
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            5,
+            4,
+            11,
+            11
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            0,
+            5,
+            4,
+            11
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            0,
+            5,
+            4,
+            11
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "feed_hood",
+      "from": [
+        12,
+        7,
+        4
+      ],
+      "to": [
+        16,
+        14,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            2,
+            16,
+            9
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            0,
+            2,
+            4,
+            9
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            4,
+            2,
+            12,
+            9
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            4,
+            2,
+            12,
+            9
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            12,
+            4,
+            16,
+            12
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            12,
+            4,
+            16,
+            12
+          ],
+          "texture": "#bottom"
+        }
+      }
+    }
+  ]
 }

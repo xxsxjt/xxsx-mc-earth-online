@@ -1,12 +1,431 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": true,
+  "gui_light": "side",
   "textures": {
     "particle": "earth_on_minecraft:block/steam_cracker_active",
-    "down": "earth_on_minecraft:block/hot_machine_top_active",
-    "up": "earth_on_minecraft:block/hot_machine_top_active",
-    "north": "earth_on_minecraft:block/steam_cracker_active",
-    "south": "earth_on_minecraft:block/hot_machine_side_active",
-    "west": "earth_on_minecraft:block/hot_machine_side_active",
-    "east": "earth_on_minecraft:block/hot_machine_side_active"
-  }
+    "front": "earth_on_minecraft:block/steam_cracker_active",
+    "back": "earth_on_minecraft:block/hot_machine_side_active",
+    "left": "earth_on_minecraft:block/hot_machine_side_active",
+    "right": "earth_on_minecraft:block/hot_machine_side_active",
+    "top": "earth_on_minecraft:block/hot_machine_top_active",
+    "bottom": "earth_on_minecraft:block/hot_machine_top_active",
+    "fault": "minecraft:block/redstone_lamp_on"
+  },
+  "elements": [
+    {
+      "name": "radiant_furnace",
+      "from": [
+        1,
+        0,
+        2
+      ],
+      "to": [
+        10,
+        15,
+        14
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            1,
+            10,
+            16
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            6,
+            1,
+            15,
+            16
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            2,
+            1,
+            14,
+            16
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            2,
+            1,
+            14,
+            16
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            1,
+            2,
+            10,
+            14
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            1,
+            2,
+            10,
+            14
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "coil_chamber",
+      "from": [
+        2,
+        3,
+        0
+      ],
+      "to": [
+        9,
+        13,
+        4
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            3,
+            9,
+            13
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            7,
+            3,
+            14,
+            13
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            12,
+            3,
+            16,
+            13
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            0,
+            3,
+            4,
+            13
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            2,
+            0,
+            9,
+            4
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            2,
+            12,
+            9,
+            16
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "convection_bank",
+      "from": [
+        9,
+        7,
+        3
+      ],
+      "to": [
+        14,
+        16,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            0,
+            14,
+            9
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            2,
+            0,
+            7,
+            9
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            3,
+            0,
+            13,
+            9
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            3,
+            0,
+            13,
+            9
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            9,
+            3,
+            14,
+            13
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            9,
+            3,
+            14,
+            13
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "quench_section",
+      "from": [
+        12,
+        3,
+        4
+      ],
+      "to": [
+        16,
+        13,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            3,
+            16,
+            13
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            0,
+            3,
+            4,
+            13
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            4,
+            3,
+            12,
+            13
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            4,
+            3,
+            12,
+            13
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            12,
+            4,
+            16,
+            12
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            12,
+            4,
+            16,
+            12
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "burner_floor",
+      "from": [
+        0,
+        0,
+        1
+      ],
+      "to": [
+        11,
+        4,
+        15
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            12,
+            11,
+            16
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            5,
+            12,
+            16,
+            16
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            1,
+            12,
+            15,
+            16
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            1,
+            12,
+            15,
+            16
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            0,
+            1,
+            11,
+            15
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            0,
+            1,
+            11,
+            15
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "stack",
+      "from": [
+        11,
+        12,
+        6
+      ],
+      "to": [
+        15,
+        16,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            0,
+            15,
+            4
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            1,
+            0,
+            5,
+            4
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            6,
+            0,
+            10,
+            4
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            6,
+            0,
+            10,
+            4
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            11,
+            6,
+            15,
+            10
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            11,
+            6,
+            15,
+            10
+          ],
+          "texture": "#bottom"
+        }
+      }
+    }
+  ]
 }

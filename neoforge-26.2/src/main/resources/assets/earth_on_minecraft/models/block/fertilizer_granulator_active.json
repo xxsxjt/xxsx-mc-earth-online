@@ -1,12 +1,441 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": true,
+  "gui_light": "side",
   "textures": {
     "particle": "earth_on_minecraft:block/fertilizer_granulator_active",
-    "down": "earth_on_minecraft:block/wet_machine_top_active",
-    "up": "earth_on_minecraft:block/wet_machine_top_active",
-    "north": "earth_on_minecraft:block/fertilizer_granulator_active",
-    "south": "earth_on_minecraft:block/wet_machine_side_active",
-    "west": "earth_on_minecraft:block/wet_machine_side_active",
-    "east": "earth_on_minecraft:block/wet_machine_side_active"
-  }
+    "front": "earth_on_minecraft:block/fertilizer_granulator_active",
+    "back": "earth_on_minecraft:block/wet_machine_side_active",
+    "left": "earth_on_minecraft:block/wet_machine_side_active",
+    "right": "earth_on_minecraft:block/wet_machine_side_active",
+    "top": "earth_on_minecraft:block/wet_machine_top_active",
+    "bottom": "earth_on_minecraft:block/wet_machine_top_active",
+    "fault": "minecraft:block/redstone_lamp_on"
+  },
+  "elements": [
+    {
+      "name": "foundation",
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        2,
+        15
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "left_bearing",
+      "from": [
+        1,
+        2,
+        4
+      ],
+      "to": [
+        4,
+        7,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            9,
+            4,
+            14
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            12,
+            9,
+            15,
+            14
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            4,
+            9,
+            12,
+            14
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            4,
+            9,
+            12,
+            14
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            1,
+            4,
+            4,
+            12
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            1,
+            4,
+            4,
+            12
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "granulation_drum",
+      "from": [
+        3,
+        5,
+        2
+      ],
+      "to": [
+        13,
+        13,
+        14
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            3,
+            13,
+            11
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            3,
+            3,
+            13,
+            11
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            2,
+            3,
+            14,
+            11
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            2,
+            3,
+            14,
+            11
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            3,
+            2,
+            13,
+            14
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            3,
+            2,
+            13,
+            14
+          ],
+          "texture": "#bottom"
+        }
+      },
+      "rotation": {
+        "axis": "z",
+        "angle": -22.5,
+        "origin": [
+          8,
+          9,
+          8
+        ],
+        "rescale": true
+      }
+    },
+    {
+      "name": "right_bearing",
+      "from": [
+        12,
+        2,
+        4
+      ],
+      "to": [
+        15,
+        8,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            8,
+            15,
+            14
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            1,
+            8,
+            4,
+            14
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            4,
+            8,
+            12,
+            14
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            4,
+            8,
+            12,
+            14
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            12,
+            4,
+            15,
+            12
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            12,
+            4,
+            15,
+            12
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "powder_feed",
+      "from": [
+        0,
+        8,
+        5
+      ],
+      "to": [
+        5,
+        15,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            1,
+            5,
+            8
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            11,
+            1,
+            16,
+            8
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            4,
+            1,
+            11,
+            8
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            5,
+            1,
+            12,
+            8
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            0,
+            5,
+            5,
+            12
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            0,
+            4,
+            5,
+            11
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "product_hood",
+      "from": [
+        11,
+        4,
+        4
+      ],
+      "to": [
+        16,
+        12,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            4,
+            16,
+            12
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            0,
+            4,
+            5,
+            12
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            3,
+            4,
+            12,
+            12
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            4,
+            4,
+            13,
+            12
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            11,
+            4,
+            16,
+            13
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            11,
+            3,
+            16,
+            12
+          ],
+          "texture": "#bottom"
+        }
+      }
+    }
+  ]
 }

@@ -3,7 +3,7 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.140'
 }
 
-version = '0.1.10'
+version = '0.1.14'
 group = 'com.xxsx.earthonminecraft'
 base.archivesName = 'earth-on-minecraft-neoforge-26.2'
 
@@ -17,9 +17,27 @@ neoForge {
             client()
             gameDirectory = project.file('runs/client')
         }
+        clientSmoke {
+            client()
+            gameDirectory = project.file('runs/client-smoke')
+            programArgument('--quickPlaySingleplayer=ui-test')
+            programArgument('--width')
+            programArgument('960')
+            programArgument('--height')
+            programArgument('540')
+        }
         server {
             server()
             gameDirectory = project.file('runs/server')
+            programArgument('--nogui')
+        }
+        gameTestServer {
+            type = 'gameTestServer'
+            gameDirectory = project.file('runs/gametest')
+        }
+        migrationServer {
+            server()
+            gameDirectory = project.file('runs/migration')
             programArgument('--nogui')
         }
     }
@@ -52,6 +70,9 @@ dependencies {
 jar {
     preserveFileTimestamps = false
     reproducibleFileOrder = true
+    from('../LICENSE') {
+        into 'META-INF'
+    }
     manifest {
         attributes([
             'Specification-Title'     : 'earth_on_minecraft',
@@ -66,4 +87,52 @@ jar {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+def repositoryRoot = layout.projectDirectory.dir('..').asFile
+def toolsRoot = new File(repositoryRoot, 'tools')
+
+def registerPythonVerification = { String taskName, String scriptName, List<String> arguments = [] ->
+    tasks.register(taskName, Exec) {
+        group = 'verification'
+        workingDir repositoryRoot
+        commandLine(['python', new File(toolsRoot, scriptName).absolutePath] + arguments)
+    }
+}
+
+def verifyGeologyAssets = registerPythonVerification(
+        'verifyGeologyAssets', 'pipeline_geology_blocks.py', ['--check'])
+def verifyItemAssets = registerPythonVerification(
+        'verifyItemAssets', 'pipeline_item_icons.py', ['--check'])
+def verifyBlockbenchAssets = registerPythonVerification(
+        'verifyBlockbenchAssets', 'pipeline_blockbench_models.py', ['--check'])
+def verifyMachineAudio = registerPythonVerification(
+        'verifyMachineAudio', 'audit_machine_audio.py', ['--check'])
+def verifyAssetInventory = registerPythonVerification(
+        'verifyAssetInventory', 'audit_assets.py', ['--check'])
+def verifyResources = registerPythonVerification(
+        'verifyResources', 'validate_resources.py')
+
+def verifyStaticQuality = tasks.register('verifyStaticQuality') {
+    group = 'verification'
+    description = 'Runs all non-Minecraft resource, model, audio, API, and asset gates.'
+    dependsOn verifyGeologyAssets, verifyItemAssets, verifyBlockbenchAssets,
+            verifyMachineAudio, verifyAssetInventory, verifyResources
+}
+
+tasks.register('verifyGuiPreviews', Exec) {
+    group = 'verification'
+    description = 'Renders the deterministic bilingual UI state matrix on Windows.'
+    workingDir repositoryRoot
+    commandLine 'pwsh', '-NoProfile', '-File', new File(toolsRoot, 'render_gui_previews.ps1').absolutePath
+}
+
+tasks.named('runGameTestServer') {
+    group = 'verification'
+    description = 'Runs the Earth on Minecraft server-authoritative GameTest suite.'
+    mustRunAfter verifyStaticQuality
+}
+
+tasks.named('check') {
+    dependsOn verifyStaticQuality, tasks.named('runGameTestServer')
 }

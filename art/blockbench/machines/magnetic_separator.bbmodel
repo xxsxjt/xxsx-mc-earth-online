@@ -1,0 +1,604 @@
+{
+  "meta": {
+    "format_version": "5.0",
+    "model_format": "java_block",
+    "box_uv": false
+  },
+  "name": "magnetic_separator",
+  "model_identifier": "earth_on_minecraft:magnetic_separator",
+  "visible_box": [
+    1,
+    1,
+    0
+  ],
+  "variable_placeholders": "",
+  "resolution": {
+    "width": 128,
+    "height": 128
+  },
+  "elements": [
+    {
+      "name": "foundation",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        2,
+        15
+      ],
+      "autouv": 0,
+      "color": 0,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "49a4c672-10dc-5592-8703-a37c526f589f",
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "drum",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        3,
+        5,
+        3
+      ],
+      "to": [
+        13,
+        13,
+        13
+      ],
+      "autouv": 0,
+      "color": 1,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "bd0cd8a5-578d-5395-8e4f-a0b20c7b6014",
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            3,
+            13,
+            11
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            3,
+            13,
+            11
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            3,
+            3,
+            13,
+            11
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            3,
+            3,
+            13,
+            11
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "left_yoke",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        1,
+        3,
+        4
+      ],
+      "to": [
+        4,
+        15,
+        12
+      ],
+      "autouv": 0,
+      "color": 2,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "56d11124-2295-5fc8-a8e3-5a35ec9c8ab4",
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            1,
+            4,
+            13
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            12,
+            1,
+            15,
+            13
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            4,
+            1,
+            12,
+            13
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            4,
+            1,
+            12,
+            13
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            1,
+            4,
+            4,
+            12
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            1,
+            4,
+            4,
+            12
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "right_yoke",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        12,
+        3,
+        4
+      ],
+      "to": [
+        15,
+        15,
+        12
+      ],
+      "autouv": 0,
+      "color": 3,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "caa83089-a015-5118-9938-bfbfa01c6441",
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            1,
+            15,
+            13
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            1,
+            1,
+            4,
+            13
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            4,
+            1,
+            12,
+            13
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            4,
+            1,
+            12,
+            13
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            12,
+            4,
+            15,
+            12
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            12,
+            4,
+            15,
+            12
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "feed_box",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        4,
+        11,
+        11
+      ],
+      "to": [
+        12,
+        16,
+        15
+      ],
+      "autouv": 0,
+      "color": 4,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "82a9b057-1d7c-5b69-8a12-280505c5dcc9",
+      "faces": {
+        "north": {
+          "uv": [
+            4,
+            0,
+            12,
+            5
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            4,
+            0,
+            12,
+            5
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            1,
+            0,
+            5,
+            5
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            11,
+            0,
+            15,
+            5
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            4,
+            11,
+            12,
+            15
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            4,
+            1,
+            12,
+            5
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "split_discharge",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        4,
+        2,
+        0
+      ],
+      "to": [
+        12,
+        7,
+        5
+      ],
+      "autouv": 0,
+      "color": 5,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "bd1c5b61-e261-5e75-bea9-7755133fd379",
+      "faces": {
+        "north": {
+          "uv": [
+            4,
+            9,
+            12,
+            14
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            4,
+            9,
+            12,
+            14
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            11,
+            9,
+            16,
+            14
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            0,
+            9,
+            5,
+            14
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            4,
+            0,
+            12,
+            5
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            4,
+            11,
+            12,
+            16
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    }
+  ],
+  "outliner": [
+    "49a4c672-10dc-5592-8703-a37c526f589f",
+    "bd0cd8a5-578d-5395-8e4f-a0b20c7b6014",
+    "56d11124-2295-5fc8-a8e3-5a35ec9c8ab4",
+    "caa83089-a015-5118-9938-bfbfa01c6441",
+    "82a9b057-1d7c-5b69-8a12-280505c5dcc9",
+    "bd1c5b61-e261-5e75-bea9-7755133fd379"
+  ],
+  "textures": [
+    {
+      "name": "magnetic_separator.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "0",
+      "particle": true,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "7c63cd4b-b0a1-5040-b533-a6aecd880a20",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/magnetic_separator.png"
+    },
+    {
+      "name": "modern_machine_side.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "1",
+      "particle": false,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "8d04c733-d81f-5311-8eb9-cb7a80647df6",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/modern_machine_side.png"
+    },
+    {
+      "name": "modern_machine_top.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "2",
+      "particle": false,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "f2ac9f4c-70fc-5c99-930e-b27a5b9981ba",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/modern_machine_top.png"
+    }
+  ],
+  "earth_on_minecraft": {
+    "schema_version": 1,
+    "prototype": "wet drum magnetic separator",
+    "silhouette": "partly exposed horizontal drum between feed box and split discharge",
+    "faces": {
+      "front": "magnetic drum and field indicator",
+      "back": "shielded electromagnetic yoke",
+      "left": "slurry feed",
+      "right": "magnetic and nonmagnetic outlets",
+      "top": "wash-water manifold",
+      "bottom": "sump and drain"
+    },
+    "states": {
+      "idle": {
+        "particle": "earth_on_minecraft:block/magnetic_separator",
+        "front": "earth_on_minecraft:block/magnetic_separator",
+        "back": "earth_on_minecraft:block/modern_machine_side",
+        "left": "earth_on_minecraft:block/modern_machine_side",
+        "right": "earth_on_minecraft:block/modern_machine_side",
+        "top": "earth_on_minecraft:block/modern_machine_top",
+        "bottom": "earth_on_minecraft:block/modern_machine_top",
+        "fault": "minecraft:block/redstone_lamp_on"
+      },
+      "running": {
+        "particle": "earth_on_minecraft:block/magnetic_separator_active",
+        "front": "earth_on_minecraft:block/magnetic_separator_active",
+        "back": "earth_on_minecraft:block/modern_machine_side_active",
+        "left": "earth_on_minecraft:block/modern_machine_side_active",
+        "right": "earth_on_minecraft:block/modern_machine_side_active",
+        "top": "earth_on_minecraft:block/modern_machine_top_active",
+        "bottom": "earth_on_minecraft:block/modern_machine_top_active",
+        "fault": "minecraft:block/redstone_lamp_on"
+      },
+      "fault": {
+        "particle": "earth_on_minecraft:block/magnetic_separator",
+        "front": "earth_on_minecraft:block/magnetic_separator",
+        "back": "earth_on_minecraft:block/modern_machine_side",
+        "left": "earth_on_minecraft:block/modern_machine_side",
+        "right": "earth_on_minecraft:block/modern_machine_side",
+        "top": "earth_on_minecraft:block/modern_machine_top",
+        "bottom": "earth_on_minecraft:block/modern_machine_top",
+        "fault": "minecraft:block/redstone_lamp_on"
+      }
+    }
+  }
+}

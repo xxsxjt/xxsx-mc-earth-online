@@ -118,6 +118,9 @@ public class ProcessingMachineBlockEntity extends BaseContainerBlockEntity imple
             }
             MachineMultiblock.refreshProjection(level, pos, machine.kind());
             if (machine.structureValid != completeStructure) {
+                if (!completeStructure) {
+                    MachineFeedback.playFault(level, pos);
+                }
                 machine.structureValid = completeStructure;
                 changed = true;
             }
@@ -192,6 +195,7 @@ public class ProcessingMachineBlockEntity extends BaseContainerBlockEntity imple
             }
             machine.insertOutputs(recipe.outputStacks());
             machine.progress = 0;
+            MachineFeedback.playComplete(level, pos, kind);
         }
 
         machine.finishTick(level, pos, state, changed);
@@ -485,7 +489,7 @@ public class ProcessingMachineBlockEntity extends BaseContainerBlockEntity imple
     }
 
     private void finishTick(Level level, BlockPos pos, BlockState state, boolean changed) {
-        if (syncActiveState(level, pos, state)) {
+        if (syncVisualState(level, pos, state)) {
             changed = true;
         }
         boolean panelActive = structureValid && active;
@@ -497,9 +501,19 @@ public class ProcessingMachineBlockEntity extends BaseContainerBlockEntity imple
         setChangedIfNeeded(changed);
     }
 
-    private boolean syncActiveState(Level level, BlockPos pos, BlockState state) {
-        if (state.hasProperty(ProcessingMachineBlock.ACTIVE) && state.getValue(ProcessingMachineBlock.ACTIVE) != active) {
-            level.setBlock(pos, state.setValue(ProcessingMachineBlock.ACTIVE, active), Block.UPDATE_CLIENTS);
+    private boolean syncVisualState(Level level, BlockPos pos, BlockState state) {
+        BlockState updated = state;
+        if (updated.hasProperty(ProcessingMachineBlock.ACTIVE)
+                && updated.getValue(ProcessingMachineBlock.ACTIVE) != active) {
+            updated = updated.setValue(ProcessingMachineBlock.ACTIVE, active);
+        }
+        boolean fault = !structureValid;
+        if (updated.hasProperty(ProcessingMachineBlock.FAULT)
+                && updated.getValue(ProcessingMachineBlock.FAULT) != fault) {
+            updated = updated.setValue(ProcessingMachineBlock.FAULT, fault);
+        }
+        if (updated != state) {
+            level.setBlock(pos, updated, Block.UPDATE_CLIENTS);
             return true;
         }
         return false;

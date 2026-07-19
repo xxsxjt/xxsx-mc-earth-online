@@ -47,6 +47,7 @@ public class EarthOnMinecraft {
 
     private static final List<ItemLike> TAB_ITEMS = new ArrayList<>();
     private static final List<DeferredBlock<ProcessingMachineBlock>> MACHINE_BLOCKS = new ArrayList<>();
+    private static final List<DeferredBlock<Block>> CONNECTED_ORE_BLOCKS = new ArrayList<>();
 
     public static final DeferredBlock<Block> POOR_MAGNETITE_ORE = oreBlock("poor_magnetite_ore", MapColor.DEEPSLATE, 3.5F);
     public static final DeferredBlock<Block> MAGNETITE_ORE = oreBlock("magnetite_ore", MapColor.COLOR_BLACK, 4.0F);
@@ -387,6 +388,8 @@ public class EarthOnMinecraft {
         ITEMS.register(modBus);
         BLOCK_ENTITY_TYPES.register(modBus);
         MENUS.register(modBus);
+        MachineFeedback.register(modBus);
+        EarthGameTests.register(modBus);
         modBus.addListener(this::registerCreativeTab);
         NeoForge.EVENT_BUS.addListener(EarthOnMinecraftTooltips::addVanillaTooltips);
         NeoForge.EVENT_BUS.addListener(SettlementDataManager::registerReloadListeners);
@@ -422,11 +425,20 @@ public class EarthOnMinecraft {
                 .strength(strength, strength * 2.0F)
                 .requiresCorrectToolForDrops()
                 .sound(SoundType.STONE));
+        CONNECTED_ORE_BLOCKS.add(block);
         DeferredItem<?> item = ITEMS.registerItem(id,
                 props -> new GuidedBlockItem(block.get(), props, "tooltip.earth_on_minecraft.natural_source"),
                 props -> props);
         TAB_ITEMS.add(item);
         return block;
+    }
+
+    public static List<DeferredBlock<Block>> connectedOreBlocks() {
+        return List.copyOf(CONNECTED_ORE_BLOCKS);
+    }
+
+    public static List<DeferredBlock<ProcessingMachineBlock>> processingMachineBlocks() {
+        return List.copyOf(MACHINE_BLOCKS);
     }
 
     private static DeferredBlock<StyledSupportPartBlock> supportBlock(String id, MapColor color, float strength, String hintKey) {

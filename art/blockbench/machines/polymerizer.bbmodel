@@ -1,0 +1,604 @@
+{
+  "meta": {
+    "format_version": "5.0",
+    "model_format": "java_block",
+    "box_uv": false
+  },
+  "name": "polymerizer",
+  "model_identifier": "earth_on_minecraft:polymerizer",
+  "visible_box": [
+    1,
+    1,
+    0
+  ],
+  "variable_placeholders": "",
+  "resolution": {
+    "width": 128,
+    "height": 128
+  },
+  "elements": [
+    {
+      "name": "foundation",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        2,
+        15
+      ],
+      "autouv": 0,
+      "color": 0,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "5cdd83f4-4c97-5fd2-b460-e15fc23f0e19",
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "autoclave",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        3,
+        2,
+        3
+      ],
+      "to": [
+        13,
+        13,
+        13
+      ],
+      "autouv": 0,
+      "color": 1,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "3a0e2873-76bb-5bb3-8f76-82f77fd8a101",
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            3,
+            13,
+            14
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            3,
+            13,
+            14
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            3,
+            3,
+            13,
+            14
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            3,
+            3,
+            13,
+            14
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "cooling_jacket",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        2,
+        4,
+        2
+      ],
+      "to": [
+        14,
+        11,
+        14
+      ],
+      "autouv": 0,
+      "color": 2,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "c21f7348-66d2-5bbe-9521-8f389cc40b5b",
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            5,
+            14,
+            12
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            2,
+            5,
+            14,
+            12
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            2,
+            5,
+            14,
+            12
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            2,
+            5,
+            14,
+            12
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "sealed_drive",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        5,
+        12,
+        5
+      ],
+      "to": [
+        11,
+        16,
+        11
+      ],
+      "autouv": 0,
+      "color": 3,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "a8d034a5-1f91-5a7a-b175-b4dcd5183085",
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            0,
+            11,
+            4
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            5,
+            0,
+            11,
+            4
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            5,
+            0,
+            11,
+            4
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            5,
+            0,
+            11,
+            4
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "monomer_feed",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        0,
+        7,
+        5
+      ],
+      "to": [
+        5,
+        11,
+        11
+      ],
+      "autouv": 0,
+      "color": 4,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "22fe040d-6121-5089-95de-defced644e10",
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            5,
+            5,
+            9
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            11,
+            5,
+            16,
+            9
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            5,
+            5,
+            11,
+            9
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            5,
+            5,
+            11,
+            9
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            0,
+            5,
+            5,
+            11
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            0,
+            5,
+            5,
+            11
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "resin_outlet",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        11,
+        4,
+        5
+      ],
+      "to": [
+        16,
+        8,
+        11
+      ],
+      "autouv": 0,
+      "color": 5,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "fe6999ab-9ab7-59f3-8f40-56aefe4b6f0e",
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            8,
+            16,
+            12
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            0,
+            8,
+            5,
+            12
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            5,
+            8,
+            11,
+            12
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            5,
+            8,
+            11,
+            12
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            11,
+            5,
+            16,
+            11
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            11,
+            5,
+            16,
+            11
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    }
+  ],
+  "outliner": [
+    "5cdd83f4-4c97-5fd2-b460-e15fc23f0e19",
+    "3a0e2873-76bb-5bb3-8f76-82f77fd8a101",
+    "c21f7348-66d2-5bbe-9521-8f389cc40b5b",
+    "a8d034a5-1f91-5a7a-b175-b4dcd5183085",
+    "22fe040d-6121-5089-95de-defced644e10",
+    "fe6999ab-9ab7-59f3-8f40-56aefe4b6f0e"
+  ],
+  "textures": [
+    {
+      "name": "polymerizer.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "0",
+      "particle": true,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "26e445e3-3a1c-52e7-a472-e4c8382afe94",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/polymerizer.png"
+    },
+    {
+      "name": "wet_machine_side.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "1",
+      "particle": false,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "31a85def-7245-5aaf-baff-46b21859fe59",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/wet_machine_side.png"
+    },
+    {
+      "name": "wet_machine_top.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "2",
+      "particle": false,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "86ed510c-65cf-56b6-a264-51bde1430d2c",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/wet_machine_top.png"
+    }
+  ],
+  "earth_on_minecraft": {
+    "schema_version": 1,
+    "prototype": "jacketed polymerization autoclave",
+    "silhouette": "thick-walled reactor with intensive cooling jacket and sealed agitator",
+    "faces": {
+      "front": "viscosity and temperature panel",
+      "back": "cooling and agitator services",
+      "left": "monomer and initiator feed",
+      "right": "resin discharge",
+      "top": "sealed agitator and relief",
+      "bottom": "flush outlet"
+    },
+    "states": {
+      "idle": {
+        "particle": "earth_on_minecraft:block/polymerizer",
+        "front": "earth_on_minecraft:block/polymerizer",
+        "back": "earth_on_minecraft:block/wet_machine_side",
+        "left": "earth_on_minecraft:block/wet_machine_side",
+        "right": "earth_on_minecraft:block/wet_machine_side",
+        "top": "earth_on_minecraft:block/wet_machine_top",
+        "bottom": "earth_on_minecraft:block/wet_machine_top",
+        "fault": "minecraft:block/redstone_lamp_on"
+      },
+      "running": {
+        "particle": "earth_on_minecraft:block/polymerizer_active",
+        "front": "earth_on_minecraft:block/polymerizer_active",
+        "back": "earth_on_minecraft:block/wet_machine_side_active",
+        "left": "earth_on_minecraft:block/wet_machine_side_active",
+        "right": "earth_on_minecraft:block/wet_machine_side_active",
+        "top": "earth_on_minecraft:block/wet_machine_top_active",
+        "bottom": "earth_on_minecraft:block/wet_machine_top_active",
+        "fault": "minecraft:block/redstone_lamp_on"
+      },
+      "fault": {
+        "particle": "earth_on_minecraft:block/polymerizer",
+        "front": "earth_on_minecraft:block/polymerizer",
+        "back": "earth_on_minecraft:block/wet_machine_side",
+        "left": "earth_on_minecraft:block/wet_machine_side",
+        "right": "earth_on_minecraft:block/wet_machine_side",
+        "top": "earth_on_minecraft:block/wet_machine_top",
+        "bottom": "earth_on_minecraft:block/wet_machine_top",
+        "fault": "minecraft:block/redstone_lamp_on"
+      }
+    }
+  }
+}

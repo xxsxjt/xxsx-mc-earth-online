@@ -30,6 +30,7 @@
 - [贴图 AI 提示词](docs/asset-prompts.md)
 - [扩展路线图：核能、电网、自动化和科幻附属边界](docs/earth-on-minecraft-expanded-roadmap.md)
 - [科幻附属路线图](docs/scifi-addon-roadmap.md)
+- [0.1.14 Test Beta release notes](docs/release-notes-0.1.14-beta.md)
 - [0.1.10 Beta 发布说明](docs/release-notes-0.1.10-beta.md)
 - [0.1.10 界面与基础设施审计](docs/ui-foundation-audit-0.1.10.md)
 - [地质生成与世界高度计划](docs/geology-worldgen-notes.md)
@@ -52,16 +53,19 @@ cd neoforge-26.2
 .\gradlew.bat build
 cd ..
 python tools\validate_resources.py
-powershell -ExecutionPolicy Bypass -File tools\render_gui_previews.ps1
+pwsh -NoProfile -File tools\render_gui_previews.ps1
+python tools\render_connected_ore_previews.py
 ```
+
+连接矿床资源由 `tools/generate_connected_ore_assets.py` 统一生成；固定形状矩阵和全部矿床 2x2 联系表输出到 `output/connected-ore-previews/`，用于贴图重做后的视觉回归检查。
 
 ## 当前模块
 
 - GitHub: https://github.com/xxsxjt/xxsx-mc-earth-on-minecraft
 - `neoforge-26.2/` — NeoForge `26.2.0.7-beta` / Minecraft `26.2`，Java 25。
-- 构建产物：`neoforge-26.2/build/libs/earth-on-minecraft-neoforge-26.2-0.1.10.jar`
+- 构建产物：`neoforge-26.2/build/libs/earth-on-minecraft-neoforge-26.2-0.1.14.jar`
 - 测试部署：`D:\_dx\_Games\MC\xxxxxx\.minecraft\versions\26.2-NeoForge_26.2.0.7-beta\mods`
-- 发布状态：`0.1.10` 是开发中测试版，重点验证原版尺寸机器界面、六面 IO、红石/路线控制、阻塞原因反馈、紧凑双语手册和聚落公告板基础体验。
+- 发布状态：`0.1.14` 是开发中测试版，重点验证 23 个独立 Blockbench 几何模型、空闲/运行/故障状态、自定义设备反馈、GameTest、联动 API v1 和旧世界迁移。
 
 第一版已实现：
 
@@ -89,6 +93,16 @@ powershell -ExecutionPolicy Bypass -File tools\render_gui_previews.ps1
 - 0.1.9 细化原版岩石 Shift 材料卡：圆石明确为破碎采石骨料，普通石头为本地混合地层石料，花岗岩才使用明确花岗质矿物组合。
 - 0.1.9 新增 Living World 第一轮纵向切片：12 个双语姓名、6 个现实工作角色与普通居民兜底、3 类聚落档案、聚落公告板、角色专属数据驱动交易、居民/掠夺者掉落、设施登记和角色工作反馈。
 - 0.1.10 全面重做基础 GUI：处理机、发电机和电池箱回归原版 `176x166` 容器语义；六面 IO 移入独立方块展开页；状态栏可直接区分输入、动力、红石、结构、配方和产物槽阻塞；手册与公告板增加高 GUI 缩放适配和中英文裁切保护。
+- 0.1.11 为全部 18 种天然矿床加入动态连接表面：相邻同类矿块自动隐藏内部边框，天然生成、玩家摆放和旧存档均直接按实际邻居渲染，单块和矿簇外轮廓仍保留。
+- 0.1.12 将矿簇外框与中心纹理裁切拆分，并通过窄带周期边缘匹配清除 AI 原图残留的内部倒角线，同时保留矿物主体和单块外轮廓。
+- 0.1.13 建立资产清单、双语界面状态矩阵、GameTest/截图测试场和运行检查表；拆分地质连接纹理、物品轮廓和 Blockbench 模型管线；为 21 台处理机及 2 类发电设备建立真实原型、六面职责、三态反馈、自定义声音粒子，并发布版本化地质、材料、处理、能源、物流和聚落查询 API v1。
+- 0.1.14 为 21 台处理机和 2 类发电设备生成可编辑 `.bbmodel` 源及独立非立方几何；模型按真实原型拆分机架、滚筒、塔体、罐体、立柱、管口和传动部件，使用坐标对齐 UV 保留现有六面纹理；多方块结构失效会同步 `fault` 方块状态和故障模型，并新增 OGG 响度、削波、静音、重复资源与波形接触表门禁。
 - 保留原版物品生态：矿物处理最终输出 `minecraft:iron_ingot`、`minecraft:copper_ingot`、`minecraft:gold_ingot`、`minecraft:diamond` 等。
 - 使用 26.2 新版 `assets/<modid>/items/*.json` 物品模型定义。
 - 已用 Agnes 生成并接入机器、新材料和精矿贴图；同时覆盖部分原版岩石视觉以强化真实岩石体系。新增贴图可用 `tools/generate_agnes_item_textures.py` 续跑。
+
+## License
+
+Earth on Minecraft is licensed under the GNU Affero General Public License v3.0 only
+(`AGPL-3.0-only`) unless an individual file or third-party component states otherwise.
+See [LICENSE](LICENSE) for the complete license text.

@@ -1,11 +1,6 @@
 package com.xxsx.earthonminecraft;
 
-public interface ElectricEnergyStorage {
-    int getEnergyStored();
+import com.xxsx.earthonminecraft.api.v1.EnergyApi;
 
-    int getEnergyCapacity();
-
-    int receiveEnergy(int amount, boolean simulate);
-
-    int extractEnergy(int amount, boolean simulate);
+public interface ElectricEnergyStorage extends EnergyApi.EnergyPort {
 }

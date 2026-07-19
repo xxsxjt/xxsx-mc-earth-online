@@ -1,12 +1,431 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": true,
+  "gui_light": "side",
   "textures": {
     "particle": "earth_on_minecraft:block/electrolytic_cell_active",
-    "down": "earth_on_minecraft:block/wet_machine_top_active",
-    "up": "earth_on_minecraft:block/wet_machine_top_active",
-    "north": "earth_on_minecraft:block/electrolytic_cell_active",
-    "south": "earth_on_minecraft:block/wet_machine_side_active",
-    "west": "earth_on_minecraft:block/wet_machine_side_active",
-    "east": "earth_on_minecraft:block/wet_machine_side_active"
-  }
+    "front": "earth_on_minecraft:block/electrolytic_cell_active",
+    "back": "earth_on_minecraft:block/wet_machine_side_active",
+    "left": "earth_on_minecraft:block/wet_machine_side_active",
+    "right": "earth_on_minecraft:block/wet_machine_side_active",
+    "top": "earth_on_minecraft:block/wet_machine_top_active",
+    "bottom": "earth_on_minecraft:block/wet_machine_top_active",
+    "fault": "minecraft:block/redstone_lamp_on"
+  },
+  "elements": [
+    {
+      "name": "foundation",
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        2,
+        15
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "electrolyte_tank",
+      "from": [
+        1,
+        2,
+        2
+      ],
+      "to": [
+        15,
+        10,
+        14
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            6,
+            15,
+            14
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            1,
+            6,
+            15,
+            14
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            2,
+            6,
+            14,
+            14
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            2,
+            6,
+            14,
+            14
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            1,
+            2,
+            15,
+            14
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            1,
+            2,
+            15,
+            14
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "anode_bank",
+      "from": [
+        3,
+        8,
+        3
+      ],
+      "to": [
+        5,
+        15,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            1,
+            5,
+            8
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            11,
+            1,
+            13,
+            8
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            3,
+            1,
+            13,
+            8
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            3,
+            1,
+            13,
+            8
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            5,
+            13
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            3,
+            3,
+            5,
+            13
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "cathode_bank",
+      "from": [
+        7,
+        8,
+        3
+      ],
+      "to": [
+        9,
+        15,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            7,
+            1,
+            9,
+            8
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            7,
+            1,
+            9,
+            8
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            3,
+            1,
+            13,
+            8
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            3,
+            1,
+            13,
+            8
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            7,
+            3,
+            9,
+            13
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            7,
+            3,
+            9,
+            13
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "return_bank",
+      "from": [
+        11,
+        8,
+        3
+      ],
+      "to": [
+        13,
+        15,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            1,
+            13,
+            8
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            3,
+            1,
+            5,
+            8
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            3,
+            1,
+            13,
+            8
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            3,
+            1,
+            13,
+            8
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            11,
+            3,
+            13,
+            13
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            11,
+            3,
+            13,
+            13
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "busbar",
+      "from": [
+        1,
+        13,
+        1
+      ],
+      "to": [
+        15,
+        16,
+        4
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            0,
+            15,
+            3
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            1,
+            0,
+            15,
+            3
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            12,
+            0,
+            15,
+            3
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            1,
+            0,
+            4,
+            3
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            4
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            1,
+            12,
+            15,
+            15
+          ],
+          "texture": "#bottom"
+        }
+      }
+    }
+  ]
 }

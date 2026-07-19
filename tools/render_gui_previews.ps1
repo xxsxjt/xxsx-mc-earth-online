@@ -274,7 +274,8 @@ function Draw-McTextRaw($bitmap, [string]$text, [int]$x, [int]$y, [System.Drawin
                 $py = $y + $gy
                 if ($px -ge 0 -and $py -ge 0 -and $px -lt $bitmap.Width -and $py -lt $bitmap.Height) {
                     $background = $bitmap.GetPixel($px, $py)
-                    $amount = $coverage / 4.0
+                    # Gamma-correct 2x2 coverage so dark text is not washed out on light panels.
+                    $amount = [Math]::Sqrt($coverage / 4.0)
                     $red = [int]($color.R * $amount + $background.R * (1.0 - $amount))
                     $green = [int]($color.G * $amount + $background.G * (1.0 - $amount))
                     $blue = [int]($color.B * $amount + $background.B * (1.0 - $amount))
@@ -516,21 +517,36 @@ function Render-Processing([string]$lang, [bool]$multiblock, [string]$name,
         Draw-McText $bitmap (Fit-McText $title 140) 8 6 (C '#404040')
         Draw-McText $bitmap $inventory 8 73 (C '#404040')
 
-        Draw-Item $bitmap 'item\salt_dust.png' 38 35
-        Draw-Item $bitmap 'item\neutral_salt.png' 102 20
-        Draw-Item $bitmap 'item\tailings_dust.png' 120 20
-        Draw-Item $bitmap 'item\gypsum_dust.png' 138 20
-        Draw-Progress $graphics 64 38 15
+        $hasInput = $statusKey -ne 'screen.earth_on_minecraft.machine.empty_input_short'
+        $hasRecipe = $hasInput -and $statusKey -ne 'screen.earth_on_minecraft.machine.unsupported_input_short'
+        if ($hasInput) {
+            Draw-Item $bitmap 'item\salt_dust.png' 38 35
+        }
+        if ($hasRecipe) {
+            Draw-Item $bitmap 'item\neutral_salt.png' 102 20
+            Draw-Item $bitmap 'item\tailings_dust.png' 120 20
+            Draw-Item $bitmap 'item\gypsum_dust.png' 138 20
+        }
+        if ($statusKey -eq 'screen.earth_on_minecraft.machine.running') {
+            Draw-Progress $graphics 64 38 15
+        }
 
         Fill-Rect $graphics (C '#20282D') 39 58 16 16
         Draw-PowerGlyph $graphics 42 60 $accent
-        Draw-RedstoneGlyph $graphics 9 58 'signal'
+        Draw-RedstoneGlyph $graphics 9 58 $(if ($statusKey -eq 'screen.earth_on_minecraft.machine.redstone_paused_short') { 'signal' } else { 'always' })
         if (-not $multiblock) {
             Draw-IoGlyph $graphics 25 58
         }
         Draw-NotebookGlyph $graphics 157 6
 
-        $statusColor = if ($statusKey -eq 'screen.earth_on_minecraft.machine.running') { C '#207030' } else { C '#AA3322' }
+        $statusColor = if ($statusKey -eq 'screen.earth_on_minecraft.machine.running' -or
+                           $statusKey -eq 'screen.earth_on_minecraft.machine.recipe_ready') {
+            C '#207030'
+        } elseif ($statusKey -eq 'screen.earth_on_minecraft.machine.empty_input_short') {
+            C '#66727A'
+        } else {
+            C '#AA3322'
+        }
         Draw-Inset $graphics 100 62 69 11
         Fill-Rect $graphics $statusColor 103 65 5 5
         Draw-McText $bitmap (Fit-McText (Get-Tr $lang $statusKey) 54) 111 63 $statusColor
@@ -859,9 +875,22 @@ Assert-Within 'side configuration panel' @(12, 17, 176, 148) 200 183
 Assert-Within 'compact notebook' @(6, 6, 188, 171) 200 183
 
 $outputs = [System.Collections.Generic.List[string]]::new()
-$outputs.Add((Render-Processing 'zh_cn' $false 'processing-zh-running.png'))
-$outputs.Add((Render-Processing 'en_us' $true 'processing-en-multiblock.png' 'screen.earth_on_minecraft.machine.redstone_paused_short'))
-$outputs.Add((Render-Processing 'zh_cn' $false 'processing-zh-output-full.png' 'screen.earth_on_minecraft.machine.outputs_full_short'))
+$processingStates = @(
+    @{ Id = 'empty'; Key = 'screen.earth_on_minecraft.machine.empty_input_short'; Multiblock = $false },
+    @{ Id = 'unsupported-input'; Key = 'screen.earth_on_minecraft.machine.unsupported_input_short'; Multiblock = $false },
+    @{ Id = 'missing-power'; Key = 'screen.earth_on_minecraft.machine.missing_power_short'; Multiblock = $false },
+    @{ Id = 'redstone-paused'; Key = 'screen.earth_on_minecraft.machine.redstone_paused_short'; Multiblock = $true },
+    @{ Id = 'output-blocked'; Key = 'screen.earth_on_minecraft.machine.outputs_full_short'; Multiblock = $false },
+    @{ Id = 'structure-fault'; Key = 'screen.earth_on_minecraft.machine.structure_missing_short'; Multiblock = $true },
+    @{ Id = 'running'; Key = 'screen.earth_on_minecraft.machine.running'; Multiblock = $false },
+    @{ Id = 'multi-route'; Key = 'screen.earth_on_minecraft.machine.recipe_ready'; Multiblock = $false }
+)
+foreach ($lang in @('zh_cn', 'en_us')) {
+    $shortLang = if ($lang -eq 'zh_cn') { 'zh' } else { 'en' }
+    foreach ($state in $processingStates) {
+        $outputs.Add((Render-Processing $lang $state.Multiblock "processing-$shortLang-$($state.Id).png" $state.Key))
+    }
+}
 $outputs.Add((Render-Generator 'zh_cn' $false 'generator-zh-combustion.png'))
 $outputs.Add((Render-Generator 'en_us' $true 'generator-en-turbine.png'))
 $outputs.Add((Render-Battery 'zh_cn' 'battery-zh.png'))

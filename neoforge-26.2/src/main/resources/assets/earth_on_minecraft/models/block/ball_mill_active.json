@@ -1,12 +1,431 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/block",
+  "ambientocclusion": true,
+  "gui_light": "side",
   "textures": {
     "particle": "earth_on_minecraft:block/ball_mill_active",
-    "down": "earth_on_minecraft:block/modern_machine_top_active",
-    "up": "earth_on_minecraft:block/modern_machine_top_active",
-    "north": "earth_on_minecraft:block/ball_mill_active",
-    "south": "earth_on_minecraft:block/modern_machine_side_active",
-    "west": "earth_on_minecraft:block/modern_machine_side_active",
-    "east": "earth_on_minecraft:block/modern_machine_side_active"
-  }
+    "front": "earth_on_minecraft:block/ball_mill_active",
+    "back": "earth_on_minecraft:block/modern_machine_side_active",
+    "left": "earth_on_minecraft:block/modern_machine_side_active",
+    "right": "earth_on_minecraft:block/modern_machine_side_active",
+    "top": "earth_on_minecraft:block/modern_machine_top_active",
+    "bottom": "earth_on_minecraft:block/modern_machine_top_active",
+    "fault": "minecraft:block/redstone_lamp_on"
+  },
+  "elements": [
+    {
+      "name": "foundation",
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        2,
+        15
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "left_bearing",
+      "from": [
+        1,
+        2,
+        4
+      ],
+      "to": [
+        4,
+        8,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            8,
+            4,
+            14
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            12,
+            8,
+            15,
+            14
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            4,
+            8,
+            12,
+            14
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            4,
+            8,
+            12,
+            14
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            1,
+            4,
+            4,
+            12
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            1,
+            4,
+            4,
+            12
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "drum",
+      "from": [
+        3,
+        5,
+        2
+      ],
+      "to": [
+        13,
+        13,
+        14
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            3,
+            13,
+            11
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            3,
+            3,
+            13,
+            11
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            2,
+            3,
+            14,
+            11
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            2,
+            3,
+            14,
+            11
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            3,
+            2,
+            13,
+            14
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            3,
+            2,
+            13,
+            14
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "right_bearing",
+      "from": [
+        12,
+        2,
+        4
+      ],
+      "to": [
+        15,
+        8,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            8,
+            15,
+            14
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            1,
+            8,
+            4,
+            14
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            4,
+            8,
+            12,
+            14
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            4,
+            8,
+            12,
+            14
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            12,
+            4,
+            15,
+            12
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            12,
+            4,
+            15,
+            12
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "feed_trunnion",
+      "from": [
+        0,
+        7,
+        6
+      ],
+      "to": [
+        4,
+        11,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            5,
+            4,
+            9
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            12,
+            5,
+            16,
+            9
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            6,
+            5,
+            10,
+            9
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            6,
+            5,
+            10,
+            9
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            0,
+            6,
+            4,
+            10
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            0,
+            6,
+            4,
+            10
+          ],
+          "texture": "#bottom"
+        }
+      }
+    },
+    {
+      "name": "discharge_trunnion",
+      "from": [
+        12,
+        7,
+        6
+      ],
+      "to": [
+        16,
+        11,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            5,
+            16,
+            9
+          ],
+          "texture": "#front"
+        },
+        "south": {
+          "uv": [
+            0,
+            5,
+            4,
+            9
+          ],
+          "texture": "#back"
+        },
+        "west": {
+          "uv": [
+            6,
+            5,
+            10,
+            9
+          ],
+          "texture": "#left"
+        },
+        "east": {
+          "uv": [
+            6,
+            5,
+            10,
+            9
+          ],
+          "texture": "#right"
+        },
+        "up": {
+          "uv": [
+            12,
+            6,
+            16,
+            10
+          ],
+          "texture": "#top"
+        },
+        "down": {
+          "uv": [
+            12,
+            6,
+            16,
+            10
+          ],
+          "texture": "#bottom"
+        }
+      }
+    }
+  ]
 }

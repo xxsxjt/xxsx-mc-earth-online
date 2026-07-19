@@ -1,0 +1,227 @@
+{
+  "machine.jaw_crusher.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/jaw_crusher/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.ball_mill.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/ball_mill/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.sieve.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/sieve/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.magnetic_separator.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/magnetic_separator/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.flotation_cell.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/flotation_cell/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.ore_roaster.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/ore_roaster/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.reduction_furnace.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/reduction_furnace/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.leaching_tank.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/leaching_tank/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.electrolytic_cell.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/electrolytic_cell/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.powder_press.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/powder_press/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.chemical_reactor.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/chemical_reactor/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.distillation_column.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/distillation_column/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.mixer.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/mixer/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.crystallizer.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/crystallizer/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.industrial_kiln.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/industrial_kiln/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.gas_separator.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/gas_separator/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.fertilizer_granulator.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/fertilizer_granulator/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.polymerizer.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/polymerizer/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.steam_cracker.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/steam_cracker/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.synthesis_loop.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/synthesis_loop/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.absorption_tower.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/absorption_tower/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "device.combustion_generator.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:device/combustion_generator/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "device.steam_turbine_generator.run": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.running",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:device/steam_turbine_generator/run",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.fault": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.fault",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/fault",
+        "volume": 0.72
+      }
+    ]
+  },
+  "machine.complete": {
+    "subtitle": "subtitles.earth_on_minecraft.machine.complete",
+    "sounds": [
+      {
+        "name": "earth_on_minecraft:machine/complete",
+        "volume": 0.62
+      }
+    ]
+  }
+}

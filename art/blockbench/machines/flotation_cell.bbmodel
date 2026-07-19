@@ -1,0 +1,604 @@
+{
+  "meta": {
+    "format_version": "5.0",
+    "model_format": "java_block",
+    "box_uv": false
+  },
+  "name": "flotation_cell",
+  "model_identifier": "earth_on_minecraft:flotation_cell",
+  "visible_box": [
+    1,
+    1,
+    0
+  ],
+  "variable_placeholders": "",
+  "resolution": {
+    "width": 128,
+    "height": 128
+  },
+  "elements": [
+    {
+      "name": "foundation",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        2,
+        15
+      ],
+      "autouv": 0,
+      "color": 0,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "e1770140-b055-553b-8046-a58eaf89b012",
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            1,
+            14,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "tank",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        2,
+        2,
+        2
+      ],
+      "to": [
+        14,
+        11,
+        14
+      ],
+      "autouv": 0,
+      "color": 1,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "f3e12365-3043-5088-888e-c0781ca665fa",
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            5,
+            14,
+            14
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            2,
+            5,
+            14,
+            14
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            2,
+            5,
+            14,
+            14
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            2,
+            5,
+            14,
+            14
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "froth_launder",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        1,
+        9,
+        1
+      ],
+      "to": [
+        15,
+        12,
+        15
+      ],
+      "autouv": 0,
+      "color": 2,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "c40dc8b1-72b0-5f13-88b9-e3fbb6a7ce15",
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            4,
+            15,
+            7
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            1,
+            4,
+            15,
+            7
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            1,
+            4,
+            15,
+            7
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            1,
+            4,
+            15,
+            7
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "agitator_shaft",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        7,
+        10,
+        7
+      ],
+      "to": [
+        9,
+        16,
+        9
+      ],
+      "autouv": 0,
+      "color": 3,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "3e01af0c-4b7f-5e65-971e-3ba27bee61cc",
+      "faces": {
+        "north": {
+          "uv": [
+            7,
+            0,
+            9,
+            6
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            7,
+            0,
+            9,
+            6
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            7,
+            0,
+            9,
+            6
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            7,
+            0,
+            9,
+            6
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            7,
+            7,
+            9,
+            9
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            7,
+            7,
+            9,
+            9
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "motor",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        5,
+        13,
+        5
+      ],
+      "to": [
+        11,
+        16,
+        11
+      ],
+      "autouv": 0,
+      "color": 4,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "aebf3a0a-6f69-5dc7-a6a8-47abdfd2f809",
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            0,
+            11,
+            3
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            5,
+            0,
+            11,
+            3
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            5,
+            0,
+            11,
+            3
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            5,
+            0,
+            11,
+            3
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "concentrate_outlet",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        11,
+        5,
+        0
+      ],
+      "to": [
+        15,
+        9,
+        4
+      ],
+      "autouv": 0,
+      "color": 5,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "fb94c529-3932-5799-bcab-0ebbde875863",
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            7,
+            15,
+            11
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            1,
+            7,
+            5,
+            11
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            12,
+            7,
+            16,
+            11
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            0,
+            7,
+            4,
+            11
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            11,
+            0,
+            15,
+            4
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            11,
+            12,
+            15,
+            16
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    }
+  ],
+  "outliner": [
+    "e1770140-b055-553b-8046-a58eaf89b012",
+    "f3e12365-3043-5088-888e-c0781ca665fa",
+    "c40dc8b1-72b0-5f13-88b9-e3fbb6a7ce15",
+    "3e01af0c-4b7f-5e65-971e-3ba27bee61cc",
+    "aebf3a0a-6f69-5dc7-a6a8-47abdfd2f809",
+    "fb94c529-3932-5799-bcab-0ebbde875863"
+  ],
+  "textures": [
+    {
+      "name": "flotation_cell.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "0",
+      "particle": true,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "72a5a67f-0495-5dcd-a5e5-6dbc31200dc6",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/flotation_cell.png"
+    },
+    {
+      "name": "wet_machine_side.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "1",
+      "particle": false,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "31a85def-7245-5aaf-baff-46b21859fe59",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/wet_machine_side.png"
+    },
+    {
+      "name": "wet_machine_top.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "2",
+      "particle": false,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "86ed510c-65cf-56b6-a264-51bde1430d2c",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/wet_machine_top.png"
+    }
+  ],
+  "earth_on_minecraft": {
+    "schema_version": 1,
+    "prototype": "mechanically agitated flotation cell",
+    "silhouette": "open process tank with central impeller shaft and froth launder",
+    "faces": {
+      "front": "froth window and level gauge",
+      "back": "impeller motor",
+      "left": "conditioned slurry feed",
+      "right": "concentrate launder",
+      "top": "air and reagent manifold",
+      "bottom": "tailings outlet"
+    },
+    "states": {
+      "idle": {
+        "particle": "earth_on_minecraft:block/flotation_cell",
+        "front": "earth_on_minecraft:block/flotation_cell",
+        "back": "earth_on_minecraft:block/wet_machine_side",
+        "left": "earth_on_minecraft:block/wet_machine_side",
+        "right": "earth_on_minecraft:block/wet_machine_side",
+        "top": "earth_on_minecraft:block/wet_machine_top",
+        "bottom": "earth_on_minecraft:block/wet_machine_top",
+        "fault": "minecraft:block/redstone_lamp_on"
+      },
+      "running": {
+        "particle": "earth_on_minecraft:block/flotation_cell_active",
+        "front": "earth_on_minecraft:block/flotation_cell_active",
+        "back": "earth_on_minecraft:block/wet_machine_side_active",
+        "left": "earth_on_minecraft:block/wet_machine_side_active",
+        "right": "earth_on_minecraft:block/wet_machine_side_active",
+        "top": "earth_on_minecraft:block/wet_machine_top_active",
+        "bottom": "earth_on_minecraft:block/wet_machine_top_active",
+        "fault": "minecraft:block/redstone_lamp_on"
+      },
+      "fault": {
+        "particle": "earth_on_minecraft:block/flotation_cell",
+        "front": "earth_on_minecraft:block/flotation_cell",
+        "back": "earth_on_minecraft:block/wet_machine_side",
+        "left": "earth_on_minecraft:block/wet_machine_side",
+        "right": "earth_on_minecraft:block/wet_machine_side",
+        "top": "earth_on_minecraft:block/wet_machine_top",
+        "bottom": "earth_on_minecraft:block/wet_machine_top",
+        "fault": "minecraft:block/redstone_lamp_on"
+      }
+    }
+  }
+}

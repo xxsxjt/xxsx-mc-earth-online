@@ -2,11 +2,8 @@ package com.xxsx.earthonminecraft;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
@@ -65,27 +62,7 @@ public class EnergyGeneratorBlock extends Block implements EntityBlock {
         if (!state.getValue(ACTIVE) || random.nextInt(4) != 0) {
             return;
         }
-        Direction facing = state.getValue(FACING);
-        double x = pos.getX() + 0.5D + facing.getStepX() * 0.52D;
-        double y = pos.getY() + 0.68D + random.nextDouble() * 0.12D;
-        double z = pos.getZ() + 0.5D + facing.getStepZ() * 0.52D;
-        var particle = state.getBlock() == EarthOnMinecraft.STEAM_TURBINE_GENERATOR.get()
-                ? ParticleTypes.CLOUD
-                : ParticleTypes.SMOKE;
-        level.addParticle(particle, x, y, z, 0.0D, 0.015D, 0.0D);
-        if (state.getBlock() == EarthOnMinecraft.STEAM_TURBINE_GENERATOR.get()
-                && random.nextInt(3) == 0) {
-            level.addParticle(ParticleTypes.ELECTRIC_SPARK, x, y - 0.12D, z,
-                    (random.nextDouble() - 0.5D) * 0.03D, 0.01D,
-                    (random.nextDouble() - 0.5D) * 0.03D);
-        }
-        if (random.nextInt(45) == 0) {
-            boolean turbine = state.getBlock() == EarthOnMinecraft.STEAM_TURBINE_GENERATOR.get();
-            level.playLocalSound(pos,
-                    turbine ? SoundEvents.BUBBLE_COLUMN_UPWARDS_AMBIENT : SoundEvents.BLASTFURNACE_FIRE_CRACKLE,
-                    SoundSource.BLOCKS, turbine ? 0.12F : 0.16F,
-                    turbine ? 0.72F + random.nextFloat() * 0.08F : 0.95F, false);
-        }
+        MachineFeedback.emitGenerator(level, pos, state, random);
     }
 
     @Override

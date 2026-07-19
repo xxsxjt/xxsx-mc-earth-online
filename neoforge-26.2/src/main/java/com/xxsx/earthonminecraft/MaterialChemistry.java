@@ -8,10 +8,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
 import java.util.Map;
+import java.util.Optional;
 
 import static java.util.Map.entry;
 
-final class MaterialChemistry {
+public final class MaterialChemistry {
     private static final Map<String, Info> INFO = Map.ofEntries(
             entry("poor_magnetite_ore", info("Fe3O4 + SiO2 + Fe2O3", "tooltip.earth_on_minecraft.chem.detail.oxide_ore")),
             entry("magnetite_ore", info("Fe3O4", "tooltip.earth_on_minecraft.chem.detail.oxide_ore")),
@@ -314,17 +315,25 @@ final class MaterialChemistry {
     private MaterialChemistry() {
     }
 
+    public static Optional<Descriptor> describe(Identifier id) {
+        Info info = infoFor(id);
+        if (info == null) {
+            return Optional.empty();
+        }
+        String path = id.getPath();
+        return Optional.of(new Descriptor(info.formula(), info.detailKey(), formKey(path),
+                sourceKey(info.detailKey()), processKey(info.detailKey()), useKey(info.detailKey()),
+                simplifyKey(path, info)));
+    }
+
     static boolean hasDetails(ItemStack stack) {
         Identifier id = BuiltInRegistries.ITEM.getKey(stack.getItem());
-        if (EarthOnMinecraft.MODID.equals(id.getNamespace())) {
-            return INFO.containsKey(id.getPath());
-        }
-        return VANILLA_INFO.containsKey(id.toString());
+        return infoFor(id) != null;
     }
 
     static void addDetails(ItemStack stack, java.util.function.Consumer<Component> lines, TooltipFlag flag) {
         Identifier id = BuiltInRegistries.ITEM.getKey(stack.getItem());
-        Info info = EarthOnMinecraft.MODID.equals(id.getNamespace()) ? INFO.get(id.getPath()) : VANILLA_INFO.get(id.toString());
+        Info info = infoFor(id);
         if (info == null) {
             return;
         }
@@ -344,6 +353,10 @@ final class MaterialChemistry {
 
     private static Info info(String formula, String detailKey) {
         return new Info(formula, detailKey);
+    }
+
+    private static Info infoFor(Identifier id) {
+        return EarthOnMinecraft.MODID.equals(id.getNamespace()) ? INFO.get(id.getPath()) : VANILLA_INFO.get(id.toString());
     }
 
     private static String formKey(String id) {
@@ -614,5 +627,9 @@ final class MaterialChemistry {
     }
 
     private record Info(String formula, String detailKey) {
+    }
+
+    public record Descriptor(String formula, String categoryKey, String formKey, String sourceKey,
+                             String processKey, String useKey, String simplificationKey) {
     }
 }

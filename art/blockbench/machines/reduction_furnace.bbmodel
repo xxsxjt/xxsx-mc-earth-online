@@ -1,0 +1,604 @@
+{
+  "meta": {
+    "format_version": "5.0",
+    "model_format": "java_block",
+    "box_uv": false
+  },
+  "name": "reduction_furnace",
+  "model_identifier": "earth_on_minecraft:reduction_furnace",
+  "visible_box": [
+    1,
+    1,
+    0
+  ],
+  "variable_placeholders": "",
+  "resolution": {
+    "width": 128,
+    "height": 128
+  },
+  "elements": [
+    {
+      "name": "hearth",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        1,
+        0,
+        1
+      ],
+      "to": [
+        15,
+        5,
+        15
+      ],
+      "autouv": 0,
+      "color": 0,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "b1a58997-bcd2-5d9e-9f66-a7a83fbd6bad",
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            11,
+            15,
+            16
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            1,
+            11,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            1,
+            11,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            1,
+            11,
+            15,
+            16
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "shaft",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        3,
+        4,
+        3
+      ],
+      "to": [
+        13,
+        15,
+        13
+      ],
+      "autouv": 0,
+      "color": 1,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "806e4650-7e58-5b9c-8416-7b8562cc0ac0",
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            1,
+            13,
+            12
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            3,
+            1,
+            13,
+            12
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            3,
+            1,
+            13,
+            12
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            3,
+            1,
+            13,
+            12
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "lower_bosh",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        2,
+        3,
+        2
+      ],
+      "to": [
+        14,
+        8,
+        14
+      ],
+      "autouv": 0,
+      "color": 2,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "b01f7241-7711-5006-b357-63fad44db528",
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            8,
+            14,
+            13
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            2,
+            8,
+            14,
+            13
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            2,
+            8,
+            14,
+            13
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            2,
+            8,
+            14,
+            13
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "charge_throat",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        5,
+        14,
+        5
+      ],
+      "to": [
+        11,
+        16,
+        11
+      ],
+      "autouv": 0,
+      "color": 3,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "03f69002-e52e-5f02-a410-40f132ea85bd",
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            0,
+            11,
+            2
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            5,
+            0,
+            11,
+            2
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            5,
+            0,
+            11,
+            2
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            5,
+            0,
+            11,
+            2
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "tap_hole",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        5,
+        1,
+        0
+      ],
+      "to": [
+        11,
+        5,
+        3
+      ],
+      "autouv": 0,
+      "color": 4,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "1fa1bc02-e546-5863-9515-909132d246ce",
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            11,
+            11,
+            15
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            5,
+            11,
+            11,
+            15
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            13,
+            11,
+            16,
+            15
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            0,
+            11,
+            3,
+            15
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            5,
+            0,
+            11,
+            3
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            5,
+            13,
+            11,
+            16
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    },
+    {
+      "name": "gas_manifold",
+      "box_uv": false,
+      "rescale": false,
+      "locked": false,
+      "from": [
+        13,
+        6,
+        5
+      ],
+      "to": [
+        16,
+        11,
+        11
+      ],
+      "autouv": 0,
+      "color": 5,
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "uuid": "1151dbae-b93e-5b71-8e44-bce7df8d4598",
+      "faces": {
+        "north": {
+          "uv": [
+            13,
+            5,
+            16,
+            10
+          ],
+          "texture": 0
+        },
+        "south": {
+          "uv": [
+            0,
+            5,
+            3,
+            10
+          ],
+          "texture": 1
+        },
+        "west": {
+          "uv": [
+            5,
+            5,
+            11,
+            10
+          ],
+          "texture": 1
+        },
+        "east": {
+          "uv": [
+            5,
+            5,
+            11,
+            10
+          ],
+          "texture": 1
+        },
+        "up": {
+          "uv": [
+            13,
+            5,
+            16,
+            11
+          ],
+          "texture": 2
+        },
+        "down": {
+          "uv": [
+            13,
+            5,
+            16,
+            11
+          ],
+          "texture": 2
+        }
+      },
+      "type": "cube"
+    }
+  ],
+  "outliner": [
+    "b1a58997-bcd2-5d9e-9f66-a7a83fbd6bad",
+    "806e4650-7e58-5b9c-8416-7b8562cc0ac0",
+    "b01f7241-7711-5006-b357-63fad44db528",
+    "03f69002-e52e-5f02-a410-40f132ea85bd",
+    "1fa1bc02-e546-5863-9515-909132d246ce",
+    "1151dbae-b93e-5b71-8e44-bce7df8d4598"
+  ],
+  "textures": [
+    {
+      "name": "reduction_furnace.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "0",
+      "particle": true,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "04870d70-2f4e-53b8-a29a-cc076f2b50c6",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/reduction_furnace.png"
+    },
+    {
+      "name": "hot_machine_side.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "1",
+      "particle": false,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "520d693f-920f-5c67-8750-f9d05b45a0f5",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/hot_machine_side.png"
+    },
+    {
+      "name": "hot_machine_top.png",
+      "folder": "",
+      "namespace": "earth_on_minecraft",
+      "id": "2",
+      "particle": false,
+      "render_mode": "default",
+      "render_sides": "auto",
+      "frame_time": 1,
+      "frame_order_type": "loop",
+      "frame_order": "",
+      "uuid": "cc33103f-2816-54fa-835c-9fe787590f8a",
+      "relative_path": "../../../neoforge-26.2/src/main/resources/assets/earth_on_minecraft/textures/block/hot_machine_top.png"
+    }
+  ],
+  "earth_on_minecraft": {
+    "schema_version": 1,
+    "prototype": "compact direct-reduction shaft furnace",
+    "silhouette": "tall refractory shaft over a sealed hot discharge hearth",
+    "faces": {
+      "front": "hearth tap and reduction-zone sight",
+      "back": "reducing-gas manifold",
+      "left": "oxide feed",
+      "right": "metal and slag discharge",
+      "top": "sealed charge throat",
+      "bottom": "hearth foundation"
+    },
+    "states": {
+      "idle": {
+        "particle": "earth_on_minecraft:block/reduction_furnace",
+        "front": "earth_on_minecraft:block/reduction_furnace",
+        "back": "earth_on_minecraft:block/hot_machine_side",
+        "left": "earth_on_minecraft:block/hot_machine_side",
+        "right": "earth_on_minecraft:block/hot_machine_side",
+        "top": "earth_on_minecraft:block/hot_machine_top",
+        "bottom": "earth_on_minecraft:block/hot_machine_top",
+        "fault": "minecraft:block/redstone_lamp_on"
+      },
+      "running": {
+        "particle": "earth_on_minecraft:block/reduction_furnace_active",
+        "front": "earth_on_minecraft:block/reduction_furnace_active",
+        "back": "earth_on_minecraft:block/hot_machine_side_active",
+        "left": "earth_on_minecraft:block/hot_machine_side_active",
+        "right": "earth_on_minecraft:block/hot_machine_side_active",
+        "top": "earth_on_minecraft:block/hot_machine_top_active",
+        "bottom": "earth_on_minecraft:block/hot_machine_top_active",
+        "fault": "minecraft:block/redstone_lamp_on"
+      },
+      "fault": {
+        "particle": "earth_on_minecraft:block/reduction_furnace",
+        "front": "earth_on_minecraft:block/reduction_furnace",
+        "back": "earth_on_minecraft:block/hot_machine_side",
+        "left": "earth_on_minecraft:block/hot_machine_side",
+        "right": "earth_on_minecraft:block/hot_machine_side",
+        "top": "earth_on_minecraft:block/hot_machine_top",
+        "bottom": "earth_on_minecraft:block/hot_machine_top",
+        "fault": "minecraft:block/redstone_lamp_on"
+      }
+    }
+  }
+}

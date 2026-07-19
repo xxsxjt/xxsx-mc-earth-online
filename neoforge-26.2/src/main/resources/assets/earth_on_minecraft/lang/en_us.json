@@ -525,10 +525,10 @@
   "screen.earth_on_minecraft.side.panel": "Face IO",
   "screen.earth_on_minecraft.side.config.open.tooltip": "Configure automatic input and output for each face of this single-block machine",
   "screen.earth_on_minecraft.side.config.title": "Machine Face Input / Output",
-  "screen.earth_on_minecraft.side.config.subtitle": "Faces follow machine orientation; click one to cycle its mode",
+  "screen.earth_on_minecraft.side.config.subtitle": "Click a face to cycle mode",
   "screen.earth_on_minecraft.side.config.button": "%s %s",
   "screen.earth_on_minecraft.side.config.done": "Done",
-  "screen.earth_on_minecraft.side.config.hint": "Colors show the current mode. Closing returns to the machine.",
+  "screen.earth_on_minecraft.side.config.hint": "Sides follow front.",
   "screen.earth_on_minecraft.side.mode.short.input": "IN",
   "screen.earth_on_minecraft.side.mode.short.output": "OUT",
   "screen.earth_on_minecraft.side.mode.short.both": "I/O",
@@ -606,7 +606,7 @@
   "screen.earth_on_minecraft.energy.battery_tooltip": "The battery feeds adjacent or cable-connected equipment; only machines that allow local fuel can fall back when grid power is missing.",
   "message.earth_on_minecraft.control_panel.not_connected": "This panel is not connected yet: place it directly in front of a machine controller, and translucent structure projections will show the missing blocks.",
   "message.earth_on_minecraft.support_part.not_connected": "This part is not formed yet: the panel is the front-bottom center, the controller sits directly behind it, casing goes below, and pipes go above.",
-  "screen.earth_on_minecraft.notebook.title": "Earth on Minecraft Field Geology Notebook",
+  "screen.earth_on_minecraft.notebook.title": "Field Notebook",
   "screen.earth_on_minecraft.notebook.subtitle": "For non-technical players: follow routes; no chemistry exam required.",
   "screen.earth_on_minecraft.notebook.page": "Page %s / %s",
   "screen.earth_on_minecraft.notebook.footer": "Mouse wheel to read; check the machine header and JEI for power and operating conditions.",
@@ -972,5 +972,8 @@
   "jei.earth_on_minecraft.settlement_board.1": "Place it near a village or workshop to create or connect a settlement profile.",
   "jei.earth_on_minecraft.settlement_board.2": "Overview: industries, needs, supplies, security, and reputation.",
   "jei.earth_on_minecraft.settlement_board.3": "People and Facilities: named roles and nearby functional block counts.",
-  "jei.earth_on_minecraft.settlement_board.4": "Sneak-use residents for identity details; see the handbook's Settlements page for guidance."
+  "jei.earth_on_minecraft.settlement_board.4": "Sneak-use residents for identity details; see the handbook's Settlements page for guidance.",
+  "subtitles.earth_on_minecraft.machine.running": "Industrial machine operating",
+  "subtitles.earth_on_minecraft.machine.fault": "Industrial machine fault alarm",
+  "subtitles.earth_on_minecraft.machine.complete": "Industrial machine completes a batch"
 }

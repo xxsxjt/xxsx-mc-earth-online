@@ -2,13 +2,9 @@ package com.xxsx.earthonminecraft;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.locale.Language;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
@@ -44,6 +40,7 @@ import java.util.function.Supplier;
 
 public class ProcessingMachineBlock extends Block implements EntityBlock {
     public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
+    public static final BooleanProperty FAULT = BooleanProperty.create("fault");
     public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     private static final List<Recipe> RECIPES = createRecipes();
 
@@ -52,7 +49,10 @@ public class ProcessingMachineBlock extends Block implements EntityBlock {
     public ProcessingMachineBlock(Properties properties, Kind kind) {
         super(properties);
         this.kind = kind;
-        registerDefaultState(stateDefinition.any().setValue(ACTIVE, false).setValue(FACING, Direction.NORTH));
+        registerDefaultState(stateDefinition.any()
+                .setValue(ACTIVE, false)
+                .setValue(FAULT, false)
+                .setValue(FACING, Direction.NORTH));
     }
 
     @Override
@@ -83,48 +83,10 @@ public class ProcessingMachineBlock extends Block implements EntityBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (!state.getValue(ACTIVE) || random.nextInt(5) != 0) {
+        if (state.getValue(FAULT) || !state.getValue(ACTIVE) || random.nextInt(5) != 0) {
             return;
         }
-        Direction facing = state.getValue(FACING);
-        double x = pos.getX() + 0.5D + facing.getStepX() * 0.52D;
-        double y = pos.getY() + 0.58D + random.nextDouble() * 0.18D;
-        double z = pos.getZ() + 0.5D + facing.getStepZ() * 0.52D;
-        double driftX = (random.nextDouble() - 0.5D) * 0.025D;
-        double driftZ = (random.nextDouble() - 0.5D) * 0.025D;
-        var particle = switch (kind) {
-            case CRUSHER -> ParticleTypes.POOF;
-            case BALL_MILL -> ParticleTypes.CLOUD;
-            case FLOTATION_CELL -> ParticleTypes.SPLASH;
-            case REDUCTION_FURNACE -> ParticleTypes.FLAME;
-            default -> switch (kind.processFamily()) {
-                case THERMAL, COLUMN -> ParticleTypes.SMOKE;
-                case WET_PROCESS, MIXING, REACTION -> ParticleTypes.SPLASH;
-                case ELECTROCHEMICAL -> ParticleTypes.ELECTRIC_SPARK;
-                case COMMINUTION, FORMING -> ParticleTypes.CLOUD;
-                case CLASSIFICATION, CRYSTALLIZATION -> ParticleTypes.CRIT;
-            };
-        };
-        level.addParticle(particle, x, y, z, driftX, 0.01D, driftZ);
-        if (kind == Kind.FLOTATION_CELL && random.nextBoolean()) {
-            level.addParticle(ParticleTypes.BUBBLE, x, y - 0.08D, z, driftX, 0.025D, driftZ);
-        } else if (kind == Kind.REDUCTION_FURNACE && random.nextBoolean()) {
-            level.addParticle(ParticleTypes.SMOKE, x, y + 0.12D, z, 0.0D, 0.02D, 0.0D);
-        }
-
-        if (random.nextInt(35) == 0) {
-            SoundEvent sound = switch (kind) {
-                case CRUSHER -> SoundEvents.STONE_HIT;
-                case BALL_MILL -> SoundEvents.GRINDSTONE_USE;
-                case FLOTATION_CELL -> SoundEvents.BUBBLE_COLUMN_BUBBLE_POP;
-                case REDUCTION_FURNACE -> SoundEvents.BLASTFURNACE_FIRE_CRACKLE;
-                default -> null;
-            };
-            if (sound != null) {
-                level.playLocalSound(pos, sound, SoundSource.BLOCKS, 0.16F,
-                        0.88F + random.nextFloat() * 0.18F, false);
-            }
-        }
+        MachineFeedback.emitRunning(level, pos, state, kind, random);
     }
 
     @Override
@@ -150,7 +112,7 @@ public class ProcessingMachineBlock extends Block implements EntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(ACTIVE, FACING);
+        builder.add(ACTIVE, FAULT, FACING);
     }
 
     @Override
